@@ -208,10 +208,18 @@ Cleaning spend workbooks (scripts/clean.py):
   normalisation to supplier names parsed from contracts.csv.
 - Exclude non-procurement rows (statutory/inter-authority payments, e.g. LGPS
   pension deficit contributions; internal transfers). Log exclusions.
+- Rows where Supplier name is exactly "Redacted" (about 19% of rows, mostly
+  Transfer Payments in Children's and Adult Social Care, names withheld by the
+  council) are kept in the cleaned data but left out of every test that groups
+  or matches by supplier (split_purchases, off_contract, duplicates,
+  expired_notice_spend, spend_vs_award). Log them in the exclusion log and
+  report their row count and net total separately in analytics.json so totals
+  reconcile.
 
 Parsing contracts.csv (it is a raw Contracts Finder notice export):
 - Keep only rows where Organisation Name is "West Berkshire Council" or
-  "West Berkshire" (keyword search pulls in other buyers whose notices
+  "West Berkshire", matched case-insensitively so "WEST BERKSHIRE COUNCIL"
+  is kept (keyword search pulls in other buyers whose notices
   mention the phrase). Log how many rows were dropped.
 - The supplier column is a packed string, one or more bracketed blocks:
   `[Name|Address|Ref type|Ref Number|Is SME|Is VCSE][Name|...]`.
@@ -219,7 +227,9 @@ Parsing contracts.csv (it is a raw Contracts Finder notice export):
   each block as the supplier name → one (contract, supplier) row per block.
   Keep the Companies House number (4th element) where Ref type is
   COMPANIES_HOUSE, as an exact-match join key.
-- Dates in contracts.csv are D/M/Y (e.g. 30/09/2028); spend dates are M/D/Y.
+- Dates in contracts.csv are D/M/Y (e.g. 30/09/2028), except Published Date,
+  which is ISO 8601 (e.g. 2023-10-10T14:38:59+01:00) and is parsed with that
+  explicit format; spend dates are M/D/Y.
   Parse both with EXPLICIT formats; never auto-detect.
 - Keep contracts active during the spend window: Contract end date on or
   after the window start (blank end date = keep). Awarded Value of 0.00 is
