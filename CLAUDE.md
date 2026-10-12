@@ -151,28 +151,57 @@ audit-planner/
 
 ### Skill: `extract-rules` (human-invoked; Phase 1)
 
-Converts `data/contract-rules.pdf` → `outputs/rules.json`. Array of:
+Converts `data/contract-rules.pdf` → `outputs/rules.json`, an object:
 
 ```json
 {
-  "rule_id": "CPR-05",
-  "clause": "5.2",
-  "condition": "goods/services purchase, total value £10,001–£100,000",
-  "threshold_low": 10001,
-  "threshold_high": 100000,
-  "required_action": "obtain three written quotations",
-  "approver": "head of service",
-  "verbatim_quote": "exact sentence(s) from the PDF"
+  "source": {"file": "data/contract-rules.pdf", "sha256": "...", "pages": 15},
+  "parameters": {
+    "THRESHOLD": {
+      "values": {"goods_services": null, "works": null, "concession": null, "light_touch": null},
+      "printed_as": ["Threshold"],
+      "defined_in": [{"clause": "1.4", "page": 1, "verbatim_quote": "exact text"}],
+      "description": "named in the PDF; value not stated there"
+    }
+  },
+  "rules": [{
+    "rule_id": "CPR-01",
+    "clause": "AppB-B1",
+    "page": 12,
+    "type": "threshold",
+    "scope": ["goods_services"],
+    "condition": "goods/services, £25,000 or more and less than the Threshold",
+    "band_printed": "£25,000 or more and less than the Threshold",
+    "threshold_low": 25000, "threshold_low_inclusive": true, "threshold_low_param": null,
+    "threshold_high": null, "threshold_high_inclusive": false, "threshold_high_param": "THRESHOLD",
+    "required_action": "invite quotes from at least three sources via the Procurement Portal",
+    "approver": null,
+    "evidence_source": ["procurement_portal"],
+    "verbatim_quote": ["exact cell text", "exact cell text"]
+  }],
+  "excluded": [{"clause": "1.1", "page": 1, "reason": "one line"}],
+  "notes": [{"kind": "gap", "clauses": ["AppB-A"], "issue": "..."}]
 }
 ```
 
-- One entry per TESTABLE rule (threshold, required action, or approver);
-  background text excluded.
-- `verbatim_quote` copy-exact (verified by QA later). Amounts as GBP integers;
-  open-ended thresholds null.
-- Anti-aggregation / no-splitting rule flagged `"type": "anti-avoidance"`.
-- Ambiguous/untestable clauses go in a trailing `"excluded"` array with a
-  one-line reason, never guessed.
+- One entry per TESTABLE rule (a value band or circumstance plus a required
+  action or approver); background text excluded. `rule_id` sequential CPR-01…
+- `type`: `threshold` | `approval` | `required-action` | `anti-avoidance`.
+  The anti-aggregation / no-splitting rule is `anti-avoidance`.
+- `scope`: contract types from `goods_services`, `works`, `concession`,
+  `light_touch`, or `["all"]`. `evidence_source`: `spend_data`,
+  `contract_notices`, `procurement_portal`, `decision_records`,
+  `contract_documents`, `contract_register`.
+- Bounds as printed: GBP integers with `*_inclusive` flags ("Above £1,000"
+  → `1000`, `inclusive: false`); `band_printed` holds the band text exactly.
+  Open ends null. A bound the PDF only names ("the Threshold") goes in
+  `*_param`, pointing to a top-level `parameters` entry whose values stay null.
+- `verbatim_quote` copy-exact on the stated `page` (a list of passages for
+  table rows); verified by `.claude/skills/extract-rules/verify_quotes.py`
+  and by QA later.
+- Every numbered clause and appendix row lands in `rules` or `excluded`
+  (one-line reason, never guessed); contradictions and drafting gaps go in
+  `notes`.
 
 ### Skill: `risk-assessment` (agent-loaded; Phase 1)
 
@@ -237,12 +266,20 @@ Parsing contracts.csv (it is a raw Contracts Finder notice export):
 - If total kept rows or any year's row count looks implausibly low, warn:
   the source export may have hit the 1,000-row download cap.
 
-Tests (thresholds parameterised from rules.json, never hardcoded):
-1. threshold_clustering: payments in [0.9 × threshold, threshold) per threshold.
+Tests (thresholds parameterised from rules.json, never hardcoded). A test or
+band whose edge is a rules.json parameter with a null value is skipped and
+reported in analytics.json as "not run: parameter not supplied"; the other
+tests still run.
+1. threshold_clustering: per threshold T, the window follows the bound's
+   inclusive flag: if the stricter rule applies at T or more, payments in
+   [0.9 × T, T); if it applies only above T, payments in [0.9 × T, T].
 2. split_purchases: same normalised supplier, ≥2 payments in a 30-day window,
    combined total crossing a threshold each single payment stays under.
 3. off_contract: supplier 3-month total annualised (×4, labelled "annualised
-   estimate") exceeds the tender threshold with no match in contracts.csv;
+   estimate") exceeds the tender threshold with no match in contracts.csv.
+   The tender/publication threshold is the £25,000 lower bound of the
+   Appendix B rule that requires a published contract notice, read from
+   rules.json, not hardcoded;
    exact matches (name or Companies House number) and near-miss names
    reported separately. IMPORTANT: Contracts Finder only publishes contracts
    above ~£25k, so suppliers below that will legitimately never appear in
