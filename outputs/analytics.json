@@ -1,0 +1,3187 @@
+{
+  "generated": "2026-10-13T04:53:51+00:00",
+  "scripts": [
+    "scripts/common.py",
+    "scripts/clean.py",
+    "scripts/contracts.py",
+    "scripts/analytics.py",
+    "scripts/selfcheck.py"
+  ],
+  "language_note": "All results are risk indicators to investigate, not findings or conclusions.",
+  "parameters": {
+    "split_window_days": 30,
+    "duplicate_window_days": 7,
+    "clustering_band_width": 0.1,
+    "comparison_band_width": 0.1,
+    "candidate_ratio_cutoff": 0.85,
+    "candidate_containment_min_chars": 6,
+    "annualisation_factor": 4,
+    "award_ratio_flag": 1.25,
+    "days_per_contract_year": 365.25,
+    "export_cap_warning_rows": 950
+  },
+  "parameter_definitions": {
+    "split_window_days": "last date - first date <= 30, dates without time of day",
+    "duplicate_window_days": "dates at most 7 apart, dates without time of day",
+    "clustering_band_width": "band below T: 0.9 x T to T",
+    "comparison_band_width": "band above T: T to 1.1 x T",
+    "candidate_ratio_cutoff": "difflib SequenceMatcher ratio",
+    "candidate_containment_min_chars": "both normalised names at least this long for containment",
+    "annualisation_factor": "3-month window x 4 = annualised estimate",
+    "award_ratio_flag": "annualised estimate / (Awarded Value / contract years) at or above this",
+    "days_per_contract_year": "contract years = (End - Start) days / 365.25",
+    "export_cap_warning_rows": "warn of the Contracts Finder export cap at or above this many data rows"
+  },
+  "inputs": {
+    "rules": {
+      "file": "outputs/rules.json",
+      "sha256": "2faecd244736c3f25b51019bdd6e83f506495f23010f878614bbff958c6d45f1"
+    },
+    "spend": [
+      {
+        "file": "data/spend/Over500_2026_P02_-_published.xlsx",
+        "sha256": "f611346f258825b84924310c2d42edce4a4aec3d3832054b340f4ac2125301a6",
+        "header_row": 0,
+        "rows": 2892,
+        "net_total": 21785916.06
+      },
+      {
+        "file": "data/spend/Over500_2026_P03_-_published.xlsx",
+        "sha256": "b7359a8e5cb9ea55bf3d47112f185167038b5ee64af8db9be02a7f5ea869ec76",
+        "header_row": 1,
+        "rows": 3547,
+        "net_total": 31295535.61
+      },
+      {
+        "file": "data/spend/Over500_2026_P04_-_published.xlsx",
+        "sha256": "e465900d00a8e20ac767d6218827a48c01ab6ad911e5051a34c18979b7da0612",
+        "header_row": 1,
+        "rows": 4168,
+        "net_total": 27345802.59
+      }
+    ],
+    "contracts": {
+      "file": "data/contracts.csv",
+      "sha256": "9d0a53c092a5274f44490b428f9ff400ac8cb889df962165720f8a1d0ed42648",
+      "rows": 150
+    }
+  },
+  "window": {
+    "start": "2026-05-01",
+    "end": "2026-07-31",
+    "months": 3,
+    "annualisation_factor": 4,
+    "rows_dated_outside_file_month": 1,
+    "rows_dated_outside_file_month_clean": 1,
+    "file_month_definition": "most common calendar month of the file's dates"
+  },
+  "cleaning": {
+    "exclusions": [
+      {
+        "group": "statutory/inter-authority",
+        "narrative": "Employers LGPS Deficit Contribution",
+        "rows": 3,
+        "net_total": 1725000.0
+      },
+      {
+        "group": "statutory/inter-authority",
+        "narrative": "LGPS Employees Control",
+        "rows": 3,
+        "net_total": 1353167.02
+      },
+      {
+        "group": "statutory/inter-authority",
+        "narrative": "LGPS Employers Control",
+        "rows": 3,
+        "net_total": 3282545.43
+      },
+      {
+        "group": "statutory/inter-authority",
+        "narrative": "Teachers LGPS ERS Control",
+        "rows": 3,
+        "net_total": 2875102.48
+      },
+      {
+        "group": "statutory/inter-authority",
+        "narrative": "Prudential AVC Teachers",
+        "rows": 3,
+        "net_total": 9364.47
+      },
+      {
+        "group": "statutory/inter-authority",
+        "narrative": "Joint Arrangements (with Other Local Authorities or NHS)",
+        "rows": 1,
+        "net_total": 1413504.24
+      },
+      {
+        "group": "statutory/inter-authority",
+        "narrative": "Payments to Other Local Authorities (excl Joint Arrangements)",
+        "rows": 18,
+        "net_total": 53553.97
+      },
+      {
+        "group": "statutory/inter-authority",
+        "narrative": "Payments to NHS (excl Joint Arrangement)",
+        "rows": 2,
+        "net_total": 87333.32
+      },
+      {
+        "group": "statutory/inter-authority",
+        "narrative": "Council Tax Court Orders",
+        "rows": 4,
+        "net_total": 8169.87
+      },
+      {
+        "group": "statutory/inter-authority",
+        "narrative": "Court Order Control",
+        "rows": 4,
+        "net_total": 4440.67
+      },
+      {
+        "group": "payments to individuals",
+        "narrative": "Direct Payment",
+        "rows": 475,
+        "net_total": 1218485.24
+      },
+      {
+        "group": "payments to individuals",
+        "narrative": "Allowances for provision care",
+        "rows": 1210,
+        "net_total": 1048904.53
+      },
+      {
+        "group": "payments to individuals",
+        "narrative": "Adult Placement Allowances",
+        "rows": 219,
+        "net_total": 177966.47
+      },
+      {
+        "group": "payments to individuals",
+        "narrative": "Payments to Carers",
+        "rows": 10,
+        "net_total": 12625.28
+      }
+    ],
+    "excluded_total": {
+      "rows": 1958,
+      "net_total": 13270162.99
+    },
+    "redacted": {
+      "rows": 147,
+      "net_total": 422766.47,
+      "by_service_top5": {
+        "Adult Social Care": 302871.49,
+        "Finance, Property & Procurement": 76026.1,
+        "Development & Housing": 27075.83,
+        "Children's Social Care": 9920.83,
+        "Education (DSG Funded) & Other Education Grants": 4372.22
+      }
+    },
+    "spend_tags": [
+      {
+        "tag": "grant",
+        "rule": 1,
+        "rows": 346,
+        "net_total": 6047375.32,
+        "redacted_rows": 4
+      },
+      {
+        "tag": "agency_staff",
+        "rule": 2,
+        "rows": 24,
+        "net_total": 1285541.24,
+        "redacted_rows": 0
+      },
+      {
+        "tag": "premises",
+        "rule": 3,
+        "rows": 537,
+        "net_total": 1147357.03,
+        "redacted_rows": 11
+      },
+      {
+        "tag": "placement",
+        "rule": 4,
+        "rows": 5883,
+        "net_total": 31915884.15,
+        "redacted_rows": 2
+      },
+      {
+        "tag": "general_procurement",
+        "rule": 5,
+        "rows": 1859,
+        "net_total": 26760933.53,
+        "redacted_rows": 130
+      }
+    ],
+    "blank_expenditure_category_rows": 67,
+    "normalisation_rules": [
+      {
+        "rule": "1: uppercase",
+        "spend_names_changed": 587,
+        "notice_names_changed": 126
+      },
+      {
+        "rule": "2: non-alphanumeric to space; collapse whitespace",
+        "spend_names_changed": 270,
+        "notice_names_changed": 36
+      },
+      {
+        "rule": "3: trading name: keep text after last T A / T AS / TRADING AS",
+        "spend_names_changed": 58,
+        "notice_names_changed": 10
+      },
+      {
+        "rule": "4: drop tokens LTD, LIMITED, PLC, LLP",
+        "spend_names_changed": 538,
+        "notice_names_changed": 94
+      },
+      {
+        "rule": "5: drop payment tags (DD PAYMENTS ONLY, CHAPS ONLY, BACS; longest first)",
+        "spend_names_changed": 3,
+        "notice_names_changed": 0
+      },
+      {
+        "rule": "6: collapse whitespace, strip",
+        "spend_names_changed": 0,
+        "notice_names_changed": 0
+      },
+      {
+        "rule": "6-fallback: empty result: fall back to the rule-2 result",
+        "spend_names_changed": 0,
+        "notice_names_changed": 0
+      }
+    ],
+    "payment_tags": [
+      {
+        "tag": "DD PAYMENTS ONLY",
+        "spend_names_changed": 1,
+        "spend_rows_affected": 1,
+        "notice_names_changed": 0,
+        "notice_blocks_affected": 0
+      },
+      {
+        "tag": "CHAPS ONLY",
+        "spend_names_changed": 1,
+        "spend_rows_affected": 3,
+        "notice_names_changed": 0,
+        "notice_blocks_affected": 0
+      },
+      {
+        "tag": "BACS",
+        "spend_names_changed": 1,
+        "spend_rows_affected": 2,
+        "notice_names_changed": 0,
+        "notice_blocks_affected": 0
+      }
+    ],
+    "distinct_supplier_names": {
+      "spend_raw": 1090,
+      "spend_normalised": 1088,
+      "notices_raw": 158,
+      "notices_normalised": 141
+    },
+    "possible_payment_tags_for_review": {
+      "count": 1,
+      "top20": [
+        {
+          "source": "spend",
+          "supplier_norm": "FIS PAYMENTS TRAVELODGE",
+          "tokens": [
+            "PAYMENTS"
+          ],
+          "rows": 2,
+          "net_total": 17981.63
+        }
+      ]
+    }
+  },
+  "contracts": {
+    "rows": 150,
+    "kept": 141,
+    "dropped": 9,
+    "dropped_top_orgs": {
+      "Ministry of Defence": 5,
+      "Westworks Procurement Ltd": 1,
+      "SOUTHAMPTON CITY COUNCIL": 1,
+      "CITY OF BRADFORD METROPOLITAN DISTRICT COUNCIL": 1,
+      "Health Education England": 1
+    },
+    "supplier_blocks": 210,
+    "ref_types": {
+      "COMPANIES_HOUSE": 126,
+      "NONE": 52,
+      "NONE_SOLE_TRADER": 27,
+      "NONE_OTHER": 4,
+      "NONE_PARTNERSHIP": 1
+    },
+    "companies_house_numbers": 126,
+    "active_notices": 61,
+    "active_supplier_blocks": 130,
+    "awarded_value_zero_notices": 7,
+    "date_columns_used": {
+      "start": "Contract start date",
+      "end": "Contract end date",
+      "used_for": [
+        "active in window",
+        "expired_notice_spend",
+        "spend_vs_award contract years"
+      ]
+    },
+    "active_definition": "'Contract end date' on or after window start (blank = active) and 'Contract start date' on or before window end",
+    "cap_warning": null
+  },
+  "thresholds": [
+    {
+      "value": 500,
+      "inclusive": false,
+      "inclusive_from": "lower bound",
+      "rule_ids": [
+        "CPR-05"
+      ],
+      "scopes": [
+        "all"
+      ],
+      "status": "not run: at or below the publication floor of the spend data",
+      "note": null
+    },
+    {
+      "value": 1000,
+      "inclusive": false,
+      "inclusive_from": "lower bound",
+      "rule_ids": [
+        "CPR-51"
+      ],
+      "scopes": [
+        "all"
+      ],
+      "status": "run",
+      "note": null
+    },
+    {
+      "value": 25000,
+      "inclusive": true,
+      "inclusive_from": "lower bound",
+      "rule_ids": [
+        "CPR-51",
+        "CPR-52",
+        "CPR-53",
+        "CPR-54",
+        "CPR-55"
+      ],
+      "scopes": [
+        "all",
+        "concession",
+        "goods_services",
+        "light_touch",
+        "works"
+      ],
+      "status": "run",
+      "note": null
+    },
+    {
+      "value": 500000,
+      "inclusive": false,
+      "inclusive_from": "lower bound",
+      "rule_ids": [
+        "CPR-54",
+        "CPR-55",
+        "CPR-56"
+      ],
+      "scopes": [
+        "concession",
+        "light_touch",
+        "works"
+      ],
+      "status": "run",
+      "note": "upper bound in ['CPR-54', 'CPR-55'] and lower bound in ['CPR-56'] leave the value itself in neither band (see rules.json notes); the lower-bound flag is used"
+    },
+    {
+      "value": "THRESHOLD",
+      "inclusive": null,
+      "inclusive_from": null,
+      "rule_ids": [
+        "CPR-52",
+        "CPR-53",
+        "CPR-56",
+        "CPR-58"
+      ],
+      "scopes": [
+        "concession",
+        "goods_services",
+        "light_touch",
+        "works"
+      ],
+      "status": "not run: parameter not supplied",
+      "note": null
+    }
+  ],
+  "publication_floor": {
+    "value": 500,
+    "inclusive": false,
+    "rule_id": "CPR-05",
+    "band_printed": "exceeding \u00a3500"
+  },
+  "named_thresholds": {
+    "tender_publication": {
+      "value": 25000,
+      "inclusive": true,
+      "rule_ids": [
+        "CPR-53",
+        "CPR-55"
+      ]
+    },
+    "quote": {
+      "value": 25000,
+      "inclusive": true,
+      "rule_ids": [
+        "CPR-52",
+        "CPR-54"
+      ]
+    }
+  },
+  "tests": {
+    "threshold_clustering": {
+      "status": "run",
+      "description": "Payments in the band just below each threshold, beside the comparison band just above it: a risk indicator to investigate, not a conclusion.",
+      "population": "all clean rows, Redacted included",
+      "rule_ids": [
+        "CPR-51",
+        "CPR-52",
+        "CPR-53",
+        "CPR-54",
+        "CPR-55",
+        "CPR-56"
+      ],
+      "parameters": {
+        "clustering_band_width": 0.1,
+        "comparison_band_width": 0.1
+      },
+      "thresholds_not_run": [
+        {
+          "value": 500,
+          "rule_ids": [
+            "CPR-05"
+          ],
+          "status": "not run: at or below the publication floor of the spend data"
+        },
+        {
+          "value": "THRESHOLD",
+          "rule_ids": [
+            "CPR-52",
+            "CPR-53",
+            "CPR-56",
+            "CPR-58"
+          ],
+          "status": "not run: parameter not supplied"
+        }
+      ],
+      "counts": {
+        "below_band_payments": 371,
+        "comparison_band_payments": 267
+      },
+      "totals": {
+        "flagged": 1431109.55,
+        "comparison_band": 1591858.87
+      },
+      "flagged_definition": "payments in the band below T, summed over thresholds run",
+      "by_tag": {
+        "grant": {
+          "count": 18,
+          "total": 131475.24
+        },
+        "agency_staff": {
+          "count": 3,
+          "total": 2878.24
+        },
+        "premises": {
+          "count": 33,
+          "total": 53942.13
+        },
+        "placement": {
+          "count": 250,
+          "total": 949883.61
+        },
+        "general_procurement": {
+          "count": 67,
+          "total": 292930.33
+        }
+      },
+      "by_threshold": [
+        {
+          "threshold": 1000,
+          "inclusive": false,
+          "rule_ids": [
+            "CPR-51"
+          ],
+          "scopes": [
+            "all"
+          ],
+          "band_below": "[900.00, 1000]",
+          "band_comparison": "(1000, 1100.00]",
+          "below": {
+            "count": 324,
+            "total": 308128.24,
+            "by_tag": {
+              "grant": {
+                "count": 13,
+                "total": 13000.0
+              },
+              "agency_staff": {
+                "count": 3,
+                "total": 2878.24
+              },
+              "premises": {
+                "count": 32,
+                "total": 30282.13
+              },
+              "placement": {
+                "count": 219,
+                "total": 207157.98
+              },
+              "general_procurement": {
+                "count": 57,
+                "total": 54809.89
+              }
+            }
+          },
+          "comparison": {
+            "count": 215,
+            "total": 225655.1,
+            "by_tag": {
+              "grant": {
+                "count": 5,
+                "total": 5243.02
+              },
+              "agency_staff": {
+                "count": 0,
+                "total": 0.0
+              },
+              "premises": {
+                "count": 23,
+                "total": 24040.05
+              },
+              "placement": {
+                "count": 147,
+                "total": 154257.22
+              },
+              "general_procurement": {
+                "count": 40,
+                "total": 42114.81
+              }
+            }
+          },
+          "below_top_services_by_count": {
+            "Adult Social Care": 197,
+            "Children's Social Care": 40,
+            "Development & Housing": 18,
+            "Community Services": 16,
+            "Education (DSG Funded) & Other Education Grants": 16
+          },
+          "below_top_suppliers_by_count": {
+            "STEP BY STEP PARTNERSHIP": 24,
+            "WE ARE THE CARE COMPANY": 18,
+            "ALL CARE GB": 15,
+            "PURESOUL CARE": 14,
+            "COMFORT HARMONY CARE": 13
+          }
+        },
+        {
+          "threshold": 25000,
+          "inclusive": true,
+          "rule_ids": [
+            "CPR-51",
+            "CPR-52",
+            "CPR-53",
+            "CPR-54",
+            "CPR-55"
+          ],
+          "scopes": [
+            "all",
+            "concession",
+            "goods_services",
+            "light_touch",
+            "works"
+          ],
+          "band_below": "[22500.00, 25000)",
+          "band_comparison": "[25000, 27500.00)",
+          "below": {
+            "count": 47,
+            "total": 1122981.31,
+            "by_tag": {
+              "grant": {
+                "count": 5,
+                "total": 118475.24
+              },
+              "agency_staff": {
+                "count": 0,
+                "total": 0.0
+              },
+              "premises": {
+                "count": 1,
+                "total": 23660.0
+              },
+              "placement": {
+                "count": 31,
+                "total": 742725.63
+              },
+              "general_procurement": {
+                "count": 10,
+                "total": 238120.44
+              }
+            }
+          },
+          "comparison": {
+            "count": 52,
+            "total": 1366203.77,
+            "by_tag": {
+              "grant": {
+                "count": 3,
+                "total": 78929.21
+              },
+              "agency_staff": {
+                "count": 0,
+                "total": 0.0
+              },
+              "premises": {
+                "count": 0,
+                "total": 0.0
+              },
+              "placement": {
+                "count": 34,
+                "total": 890787.11
+              },
+              "general_procurement": {
+                "count": 15,
+                "total": 396487.45
+              }
+            }
+          },
+          "below_top_services_by_count": {
+            "Children's Social Care": 17,
+            "Education (DSG Funded) & Other Education Grants": 14,
+            "Adult Social Care": 9,
+            "Development & Housing": 2,
+            "Finance, Property & Procurement": 1
+          },
+          "below_top_suppliers_by_count": {
+            "CARE SERVICES TO YOU": 14,
+            "PHOENIX CHILD CARE THE GRANGE SCHOOL": 4,
+            "ELIOR UK": 3,
+            "ACORN CARE EDUCATION": 3,
+            "CALCOT SERVICES FOR CHILDREN CSFC": 2
+          }
+        },
+        {
+          "threshold": 500000,
+          "inclusive": false,
+          "rule_ids": [
+            "CPR-54",
+            "CPR-55",
+            "CPR-56"
+          ],
+          "scopes": [
+            "concession",
+            "light_touch",
+            "works"
+          ],
+          "band_below": "[450000.00, 500000]",
+          "band_comparison": "(500000, 550000.00]",
+          "below": {
+            "count": 0,
+            "total": 0.0,
+            "by_tag": {
+              "grant": {
+                "count": 0,
+                "total": 0.0
+              },
+              "agency_staff": {
+                "count": 0,
+                "total": 0.0
+              },
+              "premises": {
+                "count": 0,
+                "total": 0.0
+              },
+              "placement": {
+                "count": 0,
+                "total": 0.0
+              },
+              "general_procurement": {
+                "count": 0,
+                "total": 0.0
+              }
+            }
+          },
+          "comparison": {
+            "count": 0,
+            "total": 0.0,
+            "by_tag": {
+              "grant": {
+                "count": 0,
+                "total": 0.0
+              },
+              "agency_staff": {
+                "count": 0,
+                "total": 0.0
+              },
+              "premises": {
+                "count": 0,
+                "total": 0.0
+              },
+              "placement": {
+                "count": 0,
+                "total": 0.0
+              },
+              "general_procurement": {
+                "count": 0,
+                "total": 0.0
+              }
+            }
+          },
+          "below_top_services_by_count": {},
+          "below_top_suppliers_by_count": {}
+        }
+      ],
+      "top20": [
+        {
+          "transaction_id": "Over500_2026_P04_-_published:r2239",
+          "threshold": 25000,
+          "date": "2026-07-01",
+          "amount": 24926.0,
+          "service": "Adult Social Care",
+          "supplier": "AFFINITY TRUST SUPPORT",
+          "spend_tag": "placement"
+        },
+        {
+          "transaction_id": "Over500_2026_P03_-_published:r2056",
+          "threshold": 25000,
+          "date": "2026-06-17",
+          "amount": 24850.39,
+          "service": "Education (DSG Funded) & Other Education Grants",
+          "supplier": "CHARMAINE CAULFIELD",
+          "spend_tag": "grant"
+        },
+        {
+          "transaction_id": "Over500_2026_P03_-_published:r2307",
+          "threshold": 25000,
+          "date": "2026-06-03",
+          "amount": 24788.75,
+          "service": "Education (DSG Funded) & Other Education Grants",
+          "supplier": "CALCOT SERVICES FOR CHILDREN CSFC",
+          "spend_tag": "placement"
+        },
+        {
+          "transaction_id": "Over500_2026_P03_-_published:r1660",
+          "threshold": 25000,
+          "date": "2026-06-24",
+          "amount": 24719.02,
+          "service": "Adult Social Care",
+          "supplier": "FOCUS SUPPORT",
+          "spend_tag": "placement"
+        },
+        {
+          "transaction_id": "Over500_2026_P03_-_published:r2074",
+          "threshold": 25000,
+          "date": "2026-06-17",
+          "amount": 24705.36,
+          "service": "Education (DSG Funded) & Other Education Grants",
+          "supplier": "BEANSHEAF COMMUNITY PRE SCHOO",
+          "spend_tag": "grant"
+        },
+        {
+          "transaction_id": "Over500_2026_P02_-_published:r2241",
+          "threshold": 25000,
+          "date": "2026-05-12",
+          "amount": 24618.75,
+          "service": "Education (DSG Funded) & Other Education Grants",
+          "supplier": "CALCOT SERVICES FOR CHILDREN CSFC",
+          "spend_tag": "placement"
+        },
+        {
+          "transaction_id": "Over500_2026_P03_-_published:r2106",
+          "threshold": 25000,
+          "date": "2026-06-30",
+          "amount": 24587.49,
+          "service": "Children's Social Care",
+          "supplier": "UNITY RESIDENTIAL CARE SERVICES",
+          "spend_tag": "placement"
+        },
+        {
+          "transaction_id": "Over500_2026_P02_-_published:r2265",
+          "threshold": 25000,
+          "date": "2026-05-22",
+          "amount": 24578.67,
+          "service": "Education (DSG Funded) & Other Education Grants",
+          "supplier": "ACORN CARE EDUCATION",
+          "spend_tag": "placement"
+        },
+        {
+          "transaction_id": "Over500_2026_P04_-_published:r1281",
+          "threshold": 25000,
+          "date": "2026-07-29",
+          "amount": 24476.02,
+          "service": "Adult Social Care",
+          "supplier": "THE BETTER GROUP",
+          "spend_tag": "placement"
+        },
+        {
+          "transaction_id": "Over500_2026_P02_-_published:r2268",
+          "threshold": 25000,
+          "date": "2026-05-26",
+          "amount": 24453.39,
+          "service": "Education (DSG Funded) & Other Education Grants",
+          "supplier": "HUCKLEBERRY HOUSE",
+          "spend_tag": "placement"
+        },
+        {
+          "transaction_id": "Over500_2026_P02_-_published:r2201",
+          "threshold": 25000,
+          "date": "2026-05-15",
+          "amount": 24416.73,
+          "service": "Finance, Property & Procurement",
+          "supplier": "WOKINGHAM BOROUGH COUNCIL",
+          "spend_tag": "general_procurement"
+        },
+        {
+          "transaction_id": "Over500_2026_P04_-_published:r3059",
+          "threshold": 25000,
+          "date": "2026-07-09",
+          "amount": 24383.88,
+          "service": "Children's Social Care",
+          "supplier": "UTOPIA SUPPORTED HOUSING",
+          "spend_tag": "placement"
+        },
+        {
+          "transaction_id": "Over500_2026_P03_-_published:r649",
+          "threshold": 25000,
+          "date": "2026-06-18",
+          "amount": 24244.0,
+          "service": "Chief Executive",
+          "supplier": "TRIPLE VALUE IMPACT",
+          "spend_tag": "general_procurement"
+        },
+        {
+          "transaction_id": "Over500_2026_P02_-_published:r560",
+          "threshold": 25000,
+          "date": "2026-05-12",
+          "amount": 24227.07,
+          "service": "Development & Housing",
+          "supplier": "DEVCOMMS SOUTH EAST",
+          "spend_tag": "general_procurement"
+        },
+        {
+          "transaction_id": "Over500_2026_P02_-_published:r2271",
+          "threshold": 25000,
+          "date": "2026-05-26",
+          "amount": 24110.58,
+          "service": "Education (DSG Funded) & Other Education Grants",
+          "supplier": "ACORN CARE EDUCATION",
+          "spend_tag": "placement"
+        },
+        {
+          "transaction_id": "Over500_2026_P03_-_published:r13",
+          "threshold": 25000,
+          "date": "2026-06-01",
+          "amount": 24088.98,
+          "service": "Children's Social Care",
+          "supplier": "THE BETTER GROUP",
+          "spend_tag": "general_procurement"
+        },
+        {
+          "transaction_id": "Over500_2026_P03_-_published:r396",
+          "threshold": 25000,
+          "date": "2026-06-10",
+          "amount": 24000.0,
+          "service": "Transformation, Customer & ICT",
+          "supplier": "BOOKINGLAB",
+          "spend_tag": "general_procurement"
+        },
+        {
+          "transaction_id": "Over500_2026_P02_-_published:r2021",
+          "threshold": 25000,
+          "date": "2026-05-01",
+          "amount": 23989.77,
+          "service": "Children's Social Care",
+          "supplier": "CARE SERVICES TO YOU",
+          "spend_tag": "placement"
+        },
+        {
+          "transaction_id": "Over500_2026_P02_-_published:r2033",
+          "threshold": 25000,
+          "date": "2026-05-12",
+          "amount": 23989.77,
+          "service": "Children's Social Care",
+          "supplier": "CARE SERVICES TO YOU",
+          "spend_tag": "placement"
+        },
+        {
+          "transaction_id": "Over500_2026_P02_-_published:r2037",
+          "threshold": 25000,
+          "date": "2026-05-13",
+          "amount": 23989.77,
+          "service": "Children's Social Care",
+          "supplier": "CARE SERVICES TO YOU",
+          "spend_tag": "placement"
+        }
+      ],
+      "full_list": "outputs/analytics-full/threshold_clustering.csv"
+    },
+    "split_purchases": {
+      "status": "run",
+      "description": "Same normalised supplier, two or more payments each under T within the window whose combined total reaches T: an indicator of possible split purchases to investigate. Overlapping windows are merged into one group, so a group's full span can exceed the window; best_window_* gives the highest-total single window inside the group. A group is every payment under T to that supplier dated first_date..last_date; full transaction ids are in the CSV.",
+      "population": "named rows (Redacted left out)",
+      "rule_ids": [
+        "CPR-12",
+        "CPR-51",
+        "CPR-52",
+        "CPR-53",
+        "CPR-54",
+        "CPR-55",
+        "CPR-56"
+      ],
+      "parameters": {
+        "split_window_days": 30
+      },
+      "thresholds_not_run": [
+        {
+          "value": 500,
+          "rule_ids": [
+            "CPR-05"
+          ],
+          "status": "not run: at or below the publication floor of the spend data"
+        },
+        {
+          "value": "THRESHOLD",
+          "rule_ids": [
+            "CPR-52",
+            "CPR-53",
+            "CPR-56",
+            "CPR-58"
+          ],
+          "status": "not run: parameter not supplied"
+        }
+      ],
+      "counts": {
+        "groups": 409,
+        "rows": 8340
+      },
+      "totals": {
+        "flagged": 37776027.32
+      },
+      "flagged_definition": "group totals summed over thresholds run; a payment can sit in groups for more than one threshold",
+      "by_tag": {
+        "grant": {
+          "count": 9,
+          "total": 218605.6
+        },
+        "agency_staff": {
+          "count": 3,
+          "total": 1173646.15
+        },
+        "premises": {
+          "count": 42,
+          "total": 668667.14
+        },
+        "placement": {
+          "count": 233,
+          "total": 26247940.28
+        },
+        "general_procurement": {
+          "count": 122,
+          "total": 9467168.15
+        }
+      },
+      "by_threshold": [
+        {
+          "threshold": 1000,
+          "inclusive": false,
+          "rule_ids": [
+            "CPR-51"
+          ],
+          "groups": 199,
+          "suppliers": 165,
+          "rows": 1853,
+          "total": 1325404.5,
+          "by_tag": {
+            "grant": {
+              "count": 3,
+              "total": 5400.0
+            },
+            "agency_staff": {
+              "count": 2,
+              "total": 2822.31
+            },
+            "premises": {
+              "count": 32,
+              "total": 157026.84
+            },
+            "placement": {
+              "count": 88,
+              "total": 956697.62
+            },
+            "general_procurement": {
+              "count": 74,
+              "total": 203457.73
+            }
+          }
+        },
+        {
+          "threshold": 25000,
+          "inclusive": true,
+          "rule_ids": [
+            "CPR-51",
+            "CPR-52",
+            "CPR-53",
+            "CPR-54",
+            "CPR-55"
+          ],
+          "groups": 202,
+          "suppliers": 183,
+          "rows": 5641,
+          "total": 24148257.17,
+          "by_tag": {
+            "grant": {
+              "count": 6,
+              "total": 213205.6
+            },
+            "agency_staff": {
+              "count": 0,
+              "total": 0.0
+            },
+            "premises": {
+              "count": 10,
+              "total": 511640.3
+            },
+            "placement": {
+              "count": 140,
+              "total": 20205863.79
+            },
+            "general_procurement": {
+              "count": 46,
+              "total": 3217547.48
+            }
+          }
+        },
+        {
+          "threshold": 500000,
+          "inclusive": false,
+          "rule_ids": [
+            "CPR-54",
+            "CPR-55",
+            "CPR-56"
+          ],
+          "groups": 8,
+          "suppliers": 8,
+          "rows": 846,
+          "total": 12302365.65,
+          "by_tag": {
+            "grant": {
+              "count": 0,
+              "total": 0.0
+            },
+            "agency_staff": {
+              "count": 1,
+              "total": 1170823.84
+            },
+            "premises": {
+              "count": 0,
+              "total": 0.0
+            },
+            "placement": {
+              "count": 5,
+              "total": 5085378.87
+            },
+            "general_procurement": {
+              "count": 2,
+              "total": 6046162.94
+            }
+          }
+        }
+      ],
+      "top20": [
+        {
+          "threshold": 500000,
+          "supplier": "VOLKERHIGHWAYS",
+          "rows": 124,
+          "first_date": "2026-05-01",
+          "last_date": "2026-07-31",
+          "span_days": 91,
+          "total": 5523184.32,
+          "spend_tag": "general_procurement",
+          "best_window_first_date": "2026-05-11",
+          "best_window_last_date": "2026-06-10",
+          "best_window_rows": 55,
+          "best_window_span_days": 30,
+          "best_window_total": 2987475.97,
+          "transaction_ids_count": 124,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r691",
+            "Over500_2026_P02_-_published:r2174",
+            "Over500_2026_P02_-_published:r2175",
+            "Over500_2026_P02_-_published:r2177",
+            "Over500_2026_P02_-_published:r2178",
+            "Over500_2026_P02_-_published:r2181",
+            "Over500_2026_P02_-_published:r2183",
+            "Over500_2026_P02_-_published:r695",
+            "Over500_2026_P02_-_published:r709",
+            "Over500_2026_P02_-_published:r713"
+          ]
+        },
+        {
+          "threshold": 25000,
+          "supplier": "BUPA CARE SERVICES",
+          "rows": 370,
+          "first_date": "2026-05-06",
+          "last_date": "2026-07-29",
+          "span_days": 84,
+          "total": 1874166.5,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-06-10",
+          "best_window_last_date": "2026-07-08",
+          "best_window_rows": 248,
+          "best_window_span_days": 28,
+          "best_window_total": 1259714.57,
+          "transaction_ids_count": 370,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r1509",
+            "Over500_2026_P02_-_published:r1034",
+            "Over500_2026_P02_-_published:r1035",
+            "Over500_2026_P02_-_published:r1036",
+            "Over500_2026_P02_-_published:r1037",
+            "Over500_2026_P02_-_published:r1038",
+            "Over500_2026_P02_-_published:r1039",
+            "Over500_2026_P02_-_published:r1040",
+            "Over500_2026_P02_-_published:r1041",
+            "Over500_2026_P02_-_published:r1042"
+          ]
+        },
+        {
+          "threshold": 500000,
+          "supplier": "BUPA CARE SERVICES",
+          "rows": 370,
+          "first_date": "2026-05-06",
+          "last_date": "2026-07-29",
+          "span_days": 84,
+          "total": 1874166.5,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-06-10",
+          "best_window_last_date": "2026-07-08",
+          "best_window_rows": 248,
+          "best_window_span_days": 28,
+          "best_window_total": 1259714.57,
+          "transaction_ids_count": 370,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r1509",
+            "Over500_2026_P02_-_published:r1034",
+            "Over500_2026_P02_-_published:r1035",
+            "Over500_2026_P02_-_published:r1036",
+            "Over500_2026_P02_-_published:r1037",
+            "Over500_2026_P02_-_published:r1038",
+            "Over500_2026_P02_-_published:r1039",
+            "Over500_2026_P02_-_published:r1040",
+            "Over500_2026_P02_-_published:r1041",
+            "Over500_2026_P02_-_published:r1042"
+          ]
+        },
+        {
+          "threshold": 500000,
+          "supplier": "COMENSURA",
+          "rows": 13,
+          "first_date": "2026-05-19",
+          "last_date": "2026-07-31",
+          "span_days": 73,
+          "total": 1170823.84,
+          "spend_tag": "agency_staff",
+          "best_window_first_date": "2026-06-15",
+          "best_window_last_date": "2026-07-15",
+          "best_window_rows": 6,
+          "best_window_span_days": 30,
+          "best_window_total": 557962.29,
+          "transaction_ids_count": 13,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r6",
+            "Over500_2026_P02_-_published:r7",
+            "Over500_2026_P03_-_published:r14",
+            "Over500_2026_P03_-_published:r12",
+            "Over500_2026_P03_-_published:r9",
+            "Over500_2026_P03_-_published:r10",
+            "Over500_2026_P03_-_published:r11",
+            "Over500_2026_P04_-_published:r9",
+            "Over500_2026_P04_-_published:r5",
+            "Over500_2026_P04_-_published:r6"
+          ]
+        },
+        {
+          "threshold": 500000,
+          "supplier": "AFFINITY TRUST SUPPORT",
+          "rows": 253,
+          "first_date": "2026-06-03",
+          "last_date": "2026-07-29",
+          "span_days": 56,
+          "total": 1068364.45,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-06-24",
+          "best_window_last_date": "2026-07-22",
+          "best_window_rows": 182,
+          "best_window_span_days": 28,
+          "best_window_total": 813496.97,
+          "transaction_ids_count": 253,
+          "transaction_ids_first10": [
+            "Over500_2026_P03_-_published:r1447",
+            "Over500_2026_P03_-_published:r1450",
+            "Over500_2026_P03_-_published:r1518",
+            "Over500_2026_P03_-_published:r1521",
+            "Over500_2026_P03_-_published:r1522",
+            "Over500_2026_P03_-_published:r1523",
+            "Over500_2026_P03_-_published:r1524",
+            "Over500_2026_P03_-_published:r1525",
+            "Over500_2026_P03_-_published:r1609",
+            "Over500_2026_P03_-_published:r1611"
+          ]
+        },
+        {
+          "threshold": 25000,
+          "supplier": "AFFINITY TRUST SUPPORT",
+          "rows": 261,
+          "first_date": "2026-05-13",
+          "last_date": "2026-07-29",
+          "span_days": 77,
+          "total": 1043430.1,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-06-24",
+          "best_window_last_date": "2026-07-22",
+          "best_window_rows": 180,
+          "best_window_span_days": 28,
+          "best_window_total": 758590.31,
+          "transaction_ids_count": 261,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r1720",
+            "Over500_2026_P02_-_published:r1722",
+            "Over500_2026_P02_-_published:r1723",
+            "Over500_2026_P02_-_published:r1724",
+            "Over500_2026_P02_-_published:r2016",
+            "Over500_2026_P02_-_published:r2017",
+            "Over500_2026_P02_-_published:r1862",
+            "Over500_2026_P02_-_published:r1802",
+            "Over500_2026_P02_-_published:r1803",
+            "Over500_2026_P02_-_published:r1804"
+          ]
+        },
+        {
+          "threshold": 25000,
+          "supplier": "OAKLANDS SEN SCHOOL BERKSHIRE",
+          "rows": 54,
+          "first_date": "2026-06-17",
+          "last_date": "2026-06-17",
+          "span_days": 0,
+          "total": 1026661.89,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-06-17",
+          "best_window_last_date": "2026-06-17",
+          "best_window_rows": 54,
+          "best_window_span_days": 0,
+          "best_window_total": 1026661.89,
+          "transaction_ids_count": 54,
+          "transaction_ids_first10": [
+            "Over500_2026_P03_-_published:r2164",
+            "Over500_2026_P03_-_published:r2165",
+            "Over500_2026_P03_-_published:r2166",
+            "Over500_2026_P03_-_published:r2167",
+            "Over500_2026_P03_-_published:r2169",
+            "Over500_2026_P03_-_published:r2170",
+            "Over500_2026_P03_-_published:r2171",
+            "Over500_2026_P03_-_published:r2172",
+            "Over500_2026_P03_-_published:r2173",
+            "Over500_2026_P03_-_published:r2174"
+          ]
+        },
+        {
+          "threshold": 500000,
+          "supplier": "OAKLANDS SEN SCHOOL BERKSHIRE",
+          "rows": 54,
+          "first_date": "2026-06-17",
+          "last_date": "2026-06-17",
+          "span_days": 0,
+          "total": 1026661.89,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-06-17",
+          "best_window_last_date": "2026-06-17",
+          "best_window_rows": 54,
+          "best_window_span_days": 0,
+          "best_window_total": 1026661.89,
+          "transaction_ids_count": 54,
+          "transaction_ids_first10": [
+            "Over500_2026_P03_-_published:r2164",
+            "Over500_2026_P03_-_published:r2165",
+            "Over500_2026_P03_-_published:r2166",
+            "Over500_2026_P03_-_published:r2167",
+            "Over500_2026_P03_-_published:r2169",
+            "Over500_2026_P03_-_published:r2170",
+            "Over500_2026_P03_-_published:r2171",
+            "Over500_2026_P03_-_published:r2172",
+            "Over500_2026_P03_-_published:r2173",
+            "Over500_2026_P03_-_published:r2174"
+          ]
+        },
+        {
+          "threshold": 25000,
+          "supplier": "WE ARE THE CARE COMPANY",
+          "rows": 349,
+          "first_date": "2026-05-06",
+          "last_date": "2026-07-29",
+          "span_days": 84,
+          "total": 589012.31,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-07-08",
+          "best_window_last_date": "2026-07-29",
+          "best_window_rows": 163,
+          "best_window_span_days": 21,
+          "best_window_total": 277923.25,
+          "transaction_ids_count": 349,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r1113",
+            "Over500_2026_P02_-_published:r1114",
+            "Over500_2026_P02_-_published:r1115",
+            "Over500_2026_P02_-_published:r1116",
+            "Over500_2026_P02_-_published:r1117",
+            "Over500_2026_P02_-_published:r1118",
+            "Over500_2026_P02_-_published:r1119",
+            "Over500_2026_P02_-_published:r1120",
+            "Over500_2026_P02_-_published:r1121",
+            "Over500_2026_P02_-_published:r1122"
+          ]
+        },
+        {
+          "threshold": 25000,
+          "supplier": "VOLKERHIGHWAYS",
+          "rows": 79,
+          "first_date": "2026-05-05",
+          "last_date": "2026-07-31",
+          "span_days": 87,
+          "total": 569857.27,
+          "spend_tag": "general_procurement",
+          "best_window_first_date": "2026-05-05",
+          "best_window_last_date": "2026-05-27",
+          "best_window_rows": 32,
+          "best_window_span_days": 22,
+          "best_window_total": 258306.28,
+          "transaction_ids_count": 79,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r2174",
+            "Over500_2026_P02_-_published:r2177",
+            "Over500_2026_P02_-_published:r2178",
+            "Over500_2026_P02_-_published:r2181",
+            "Over500_2026_P02_-_published:r695",
+            "Over500_2026_P02_-_published:r713",
+            "Over500_2026_P02_-_published:r723",
+            "Over500_2026_P02_-_published:r727",
+            "Over500_2026_P02_-_published:r696",
+            "Over500_2026_P02_-_published:r701"
+          ]
+        },
+        {
+          "threshold": 500000,
+          "supplier": "PHOENIX CHILD CARE THE GRANGE SCHOOL",
+          "rows": 23,
+          "first_date": "2026-05-19",
+          "last_date": "2026-06-17",
+          "span_days": 29,
+          "total": 566088.82,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-05-19",
+          "best_window_last_date": "2026-06-17",
+          "best_window_rows": 23,
+          "best_window_span_days": 29,
+          "best_window_total": 566088.82,
+          "transaction_ids_count": 23,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r2242",
+            "Over500_2026_P02_-_published:r2243",
+            "Over500_2026_P02_-_published:r2244",
+            "Over500_2026_P02_-_published:r2245",
+            "Over500_2026_P02_-_published:r2246",
+            "Over500_2026_P02_-_published:r2247",
+            "Over500_2026_P02_-_published:r2248",
+            "Over500_2026_P02_-_published:r2249",
+            "Over500_2026_P02_-_published:r2250",
+            "Over500_2026_P02_-_published:r2251"
+          ]
+        },
+        {
+          "threshold": 25000,
+          "supplier": "VOYAGE CARE",
+          "rows": 80,
+          "first_date": "2026-05-13",
+          "last_date": "2026-07-29",
+          "span_days": 77,
+          "total": 554678.88,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-05-13",
+          "best_window_last_date": "2026-06-10",
+          "best_window_rows": 44,
+          "best_window_span_days": 28,
+          "best_window_total": 337815.88,
+          "transaction_ids_count": 80,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r1638",
+            "Over500_2026_P02_-_published:r1639",
+            "Over500_2026_P02_-_published:r1640",
+            "Over500_2026_P02_-_published:r1641",
+            "Over500_2026_P02_-_published:r1642",
+            "Over500_2026_P02_-_published:r1643",
+            "Over500_2026_P02_-_published:r1644",
+            "Over500_2026_P02_-_published:r1645",
+            "Over500_2026_P02_-_published:r1646",
+            "Over500_2026_P02_-_published:r1835"
+          ]
+        },
+        {
+          "threshold": 500000,
+          "supplier": "RUSKIN MILL TRUST",
+          "rows": 5,
+          "first_date": "2026-05-13",
+          "last_date": "2026-06-02",
+          "span_days": 20,
+          "total": 550097.21,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-05-13",
+          "best_window_last_date": "2026-06-02",
+          "best_window_rows": 5,
+          "best_window_span_days": 20,
+          "best_window_total": 550097.21,
+          "transaction_ids_count": 5,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r1822",
+            "Over500_2026_P02_-_published:r823",
+            "Over500_2026_P03_-_published:r2676",
+            "Over500_2026_P03_-_published:r801",
+            "Over500_2026_P03_-_published:r802"
+          ]
+        },
+        {
+          "threshold": 25000,
+          "supplier": "HUNGERFORD CARE HOME",
+          "rows": 104,
+          "first_date": "2026-05-01",
+          "last_date": "2026-07-29",
+          "span_days": 89,
+          "total": 545531.64,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-05-20",
+          "best_window_last_date": "2026-06-17",
+          "best_window_rows": 66,
+          "best_window_span_days": 28,
+          "best_window_total": 357859.3,
+          "transaction_ids_count": 104,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r1454",
+            "Over500_2026_P02_-_published:r955",
+            "Over500_2026_P02_-_published:r956",
+            "Over500_2026_P02_-_published:r1427",
+            "Over500_2026_P02_-_published:r2006",
+            "Over500_2026_P02_-_published:r2009",
+            "Over500_2026_P02_-_published:r1008",
+            "Over500_2026_P02_-_published:r1009",
+            "Over500_2026_P02_-_published:r1010",
+            "Over500_2026_P02_-_published:r1011"
+          ]
+        },
+        {
+          "threshold": 500000,
+          "supplier": "SOFTWAREONE UK",
+          "rows": 4,
+          "first_date": "2026-05-27",
+          "last_date": "2026-05-27",
+          "span_days": 0,
+          "total": 522978.62,
+          "spend_tag": "general_procurement",
+          "best_window_first_date": "2026-05-27",
+          "best_window_last_date": "2026-05-27",
+          "best_window_rows": 4,
+          "best_window_span_days": 0,
+          "best_window_total": 522978.62,
+          "transaction_ids_count": 4,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r473",
+            "Over500_2026_P02_-_published:r474",
+            "Over500_2026_P02_-_published:r653",
+            "Over500_2026_P02_-_published:r654"
+          ]
+        },
+        {
+          "threshold": 25000,
+          "supplier": "WEST BERKSHIRE MENCAP",
+          "rows": 115,
+          "first_date": "2026-05-06",
+          "last_date": "2026-07-30",
+          "span_days": 85,
+          "total": 505286.21,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-07-01",
+          "best_window_last_date": "2026-07-30",
+          "best_window_rows": 64,
+          "best_window_span_days": 29,
+          "best_window_total": 299073.26,
+          "transaction_ids_count": 115,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r787",
+            "Over500_2026_P02_-_published:r788",
+            "Over500_2026_P02_-_published:r789",
+            "Over500_2026_P02_-_published:r790",
+            "Over500_2026_P02_-_published:r809",
+            "Over500_2026_P02_-_published:r810",
+            "Over500_2026_P02_-_published:r811",
+            "Over500_2026_P02_-_published:r812",
+            "Over500_2026_P02_-_published:r813",
+            "Over500_2026_P02_-_published:r814"
+          ]
+        },
+        {
+          "threshold": 25000,
+          "supplier": "PURLEY PARK TRUST",
+          "rows": 94,
+          "first_date": "2026-05-13",
+          "last_date": "2026-07-29",
+          "span_days": 77,
+          "total": 471283.82,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-06-10",
+          "best_window_last_date": "2026-07-08",
+          "best_window_rows": 59,
+          "best_window_span_days": 28,
+          "best_window_total": 319956.05,
+          "transaction_ids_count": 94,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r768",
+            "Over500_2026_P02_-_published:r774",
+            "Over500_2026_P02_-_published:r775",
+            "Over500_2026_P02_-_published:r776",
+            "Over500_2026_P02_-_published:r777",
+            "Over500_2026_P02_-_published:r778",
+            "Over500_2026_P02_-_published:r779",
+            "Over500_2026_P02_-_published:r780",
+            "Over500_2026_P02_-_published:r781",
+            "Over500_2026_P02_-_published:r824"
+          ]
+        },
+        {
+          "threshold": 25000,
+          "supplier": "BRIGHTER LIVING CARE",
+          "rows": 65,
+          "first_date": "2026-05-01",
+          "last_date": "2026-07-29",
+          "span_days": 89,
+          "total": 455388.91,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-07-01",
+          "best_window_last_date": "2026-07-29",
+          "best_window_rows": 37,
+          "best_window_span_days": 28,
+          "best_window_total": 263049.18,
+          "transaction_ids_count": 65,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r1705",
+            "Over500_2026_P02_-_published:r1719",
+            "Over500_2026_P02_-_published:r1728",
+            "Over500_2026_P02_-_published:r1729",
+            "Over500_2026_P02_-_published:r1731",
+            "Over500_2026_P02_-_published:r1732",
+            "Over500_2026_P02_-_published:r1733",
+            "Over500_2026_P02_-_published:r1734",
+            "Over500_2026_P02_-_published:r1735",
+            "Over500_2026_P02_-_published:r1736"
+          ]
+        },
+        {
+          "threshold": 25000,
+          "supplier": "PHOENIX CHILD CARE THE GRANGE SCHOOL",
+          "rows": 18,
+          "first_date": "2026-05-19",
+          "last_date": "2026-06-17",
+          "span_days": 29,
+          "total": 401210.46,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-05-19",
+          "best_window_last_date": "2026-06-17",
+          "best_window_rows": 18,
+          "best_window_span_days": 29,
+          "best_window_total": 401210.46,
+          "transaction_ids_count": 18,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r2242",
+            "Over500_2026_P02_-_published:r2243",
+            "Over500_2026_P02_-_published:r2245",
+            "Over500_2026_P02_-_published:r2247",
+            "Over500_2026_P02_-_published:r2249",
+            "Over500_2026_P02_-_published:r2250",
+            "Over500_2026_P02_-_published:r2252",
+            "Over500_2026_P02_-_published:r2253",
+            "Over500_2026_P02_-_published:r2255",
+            "Over500_2026_P02_-_published:r2256"
+          ]
+        },
+        {
+          "threshold": 25000,
+          "supplier": "ABI SUPPORT",
+          "rows": 147,
+          "first_date": "2026-05-01",
+          "last_date": "2026-07-29",
+          "span_days": 89,
+          "total": 343415.59,
+          "spend_tag": "placement",
+          "best_window_first_date": "2026-06-10",
+          "best_window_last_date": "2026-07-08",
+          "best_window_rows": 80,
+          "best_window_span_days": 28,
+          "best_window_total": 181445.1,
+          "transaction_ids_count": 147,
+          "transaction_ids_first10": [
+            "Over500_2026_P02_-_published:r1425",
+            "Over500_2026_P02_-_published:r1094",
+            "Over500_2026_P02_-_published:r1100",
+            "Over500_2026_P02_-_published:r1101",
+            "Over500_2026_P02_-_published:r1102",
+            "Over500_2026_P02_-_published:r1103",
+            "Over500_2026_P02_-_published:r1364",
+            "Over500_2026_P02_-_published:r1365",
+            "Over500_2026_P02_-_published:r1426",
+            "Over500_2026_P02_-_published:r1580"
+          ]
+        }
+      ],
+      "full_list": "outputs/analytics-full/split_purchases.csv"
+    },
+    "no_published_notice": {
+      "status": "run",
+      "label": "no published notice found",
+      "description": "A list of suppliers to request contract evidence for, not a finding. Suppliers whose annualised estimate (3-month total x 4) is at or above the tender/publication threshold and whose normalised name has no exact match among active Contracts Finder notices. The council's contracts register is not an input. Contracts Finder lists only contracts above about \u00a325k, so suppliers below the threshold are never tested and never listed. A candidate is a possible name match for the auditor to confirm; it is never treated as a match.",
+      "population": "named suppliers (Redacted left out)",
+      "rule_ids": [
+        "CPR-53",
+        "CPR-55"
+      ],
+      "threshold": {
+        "value": 25000,
+        "inclusive": true,
+        "rule_ids": [
+          "CPR-53",
+          "CPR-55"
+        ]
+      },
+      "parameters": {
+        "annualisation_factor": 4,
+        "candidate_ratio_cutoff": 0.85,
+        "candidate_containment_min_chars": 6
+      },
+      "companies_house_matching": "spend data carries no Companies House numbers; matching is by normalised name only",
+      "counts": {
+        "suppliers_tested": 674,
+        "exact match": 43,
+        "candidate": 6,
+        "no published notice found": 625
+      },
+      "totals": {
+        "tested_three_month_total": 65693298.47,
+        "flagged": 62383672.94,
+        "flagged_annualised_estimate": 249534691.76
+      },
+      "flagged_definition": "suppliers classed 'no published notice found' against active notices; totals are 3-month \u00a3",
+      "by_class_active_notices": {
+        "exact match": {
+          "suppliers": 43,
+          "three_month_total": 3047116.27,
+          "annualised_estimate": 12188465.08,
+          "share_of_tested_three_month_total_pct": 4.6
+        },
+        "candidate": {
+          "suppliers": 6,
+          "three_month_total": 262509.26,
+          "annualised_estimate": 1050037.04,
+          "share_of_tested_three_month_total_pct": 0.4
+        },
+        "no published notice found": {
+          "suppliers": 625,
+          "three_month_total": 62383672.94,
+          "annualised_estimate": 249534691.76,
+          "share_of_tested_three_month_total_pct": 95.0
+        }
+      },
+      "by_class_all_notices": {
+        "exact match": {
+          "suppliers": 47,
+          "three_month_total": 3234899.25,
+          "annualised_estimate": 12939597.0,
+          "share_of_tested_three_month_total_pct": 4.9
+        },
+        "candidate": {
+          "suppliers": 8,
+          "three_month_total": 360784.38,
+          "annualised_estimate": 1443137.52,
+          "share_of_tested_three_month_total_pct": 0.5
+        },
+        "no published notice found": {
+          "suppliers": 619,
+          "three_month_total": 62097614.84,
+          "annualised_estimate": 248390459.36,
+          "share_of_tested_three_month_total_pct": 94.5
+        }
+      },
+      "by_tag": {
+        "grant": {
+          "count": 124,
+          "total": 5875241.19
+        },
+        "agency_staff": {
+          "count": 1,
+          "total": 1275552.15
+        },
+        "premises": {
+          "count": 25,
+          "total": 855387.76
+        },
+        "placement": {
+          "count": 310,
+          "total": 31381423.81
+        },
+        "general_procurement": {
+          "count": 165,
+          "total": 22996068.03
+        }
+      },
+      "top20": [
+        {
+          "supplier": "VOLKERHIGHWAYS",
+          "rows": 126,
+          "three_month_total": 7377922.21,
+          "annualised_estimate": 29511688.84,
+          "spend_tag": "general_procurement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "VEOLIA ES WEST BERKSHIRE",
+          "rows": 3,
+          "three_month_total": 6186065.04,
+          "annualised_estimate": 24744260.16,
+          "spend_tag": "general_procurement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "MILLBROOK HEALTHCARE",
+          "rows": 4,
+          "three_month_total": 3459365.35,
+          "annualised_estimate": 13837461.4,
+          "spend_tag": "general_procurement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "BUPA CARE SERVICES",
+          "rows": 370,
+          "three_month_total": 1874166.5,
+          "annualised_estimate": 7496666.0,
+          "spend_tag": "placement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "COMENSURA",
+          "rows": 14,
+          "three_month_total": 1275552.15,
+          "annualised_estimate": 5102208.6,
+          "spend_tag": "agency_staff",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "AFFINITY TRUST SUPPORT",
+          "rows": 263,
+          "three_month_total": 1098336.76,
+          "annualised_estimate": 4393347.04,
+          "spend_tag": "placement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "OAKLANDS SEN SCHOOL BERKSHIRE",
+          "rows": 54,
+          "three_month_total": 1026661.89,
+          "annualised_estimate": 4106647.56,
+          "spend_tag": "placement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "RUSKIN MILL TRUST",
+          "rows": 9,
+          "three_month_total": 795197.64,
+          "annualised_estimate": 3180790.56,
+          "spend_tag": "placement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "AMEGREEN CHILDRENS SERVICES",
+          "rows": 27,
+          "three_month_total": 750437.33,
+          "annualised_estimate": 3001749.32,
+          "spend_tag": "placement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "BRIGHTER LIVING CARE",
+          "rows": 74,
+          "three_month_total": 747183.47,
+          "annualised_estimate": 2988733.88,
+          "spend_tag": "placement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "CALCOT SERVICES FOR CHILDREN CSFC",
+          "rows": 26,
+          "three_month_total": 639381.6,
+          "annualised_estimate": 2557526.4,
+          "spend_tag": "placement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "WE ARE THE CARE COMPANY",
+          "rows": 349,
+          "three_month_total": 589012.31,
+          "annualised_estimate": 2356049.24,
+          "spend_tag": "placement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "THE BETTER GROUP",
+          "rows": 26,
+          "three_month_total": 588490.08,
+          "annualised_estimate": 2353960.32,
+          "spend_tag": "placement",
+          "tag_split": "placement \u00a3326,636.83 (8 rows); general_procurement \u00a3261,853.25 (18 rows)",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "PHOENIX CHILD CARE THE GRANGE SCHOOL",
+          "rows": 25,
+          "three_month_total": 567708.85,
+          "annualised_estimate": 2270835.4,
+          "spend_tag": "placement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "VOYAGE CARE",
+          "rows": 80,
+          "three_month_total": 554678.88,
+          "annualised_estimate": 2218715.52,
+          "spend_tag": "placement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "HUNGERFORD CARE HOME",
+          "rows": 104,
+          "three_month_total": 545531.64,
+          "annualised_estimate": 2182126.56,
+          "spend_tag": "placement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "SOFTWAREONE UK",
+          "rows": 4,
+          "three_month_total": 522978.62,
+          "annualised_estimate": 2091914.48,
+          "spend_tag": "general_procurement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "LIVITY LIFE",
+          "rows": 9,
+          "three_month_total": 513074.85,
+          "annualised_estimate": 2052299.4,
+          "spend_tag": "general_procurement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "WEST BERKSHIRE MENCAP",
+          "rows": 115,
+          "three_month_total": 505286.21,
+          "annualised_estimate": 2021144.84,
+          "spend_tag": "placement",
+          "tag_split": "placement \u00a3504,168.91 (114 rows); grant \u00a31,117.30 (1 rows)",
+          "class_all_notices": "no published notice found"
+        },
+        {
+          "supplier": "PURLEY PARK TRUST",
+          "rows": 94,
+          "three_month_total": 471283.82,
+          "annualised_estimate": 1885135.28,
+          "spend_tag": "placement",
+          "tag_split": "",
+          "class_all_notices": "no published notice found"
+        }
+      ],
+      "top20_candidates": [
+        {
+          "supplier": "GLEN CLEANING COMPANY",
+          "candidate_notice_supplier": "GLEN CLEANING",
+          "method": "containment",
+          "three_month_total": 92393.12
+        },
+        {
+          "supplier": "D J TRAVEL",
+          "candidate_notice_supplier": "DJ TRAVEL",
+          "method": "difflib ratio 0.947",
+          "three_month_total": 67966.91
+        },
+        {
+          "supplier": "SWAN ADVOCACY",
+          "candidate_notice_supplier": "SWAN ADVOCACY NETWORK",
+          "method": "containment",
+          "three_month_total": 51216.0
+        },
+        {
+          "supplier": "THE ADVOCACY PEOPLE FORMERLY SEAP",
+          "candidate_notice_supplier": "THE ADVOCACY PEOPLE",
+          "method": "containment",
+          "three_month_total": 31653.23
+        },
+        {
+          "supplier": "PARKER TRAVELS",
+          "candidate_notice_supplier": "PARKER TRAVEL",
+          "method": "difflib ratio 0.963 + containment",
+          "three_month_total": 9927.5
+        },
+        {
+          "supplier": "POTTINGER S HIRE SERVICE",
+          "candidate_notice_supplier": "POTTINGERS HIRE SERVICES",
+          "method": "difflib ratio 0.958",
+          "three_month_total": 9352.5
+        }
+      ],
+      "full_list": "outputs/analytics-full/no_published_notice.csv"
+    },
+    "duplicates": {
+      "status": "run",
+      "description": "Same normalised supplier, same Net amount to the penny, each payment no more than the window apart from the next (connected rows grouped): possible duplicate payments to investigate. Regular fixed-fee payments (e.g. weekly placements) also produce this pattern.",
+      "population": "named rows (Redacted left out)",
+      "rule_ids": [],
+      "parameters": {
+        "duplicate_window_days": 7
+      },
+      "counts": {
+        "groups": 684,
+        "rows": 2044
+      },
+      "totals": {
+        "flagged": 8585241.95,
+        "repeat_value": 5809055.46
+      },
+      "flagged_definition": "group totals (all rows in each group); repeat_value = total less one payment per group",
+      "by_tag": {
+        "grant": {
+          "count": 4,
+          "total": 32077.54
+        },
+        "agency_staff": {
+          "count": 1,
+          "total": 1250.0
+        },
+        "premises": {
+          "count": 30,
+          "total": 124172.97
+        },
+        "placement": {
+          "count": 599,
+          "total": 7793059.33
+        },
+        "general_procurement": {
+          "count": 50,
+          "total": 634682.11
+        }
+      },
+      "top20": [
+        {
+          "supplier": "OAKLANDS SEN SCHOOL BERKSHIRE",
+          "amount": 20337.45,
+          "rows": 36,
+          "first_date": "2026-06-17",
+          "last_date": "2026-06-17",
+          "total": 732148.2,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P03_-_published:r2164",
+            "Over500_2026_P03_-_published:r2165",
+            "Over500_2026_P03_-_published:r2166",
+            "Over500_2026_P03_-_published:r2167",
+            "Over500_2026_P03_-_published:r2169",
+            "Over500_2026_P03_-_published:r2170",
+            "Over500_2026_P03_-_published:r2173",
+            "Over500_2026_P03_-_published:r2175",
+            "Over500_2026_P03_-_published:r2176",
+            "Over500_2026_P03_-_published:r2177",
+            "Over500_2026_P03_-_published:r2189",
+            "Over500_2026_P03_-_published:r2190",
+            "Over500_2026_P03_-_published:r2195",
+            "Over500_2026_P03_-_published:r2199",
+            "Over500_2026_P03_-_published:r2200",
+            "Over500_2026_P03_-_published:r2201",
+            "Over500_2026_P03_-_published:r2203",
+            "Over500_2026_P03_-_published:r2204",
+            "Over500_2026_P03_-_published:r2311",
+            "Over500_2026_P03_-_published:r2312",
+            "Over500_2026_P03_-_published:r2313",
+            "Over500_2026_P03_-_published:r2315",
+            "Over500_2026_P03_-_published:r2316",
+            "Over500_2026_P03_-_published:r2317",
+            "Over500_2026_P03_-_published:r2321",
+            "Over500_2026_P03_-_published:r2322",
+            "Over500_2026_P03_-_published:r2323",
+            "Over500_2026_P03_-_published:r3106",
+            "Over500_2026_P03_-_published:r3107",
+            "Over500_2026_P03_-_published:r3109",
+            "Over500_2026_P03_-_published:r3110",
+            "Over500_2026_P03_-_published:r3111",
+            "Over500_2026_P03_-_published:r3112",
+            "Over500_2026_P03_-_published:r3113",
+            "Over500_2026_P03_-_published:r3114",
+            "Over500_2026_P03_-_published:r3115"
+          ]
+        },
+        {
+          "supplier": "OAKLANDS SEN SCHOOL BERKSHIRE",
+          "amount": 20534.9,
+          "rows": 13,
+          "first_date": "2026-06-17",
+          "last_date": "2026-06-17",
+          "total": 266953.7,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P03_-_published:r2171",
+            "Over500_2026_P03_-_published:r2172",
+            "Over500_2026_P03_-_published:r2191",
+            "Over500_2026_P03_-_published:r2192",
+            "Over500_2026_P03_-_published:r2193",
+            "Over500_2026_P03_-_published:r2196",
+            "Over500_2026_P03_-_published:r2198",
+            "Over500_2026_P03_-_published:r2310",
+            "Over500_2026_P03_-_published:r2314",
+            "Over500_2026_P03_-_published:r2319",
+            "Over500_2026_P03_-_published:r2320",
+            "Over500_2026_P03_-_published:r3108",
+            "Over500_2026_P03_-_published:r3116"
+          ]
+        },
+        {
+          "supplier": "PHOENIX CHILD CARE THE GRANGE SCHOOL",
+          "amount": 21988.16,
+          "rows": 10,
+          "first_date": "2026-05-19",
+          "last_date": "2026-05-21",
+          "total": 219881.6,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P02_-_published:r2242",
+            "Over500_2026_P02_-_published:r2243",
+            "Over500_2026_P02_-_published:r2247",
+            "Over500_2026_P02_-_published:r2249",
+            "Over500_2026_P02_-_published:r2252",
+            "Over500_2026_P02_-_published:r2253",
+            "Over500_2026_P02_-_published:r2255",
+            "Over500_2026_P02_-_published:r2257",
+            "Over500_2026_P02_-_published:r2260",
+            "Over500_2026_P02_-_published:r2263"
+          ]
+        },
+        {
+          "supplier": "VOLKERHIGHWAYS",
+          "amount": 101925.86,
+          "rows": 2,
+          "first_date": "2026-07-15",
+          "last_date": "2026-07-17",
+          "total": 203851.72,
+          "spend_tag": "general_procurement",
+          "transaction_ids": [
+            "Over500_2026_P04_-_published:r3308",
+            "Over500_2026_P04_-_published:r618"
+          ]
+        },
+        {
+          "supplier": "BUPA CARE SERVICES",
+          "amount": 8476.52,
+          "rows": 18,
+          "first_date": "2026-07-08",
+          "last_date": "2026-07-08",
+          "total": 152577.36,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P04_-_published:r1040",
+            "Over500_2026_P04_-_published:r1041",
+            "Over500_2026_P04_-_published:r1071",
+            "Over500_2026_P04_-_published:r1086",
+            "Over500_2026_P04_-_published:r1087",
+            "Over500_2026_P04_-_published:r1105",
+            "Over500_2026_P04_-_published:r1107",
+            "Over500_2026_P04_-_published:r1115",
+            "Over500_2026_P04_-_published:r1154",
+            "Over500_2026_P04_-_published:r1155",
+            "Over500_2026_P04_-_published:r1158",
+            "Over500_2026_P04_-_published:r1825",
+            "Over500_2026_P04_-_published:r1826",
+            "Over500_2026_P04_-_published:r1831",
+            "Over500_2026_P04_-_published:r1846",
+            "Over500_2026_P04_-_published:r1904",
+            "Over500_2026_P04_-_published:r1905",
+            "Over500_2026_P04_-_published:r2678"
+          ]
+        },
+        {
+          "supplier": "CALCOT SERVICES FOR CHILDREN CSFC",
+          "amount": 18768.75,
+          "rows": 6,
+          "first_date": "2026-06-03",
+          "last_date": "2026-06-03",
+          "total": 112612.5,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P03_-_published:r2157",
+            "Over500_2026_P03_-_published:r2158",
+            "Over500_2026_P03_-_published:r2159",
+            "Over500_2026_P03_-_published:r2306",
+            "Over500_2026_P03_-_published:r3102",
+            "Over500_2026_P03_-_published:r3103"
+          ]
+        },
+        {
+          "supplier": "VOLKERHIGHWAYS",
+          "amount": 54241.36,
+          "rows": 2,
+          "first_date": "2026-07-13",
+          "last_date": "2026-07-16",
+          "total": 108482.72,
+          "spend_tag": "general_procurement",
+          "transaction_ids": [
+            "Over500_2026_P04_-_published:r3210",
+            "Over500_2026_P04_-_published:r3302"
+          ]
+        },
+        {
+          "supplier": "PHOENIX CHILD CARE THE GRANGE SCHOOL",
+          "amount": 32711.33,
+          "rows": 3,
+          "first_date": "2026-05-19",
+          "last_date": "2026-05-19",
+          "total": 98133.99,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P02_-_published:r2246",
+            "Over500_2026_P02_-_published:r2248",
+            "Over500_2026_P02_-_published:r2251"
+          ]
+        },
+        {
+          "supplier": "BUPA CARE SERVICES",
+          "amount": 5097.52,
+          "rows": 19,
+          "first_date": "2026-06-10",
+          "last_date": "2026-06-10",
+          "total": 96852.88,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P03_-_published:r1011",
+            "Over500_2026_P03_-_published:r1027",
+            "Over500_2026_P03_-_published:r1028",
+            "Over500_2026_P03_-_published:r1336",
+            "Over500_2026_P03_-_published:r1477",
+            "Over500_2026_P03_-_published:r1759",
+            "Over500_2026_P03_-_published:r2709",
+            "Over500_2026_P03_-_published:r2710",
+            "Over500_2026_P03_-_published:r2844",
+            "Over500_2026_P03_-_published:r837",
+            "Over500_2026_P03_-_published:r893",
+            "Over500_2026_P03_-_published:r894",
+            "Over500_2026_P03_-_published:r903",
+            "Over500_2026_P03_-_published:r919",
+            "Over500_2026_P03_-_published:r944",
+            "Over500_2026_P03_-_published:r946",
+            "Over500_2026_P03_-_published:r961",
+            "Over500_2026_P03_-_published:r975",
+            "Over500_2026_P03_-_published:r987"
+          ]
+        },
+        {
+          "supplier": "BUPA CARE SERVICES",
+          "amount": 5080.18,
+          "rows": 19,
+          "first_date": "2026-05-13",
+          "last_date": "2026-05-13",
+          "total": 96523.42,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P02_-_published:r1035",
+            "Over500_2026_P02_-_published:r1037",
+            "Over500_2026_P02_-_published:r1038",
+            "Over500_2026_P02_-_published:r1039",
+            "Over500_2026_P02_-_published:r1040",
+            "Over500_2026_P02_-_published:r1455",
+            "Over500_2026_P02_-_published:r1456",
+            "Over500_2026_P02_-_published:r1457",
+            "Over500_2026_P02_-_published:r1850",
+            "Over500_2026_P02_-_published:r868",
+            "Over500_2026_P02_-_published:r959",
+            "Over500_2026_P02_-_published:r960",
+            "Over500_2026_P02_-_published:r961",
+            "Over500_2026_P02_-_published:r962",
+            "Over500_2026_P02_-_published:r964",
+            "Over500_2026_P02_-_published:r965",
+            "Over500_2026_P02_-_published:r969",
+            "Over500_2026_P02_-_published:r970",
+            "Over500_2026_P02_-_published:r971"
+          ]
+        },
+        {
+          "supplier": "HUCKLEBERRY HOUSE",
+          "amount": 30918.75,
+          "rows": 3,
+          "first_date": "2026-05-26",
+          "last_date": "2026-05-26",
+          "total": 92756.25,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P02_-_published:r2266",
+            "Over500_2026_P02_-_published:r2267",
+            "Over500_2026_P02_-_published:r2269"
+          ]
+        },
+        {
+          "supplier": "BUPA CARE SERVICES",
+          "amount": 5097.52,
+          "rows": 18,
+          "first_date": "2026-07-08",
+          "last_date": "2026-07-08",
+          "total": 91755.36,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P04_-_published:r1033",
+            "Over500_2026_P04_-_published:r1034",
+            "Over500_2026_P04_-_published:r1037",
+            "Over500_2026_P04_-_published:r1072",
+            "Over500_2026_P04_-_published:r1081",
+            "Over500_2026_P04_-_published:r1083",
+            "Over500_2026_P04_-_published:r1104",
+            "Over500_2026_P04_-_published:r1136",
+            "Over500_2026_P04_-_published:r1137",
+            "Over500_2026_P04_-_published:r1820",
+            "Over500_2026_P04_-_published:r1821",
+            "Over500_2026_P04_-_published:r1823",
+            "Over500_2026_P04_-_published:r1848",
+            "Over500_2026_P04_-_published:r1926",
+            "Over500_2026_P04_-_published:r1927",
+            "Over500_2026_P04_-_published:r2664",
+            "Over500_2026_P04_-_published:r2717",
+            "Over500_2026_P04_-_published:r887"
+          ]
+        },
+        {
+          "supplier": "CARE SERVICES TO YOU",
+          "amount": 23989.77,
+          "rows": 3,
+          "first_date": "2026-06-16",
+          "last_date": "2026-06-22",
+          "total": 71969.31,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P03_-_published:r1931",
+            "Over500_2026_P03_-_published:r2008",
+            "Over500_2026_P03_-_published:r3044"
+          ]
+        },
+        {
+          "supplier": "CARE SERVICES TO YOU",
+          "amount": 23989.77,
+          "rows": 3,
+          "first_date": "2026-07-17",
+          "last_date": "2026-07-23",
+          "total": 71969.31,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P04_-_published:r3750",
+            "Over500_2026_P04_-_published:r3092",
+            "Over500_2026_P04_-_published:r3161"
+          ]
+        },
+        {
+          "supplier": "PHOENIX CHILD CARE THE GRANGE SCHOOL",
+          "amount": 23210.0,
+          "rows": 3,
+          "first_date": "2026-05-19",
+          "last_date": "2026-05-21",
+          "total": 69630.0,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P02_-_published:r2245",
+            "Over500_2026_P02_-_published:r2258",
+            "Over500_2026_P02_-_published:r2262"
+          ]
+        },
+        {
+          "supplier": "AMEGREEN CHILDRENS SERVICES",
+          "amount": 34431.08,
+          "rows": 2,
+          "first_date": "2026-05-26",
+          "last_date": "2026-05-27",
+          "total": 68862.16,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P02_-_published:r2092",
+            "Over500_2026_P02_-_published:r2105"
+          ]
+        },
+        {
+          "supplier": "AMEGREEN CHILDRENS SERVICES",
+          "amount": 34431.08,
+          "rows": 2,
+          "first_date": "2026-07-20",
+          "last_date": "2026-07-20",
+          "total": 68862.16,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P04_-_published:r3081",
+            "Over500_2026_P04_-_published:r3752"
+          ]
+        },
+        {
+          "supplier": "PARADIGM CARE SERVICES",
+          "amount": 17000.0,
+          "rows": 4,
+          "first_date": "2026-07-16",
+          "last_date": "2026-07-31",
+          "total": 68000.0,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P04_-_published:r3064",
+            "Over500_2026_P04_-_published:r3091",
+            "Over500_2026_P04_-_published:r3084",
+            "Over500_2026_P04_-_published:r3087"
+          ]
+        },
+        {
+          "supplier": "AMEGREEN CHILDRENS SERVICES",
+          "amount": 33320.4,
+          "rows": 2,
+          "first_date": "2026-05-26",
+          "last_date": "2026-05-28",
+          "total": 66640.8,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P02_-_published:r2091",
+            "Over500_2026_P02_-_published:r2108"
+          ]
+        },
+        {
+          "supplier": "AMEGREEN CHILDRENS SERVICES",
+          "amount": 33320.4,
+          "rows": 2,
+          "first_date": "2026-06-17",
+          "last_date": "2026-06-17",
+          "total": 66640.8,
+          "spend_tag": "placement",
+          "transaction_ids": [
+            "Over500_2026_P03_-_published:r2032",
+            "Over500_2026_P03_-_published:r2033"
+          ]
+        }
+      ],
+      "full_list": "outputs/analytics-full/duplicates.csv"
+    },
+    "expired_notice_spend": {
+      "status": "run",
+      "description": "Suppliers paid in the window whose every exact-match notice ended before the window start: an indicator of spend after expiry without an approved extension (App C row D) to investigate; a newer contract may exist with no notice. Candidate-only name matches are listed separately and are never treated as matches.",
+      "population": "named suppliers (Redacted left out), any amount",
+      "rule_ids": [
+        "CPR-63"
+      ],
+      "parameters": {
+        "candidate_ratio_cutoff": 0.85,
+        "candidate_containment_min_chars": 6
+      },
+      "counts": {
+        "suppliers": 7,
+        "candidate_only_suppliers": 5
+      },
+      "totals": {
+        "flagged": 190366.92,
+        "flagged_annualised_estimate": 761467.68,
+        "candidate_only_three_month_total": 106390.17
+      },
+      "flagged_definition": "exact-match suppliers; 3-month \u00a3",
+      "by_tag": {
+        "grant": {
+          "count": 0,
+          "total": 0.0
+        },
+        "agency_staff": {
+          "count": 0,
+          "total": 0.0
+        },
+        "premises": {
+          "count": 2,
+          "total": 68721.94
+        },
+        "placement": {
+          "count": 0,
+          "total": 0.0
+        },
+        "general_procurement": {
+          "count": 5,
+          "total": 121644.98
+        }
+      },
+      "top20": [
+        {
+          "supplier": "HOPE CLAY CONSTRUCTION",
+          "notices": [
+            "IT-402-1300-P00001300 - AWARD",
+            "IT-402-864-P00000864 - AWARD"
+          ],
+          "latest_notice_end": "2024-10-11",
+          "rows": 1,
+          "three_month_total": 91306.75,
+          "spend_tag": "general_procurement"
+        },
+        {
+          "supplier": "BERKSHIRE MECHANICAL SERVICES",
+          "notices": [
+            "IT-402-1083-P00001083 - AWARD"
+          ],
+          "latest_notice_end": "2024-03-31",
+          "rows": 45,
+          "three_month_total": 68040.0,
+          "spend_tag": "premises"
+        },
+        {
+          "supplier": "G7 BUSINESS SOLUTIONS",
+          "notices": [
+            "G-Cloud 12 Framework"
+          ],
+          "latest_notice_end": "2023-01-18",
+          "rows": 8,
+          "three_month_total": 16364.56,
+          "spend_tag": "general_procurement"
+        },
+        {
+          "supplier": "CACI",
+          "notices": [
+            "Youth Justice - ChildView"
+          ],
+          "latest_notice_end": "2025-04-30",
+          "rows": 1,
+          "three_month_total": 12071.67,
+          "spend_tag": "general_procurement"
+        },
+        {
+          "supplier": "MORTON PATTISON",
+          "notices": [
+            "IT-402-1354-P00001354 - AWARD"
+          ],
+          "latest_notice_end": "2024-10-18",
+          "rows": 1,
+          "three_month_total": 1102.0,
+          "spend_tag": "general_procurement"
+        },
+        {
+          "supplier": "DAVIS AND ASSOCIATES CONSULTANCY",
+          "notices": [
+            "P00000986"
+          ],
+          "latest_notice_end": "2023-09-30",
+          "rows": 1,
+          "three_month_total": 800.0,
+          "spend_tag": "general_procurement"
+        },
+        {
+          "supplier": "TACTICAL FACILITIES MANAGEMENT",
+          "notices": [
+            "P00001043"
+          ],
+          "latest_notice_end": "2023-09-30",
+          "rows": 1,
+          "three_month_total": 681.94,
+          "spend_tag": "premises"
+        }
+      ],
+      "full_list": "outputs/analytics-full/expired_notice_spend.csv",
+      "candidates_list": "outputs/analytics-full/expired_notice_spend_candidates.csv"
+    },
+    "spend_vs_award": {
+      "status": "run",
+      "description": "Suppliers with exactly one exact-match active single-supplier notice with Awarded Value > 0: ratio = annualised estimate / (Awarded Value / contract years). A ratio at or above the flag is an indicator of spend beyond the award without an approved variation (App C row E) to investigate; award values may be estimates or maxima.",
+      "population": "named suppliers (Redacted left out)",
+      "rule_ids": [
+        "CPR-64",
+        "CPR-65"
+      ],
+      "parameters": {
+        "annualisation_factor": 4,
+        "days_per_contract_year": 365.25,
+        "award_ratio_flag": 1.25
+      },
+      "counts": {
+        "suppliers_evaluated": 20,
+        "flagged": 8,
+        "skipped": {
+          "more_than_one_active_exact_notice": 16,
+          "multi_supplier_notice": 9,
+          "awarded_value_not_positive": 1,
+          "no_end_date": 0,
+          "contract_years_not_positive": 0
+        }
+      },
+      "totals": {
+        "flagged": 650912.19,
+        "flagged_annualised_estimate": 2603648.76
+      },
+      "flagged_definition": "suppliers with ratio at or above award_ratio_flag; 3-month \u00a3",
+      "by_tag": {
+        "grant": {
+          "count": 0,
+          "total": 0.0
+        },
+        "agency_staff": {
+          "count": 0,
+          "total": 0.0
+        },
+        "premises": {
+          "count": 1,
+          "total": 7758.91
+        },
+        "placement": {
+          "count": 0,
+          "total": 0.0
+        },
+        "general_procurement": {
+          "count": 7,
+          "total": 643153.28
+        }
+      },
+      "top20": [
+        {
+          "supplier": "NEC SOFTWARE SOLUTIONS UK",
+          "notice_id": "RM6259/CL766",
+          "awarded_value": 615540.0,
+          "contract_years": 2.9979,
+          "annualised_estimate": 1257534.28,
+          "ratio": 6.1247,
+          "three_month_total": 314383.57,
+          "spend_tag": "general_procurement"
+        },
+        {
+          "supplier": "TWO SAINTS",
+          "notice_id": "IT-402-1432-P00001432 - AWARD",
+          "awarded_value": 2500000.0,
+          "contract_years": 4.9993,
+          "annualised_estimate": 853153.8,
+          "ratio": 1.7061,
+          "three_month_total": 213288.45,
+          "spend_tag": "general_procurement"
+        },
+        {
+          "supplier": "IDOX SOFTWARE",
+          "notice_id": "P00000844",
+          "awarded_value": 714533.0,
+          "contract_years": 6.9979,
+          "annualised_estimate": 204905.64,
+          "ratio": 2.0068,
+          "three_month_total": 51226.41,
+          "spend_tag": "general_procurement"
+        },
+        {
+          "supplier": "BOOKINGLAB",
+          "notice_id": "IT-402-1498-P00001498 - AWARD",
+          "awarded_value": 173000.0,
+          "contract_years": 6.9979,
+          "annualised_estimate": 96000.0,
+          "ratio": 3.8833,
+          "three_month_total": 24000.0,
+          "spend_tag": "general_procurement"
+        },
+        {
+          "supplier": "K RICKETTS S RICHARDS TAXIS",
+          "notice_id": "IT-402-1542-P00001542 - AWARD",
+          "awarded_value": 38916.0,
+          "contract_years": 2.4285,
+          "annualised_estimate": 68576.0,
+          "ratio": 4.2793,
+          "three_month_total": 17144.0,
+          "spend_tag": "general_procurement"
+        },
+        {
+          "supplier": "EXACOM SYSTEMS",
+          "notice_id": "G-Cloud 14 RM1557.14",
+          "awarded_value": 50358.0,
+          "contract_years": 3.9973,
+          "annualised_estimate": 48423.4,
+          "ratio": 3.8437,
+          "three_month_total": 12105.85,
+          "spend_tag": "general_procurement"
+        },
+        {
+          "supplier": "SOFTCAT",
+          "notice_id": "IT-402-1666-P00001666 - AWARD",
+          "awarded_value": 57907.0,
+          "contract_years": 2.9979,
+          "annualised_estimate": 44020.0,
+          "ratio": 2.279,
+          "three_month_total": 11005.0,
+          "spend_tag": "general_procurement"
+        },
+        {
+          "supplier": "SMS ENVIRONMENTAL",
+          "notice_id": "IT-402-1599-P00001599 - AWARD",
+          "awarded_value": 26021.66,
+          "contract_years": 1.9959,
+          "annualised_estimate": 31035.64,
+          "ratio": 2.3805,
+          "three_month_total": 7758.91,
+          "spend_tag": "premises"
+        }
+      ],
+      "full_list": "outputs/analytics-full/spend_vs_award.csv"
+    },
+    "high_value_suppliers": {
+      "status": "run",
+      "description": "Every normalised supplier whose annualised estimate is at or above the quote threshold, sorted by \u00a3: the population to request contract evidence for.",
+      "population": "named suppliers (Redacted left out)",
+      "rule_ids": [
+        "CPR-52",
+        "CPR-54"
+      ],
+      "threshold": {
+        "value": 25000,
+        "inclusive": true,
+        "rule_ids": [
+          "CPR-52",
+          "CPR-54"
+        ]
+      },
+      "parameters": {
+        "annualisation_factor": 4
+      },
+      "counts": {
+        "suppliers": 674,
+        "by_no_published_notice_class": {
+          "no published notice found": 625,
+          "exact match": 43,
+          "candidate": 6
+        }
+      },
+      "totals": {
+        "flagged": 65693298.47,
+        "flagged_annualised_estimate": 262773193.88,
+        "share_of_named_three_month_total_pct": 98.4
+      },
+      "flagged_definition": "all listed suppliers; 3-month \u00a3",
+      "redacted_not_attributable": {
+        "rows": 147,
+        "net_total": 422766.47,
+        "note": "Redacted \u00a3 cannot be attributed to a supplier"
+      },
+      "by_tag": {
+        "grant": {
+          "count": 124,
+          "total": 5875241.19
+        },
+        "agency_staff": {
+          "count": 1,
+          "total": 1275552.15
+        },
+        "premises": {
+          "count": 28,
+          "total": 965718.04
+        },
+        "placement": {
+          "count": 316,
+          "total": 32044552.15
+        },
+        "general_procurement": {
+          "count": 205,
+          "total": 25532234.94
+        }
+      },
+      "top20": [
+        {
+          "supplier": "VOLKERHIGHWAYS",
+          "spend_tag": "general_procurement",
+          "tag_split": "",
+          "rows": 126,
+          "three_month_total": 7377922.21,
+          "annualised_estimate": 29511688.84,
+          "top_services": "Environment (\u00a37,377,922.21)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "VEOLIA ES WEST BERKSHIRE",
+          "spend_tag": "general_procurement",
+          "tag_split": "",
+          "rows": 3,
+          "three_month_total": 6186065.04,
+          "annualised_estimate": 24744260.16,
+          "top_services": "Environment (\u00a36,186,065.04)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "MILLBROOK HEALTHCARE",
+          "spend_tag": "general_procurement",
+          "tag_split": "",
+          "rows": 4,
+          "three_month_total": 3459365.35,
+          "annualised_estimate": 13837461.4,
+          "top_services": "Finance, Property & Procurement (\u00a33,459,365.35)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "BUPA CARE SERVICES",
+          "spend_tag": "placement",
+          "tag_split": "",
+          "rows": 370,
+          "three_month_total": 1874166.5,
+          "annualised_estimate": 7496666.0,
+          "top_services": "Adult Social Care (\u00a31,874,166.50)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "COMENSURA",
+          "spend_tag": "agency_staff",
+          "tag_split": "",
+          "rows": 14,
+          "three_month_total": 1275552.15,
+          "annualised_estimate": 5102208.6,
+          "top_services": "Strategy & Governance (\u00a31,275,552.15)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "AFFINITY TRUST SUPPORT",
+          "spend_tag": "placement",
+          "tag_split": "",
+          "rows": 263,
+          "three_month_total": 1098336.76,
+          "annualised_estimate": 4393347.04,
+          "top_services": "Adult Social Care (\u00a31,098,336.76)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "OAKLANDS SEN SCHOOL BERKSHIRE",
+          "spend_tag": "placement",
+          "tag_split": "",
+          "rows": 54,
+          "three_month_total": 1026661.89,
+          "annualised_estimate": 4106647.56,
+          "top_services": "Education (DSG Funded) & Other Education Grants (\u00a31,026,661.89)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "RUSKIN MILL TRUST",
+          "spend_tag": "placement",
+          "tag_split": "",
+          "rows": 9,
+          "three_month_total": 795197.64,
+          "annualised_estimate": 3180790.56,
+          "top_services": "Adult Social Care (\u00a3738,023.28); Education (DSG Funded) & Other Education Grants (\u00a357,174.36)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "AMEGREEN CHILDRENS SERVICES",
+          "spend_tag": "placement",
+          "tag_split": "",
+          "rows": 27,
+          "three_month_total": 750437.33,
+          "annualised_estimate": 3001749.32,
+          "top_services": "Children's Social Care (\u00a3750,437.33)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "BRIGHTER LIVING CARE",
+          "spend_tag": "placement",
+          "tag_split": "",
+          "rows": 74,
+          "three_month_total": 747183.47,
+          "annualised_estimate": 2988733.88,
+          "top_services": "Adult Social Care (\u00a3747,183.47)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "CALCOT SERVICES FOR CHILDREN CSFC",
+          "spend_tag": "placement",
+          "tag_split": "",
+          "rows": 26,
+          "three_month_total": 639381.6,
+          "annualised_estimate": 2557526.4,
+          "top_services": "Children's Social Care (\u00a3331,574.52); Education (DSG Funded) & Other Education Grants (\u00a3307,807.08)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "WE ARE THE CARE COMPANY",
+          "spend_tag": "placement",
+          "tag_split": "",
+          "rows": 349,
+          "three_month_total": 589012.31,
+          "annualised_estimate": 2356049.24,
+          "top_services": "Adult Social Care (\u00a3589,012.31)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "THE BETTER GROUP",
+          "spend_tag": "placement",
+          "tag_split": "placement \u00a3326,636.83 (8 rows); general_procurement \u00a3261,853.25 (18 rows)",
+          "rows": 26,
+          "three_month_total": 588490.08,
+          "annualised_estimate": 2353960.32,
+          "top_services": "Adult Social Care (\u00a3391,050.45); Adult Social Care - Transformation Projects (\u00a3127,991.79); Children's Social Care (\u00a361,729.82)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "PHOENIX CHILD CARE THE GRANGE SCHOOL",
+          "spend_tag": "placement",
+          "tag_split": "",
+          "rows": 25,
+          "three_month_total": 567708.85,
+          "annualised_estimate": 2270835.4,
+          "top_services": "Education (DSG Funded) & Other Education Grants (\u00a3567,708.85)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "VOYAGE CARE",
+          "spend_tag": "placement",
+          "tag_split": "",
+          "rows": 80,
+          "three_month_total": 554678.88,
+          "annualised_estimate": 2218715.52,
+          "top_services": "Adult Social Care (\u00a3554,678.88)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "HUNGERFORD CARE HOME",
+          "spend_tag": "placement",
+          "tag_split": "",
+          "rows": 104,
+          "three_month_total": 545531.64,
+          "annualised_estimate": 2182126.56,
+          "top_services": "Adult Social Care (\u00a3545,531.64)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "SOFTWAREONE UK",
+          "spend_tag": "general_procurement",
+          "tag_split": "",
+          "rows": 4,
+          "three_month_total": 522978.62,
+          "annualised_estimate": 2091914.48,
+          "top_services": "Transformation, Customer & ICT (\u00a3522,978.62)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "LIVITY LIFE",
+          "spend_tag": "general_procurement",
+          "tag_split": "",
+          "rows": 9,
+          "three_month_total": 513074.85,
+          "annualised_estimate": 2052299.4,
+          "top_services": "Finance, Property & Procurement (\u00a3513,074.85)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "WEST BERKSHIRE MENCAP",
+          "spend_tag": "placement",
+          "tag_split": "placement \u00a3504,168.91 (114 rows); grant \u00a31,117.30 (1 rows)",
+          "rows": 115,
+          "three_month_total": 505286.21,
+          "annualised_estimate": 2021144.84,
+          "top_services": "Adult Social Care (\u00a3491,913.26); Children's Social Care (\u00a312,255.65); Education & SEND (\u00a31,117.30)",
+          "no_published_notice_class": "no published notice found"
+        },
+        {
+          "supplier": "PURLEY PARK TRUST",
+          "spend_tag": "placement",
+          "tag_split": "",
+          "rows": 94,
+          "three_month_total": 471283.82,
+          "annualised_estimate": 1885135.28,
+          "top_services": "Adult Social Care (\u00a3471,283.82)",
+          "no_published_notice_class": "no published notice found"
+        }
+      ],
+      "full_list": "outputs/analytics-full/high_value_suppliers.csv"
+    }
+  },
+  "reconciliation": {
+    "raw_rows": 10607,
+    "raw_net_total": 80427254.26,
+    "checks": [
+      {
+        "name": "file Over500_2026_P02_-_published.xlsx: rows read = clean + excluded",
+        "passed": true,
+        "detail": "2892 = 2322 + 570"
+      },
+      {
+        "name": "file Over500_2026_P02_-_published.xlsx: net total read = clean + excluded",
+        "passed": true
+      },
+      {
+        "name": "file Over500_2026_P03_-_published.xlsx: rows read = clean + excluded",
+        "passed": true,
+        "detail": "3547 = 2750 + 797"
+      },
+      {
+        "name": "file Over500_2026_P03_-_published.xlsx: net total read = clean + excluded",
+        "passed": true
+      },
+      {
+        "name": "file Over500_2026_P04_-_published.xlsx: rows read = clean + excluded",
+        "passed": true,
+        "detail": "4168 = 3577 + 591"
+      },
+      {
+        "name": "file Over500_2026_P04_-_published.xlsx: net total read = clean + excluded",
+        "passed": true
+      },
+      {
+        "name": "clean rows = Redacted + named (count)",
+        "passed": true
+      },
+      {
+        "name": "clean rows = Redacted + named (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "clean rows = sum over spend_tags (count)",
+        "passed": true
+      },
+      {
+        "name": "clean rows = sum over spend_tags (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "each row has exactly one spend_tag in the five tags",
+        "passed": true
+      },
+      {
+        "name": "threshold_clustering: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "371 vs 371"
+      },
+      {
+        "name": "threshold_clustering: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "threshold_clustering T=1000 below: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "324 vs 324"
+      },
+      {
+        "name": "threshold_clustering T=1000 below: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "threshold_clustering T=1000 comparison: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "215 vs 215"
+      },
+      {
+        "name": "threshold_clustering T=1000 comparison: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "threshold_clustering T=25000 below: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "47 vs 47"
+      },
+      {
+        "name": "threshold_clustering T=25000 below: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "threshold_clustering T=25000 comparison: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "52 vs 52"
+      },
+      {
+        "name": "threshold_clustering T=25000 comparison: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "threshold_clustering T=500000 below: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "0 vs 0"
+      },
+      {
+        "name": "threshold_clustering T=500000 below: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "threshold_clustering T=500000 comparison: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "0 vs 0"
+      },
+      {
+        "name": "threshold_clustering T=500000 comparison: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "split_purchases: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "409 vs 409"
+      },
+      {
+        "name": "split_purchases: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "split_purchases T=1000: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "199 vs 199"
+      },
+      {
+        "name": "split_purchases T=1000: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "split_purchases T=25000: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "202 vs 202"
+      },
+      {
+        "name": "split_purchases T=25000: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "split_purchases T=500000: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "8 vs 8"
+      },
+      {
+        "name": "split_purchases T=500000: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "no_published_notice: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "625 vs 625"
+      },
+      {
+        "name": "no_published_notice: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "duplicates: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "684 vs 684"
+      },
+      {
+        "name": "duplicates: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "expired_notice_spend: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "7 vs 7"
+      },
+      {
+        "name": "expired_notice_spend: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "spend_vs_award: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "8 vs 8"
+      },
+      {
+        "name": "spend_vs_award: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "high_value_suppliers: by_tag sums to total (count)",
+        "passed": true,
+        "detail": "674 vs 674"
+      },
+      {
+        "name": "high_value_suppliers: by_tag sums to total (\u00a3)",
+        "passed": true
+      },
+      {
+        "name": "no_published_notice classes sum to suppliers tested",
+        "passed": true
+      },
+      {
+        "name": "threshold_clustering: every transaction id exists in spend-clean.csv",
+        "passed": true
+      },
+      {
+        "name": "split_purchases: every transaction id exists in spend-clean.csv",
+        "passed": true
+      },
+      {
+        "name": "no_published_notice: every transaction id exists in spend-clean.csv",
+        "passed": true
+      },
+      {
+        "name": "duplicates: every transaction id exists in spend-clean.csv",
+        "passed": true
+      },
+      {
+        "name": "expired_notice_spend: every transaction id exists in spend-clean.csv",
+        "passed": true
+      },
+      {
+        "name": "expired_notice_spend_candidates: every transaction id exists in spend-clean.csv",
+        "passed": true
+      },
+      {
+        "name": "spend_vs_award: every transaction id exists in spend-clean.csv",
+        "passed": true
+      },
+      {
+        "name": "high_value_suppliers: every transaction id exists in spend-clean.csv",
+        "passed": true
+      },
+      {
+        "name": "exclusions.csv redacted entries exist in spend-clean.csv",
+        "passed": true
+      },
+      {
+        "name": "exclusions.csv redacted entries = Redacted rows in spend-clean.csv",
+        "passed": true
+      },
+      {
+        "name": "excluded rows are not in spend-clean.csv",
+        "passed": true
+      },
+      {
+        "name": "raw rows = clean + excluded (all files)",
+        "passed": true
+      },
+      {
+        "name": "raw \u00a3 = clean + excluded (all files)",
+        "passed": true
+      },
+      {
+        "name": "notice rows kept + dropped = rows read",
+        "passed": true
+      },
+      {
+        "name": "notice-suppliers.csv covers every kept notice with suppliers",
+        "passed": true
+      }
+    ]
+  }
+}

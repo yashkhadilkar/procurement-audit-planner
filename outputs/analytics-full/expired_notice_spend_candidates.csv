@@ -1,0 +1,6 @@
+supplier_norm,candidate_notice_supplier,candidate_method,candidate_notices,latest_candidate_notice_end,rows,spend_tag,tag_split,top_services,transaction_ids,total,annualised
+BERKSHIRE WOMENS AID,BERKSHIRE WOMEN S AID,difflib ratio 0.976,P00000926,2026-03-31,2,general_procurement,,"Public Health & Wellbeing (£52,997.50)",Over500_2026_P04_-_published:r721;Over500_2026_P04_-_published:r856,52997.5,211990.0
+SOLUTIONS4HEALTH,SOLUTIONS 4 HEALTH,difflib ratio 0.941,P00000897,2023-02-28,4,general_procurement,,"Public Health & Wellbeing (£45,277.62)",Over500_2026_P03_-_published:r1978;Over500_2026_P03_-_published:r1984;Over500_2026_P04_-_published:r3054;Over500_2026_P04_-_published:r3735,45277.62,181110.48
+VODAFONE CORPORATE,VODAFONE,containment,RM3808/CR786,2024-07-31,2,general_procurement,,"Transformation, Customer & ICT (£5,808.34)",Over500_2026_P02_-_published:r519;Over500_2026_P03_-_published:r428,5808.34,23233.36
+TMS CONSULTANCY,SJG CONSULTANCY,difflib ratio 0.867,P00000947,2023-07-31,1,general_procurement,,"Environment (£1,185.00)",Over500_2026_P04_-_published:r12,1185.0,4740.0
+CABLE WIRELESS COMMUNICATON VODAFONE,VODAFONE,containment,RM3808/CR786,2024-07-31,1,general_procurement,,"Transformation, Customer & ICT (£1,121.71)",Over500_2026_P04_-_published:r500,1121.71,4486.84

@@ -1,0 +1,378 @@
+{
+  "generated": "2026-10-13T04:55:19+00:00",
+  "inputs": [
+    "outputs/analytics-full/spend-clean.csv",
+    "outputs/analytics-full/notice-suppliers.csv",
+    "outputs/analytics.json"
+  ],
+  "passed": true,
+  "checks": 42,
+  "failed": [],
+  "results": [
+    {
+      "test": "window",
+      "item": "spend window",
+      "check": "start/end from spend-clean.csv",
+      "expected": [
+        "2026-05-01",
+        "2026-07-31"
+      ],
+      "recomputed": [
+        "2026-05-01",
+        "2026-07-31"
+      ],
+      "pass": true
+    },
+    {
+      "test": "threshold_clustering",
+      "item": "T=1000",
+      "check": "below-band count",
+      "expected": 324,
+      "recomputed": 324,
+      "pass": true
+    },
+    {
+      "test": "threshold_clustering",
+      "item": "T=1000",
+      "check": "below-band \u00a3",
+      "expected": 30812824,
+      "recomputed": 30812824,
+      "pass": true
+    },
+    {
+      "test": "threshold_clustering",
+      "item": "T=1000",
+      "check": "comparison-band count",
+      "expected": 215,
+      "recomputed": 215,
+      "pass": true
+    },
+    {
+      "test": "threshold_clustering",
+      "item": "T=1000",
+      "check": "comparison-band \u00a3",
+      "expected": 22565510,
+      "recomputed": 22565510,
+      "pass": true
+    },
+    {
+      "test": "split_purchases",
+      "item": "VOLKERHIGHWAYS T=500000",
+      "check": "listed transaction ids exist",
+      "expected": 10,
+      "recomputed": 10,
+      "pass": true
+    },
+    {
+      "test": "split_purchases",
+      "item": "VOLKERHIGHWAYS T=500000",
+      "check": "listed ids belong to one supplier",
+      "expected": [
+        "VOLKERHIGHWAYS"
+      ],
+      "recomputed": [
+        "VOLKERHIGHWAYS"
+      ],
+      "pass": true
+    },
+    {
+      "test": "split_purchases",
+      "item": "VOLKERHIGHWAYS T=500000",
+      "check": "listed ids inside the re-derived group",
+      "expected": true,
+      "recomputed": true,
+      "pass": true
+    },
+    {
+      "test": "split_purchases",
+      "item": "VOLKERHIGHWAYS T=500000",
+      "check": "each payment under T",
+      "expected": true,
+      "recomputed": true,
+      "pass": true
+    },
+    {
+      "test": "split_purchases",
+      "item": "VOLKERHIGHWAYS T=500000",
+      "check": "group total \u00a3",
+      "expected": 552318432,
+      "recomputed": 552318432,
+      "pass": true
+    },
+    {
+      "test": "split_purchases",
+      "item": "VOLKERHIGHWAYS T=500000",
+      "check": "group rows",
+      "expected": 124,
+      "recomputed": 124,
+      "pass": true
+    },
+    {
+      "test": "split_purchases",
+      "item": "VOLKERHIGHWAYS T=500000",
+      "check": "group rows = transaction id count",
+      "expected": 124,
+      "recomputed": 124,
+      "pass": true
+    },
+    {
+      "test": "split_purchases",
+      "item": "VOLKERHIGHWAYS T=500000",
+      "check": "group span days",
+      "expected": 91,
+      "recomputed": 91,
+      "pass": true
+    },
+    {
+      "test": "split_purchases",
+      "item": "VOLKERHIGHWAYS T=500000",
+      "check": "best window rows",
+      "expected": 55,
+      "recomputed": 55,
+      "pass": true
+    },
+    {
+      "test": "split_purchases",
+      "item": "VOLKERHIGHWAYS T=500000",
+      "check": "best window span <= split_window_days",
+      "expected": "<= 30",
+      "recomputed": 30,
+      "pass": true
+    },
+    {
+      "test": "split_purchases",
+      "item": "VOLKERHIGHWAYS T=500000",
+      "check": "best window total \u00a3",
+      "expected": 298747597,
+      "recomputed": 298747597,
+      "pass": true
+    },
+    {
+      "test": "split_purchases",
+      "item": "VOLKERHIGHWAYS T=500000",
+      "check": "best window total crosses T",
+      "expected": true,
+      "recomputed": true,
+      "pass": true
+    },
+    {
+      "test": "split_purchases",
+      "item": "VOLKERHIGHWAYS T=500000",
+      "check": "best window has >= 2 payments",
+      "expected": true,
+      "recomputed": true,
+      "pass": true
+    },
+    {
+      "test": "no_published_notice",
+      "item": "VOLKERHIGHWAYS",
+      "check": "3-month total \u00a3",
+      "expected": 737792221,
+      "recomputed": 737792221,
+      "pass": true
+    },
+    {
+      "test": "no_published_notice",
+      "item": "VOLKERHIGHWAYS",
+      "check": "annualised estimate \u00a3",
+      "expected": 2951168884,
+      "recomputed": 2951168884,
+      "pass": true
+    },
+    {
+      "test": "no_published_notice",
+      "item": "VOLKERHIGHWAYS",
+      "check": "rows",
+      "expected": 126,
+      "recomputed": 126,
+      "pass": true
+    },
+    {
+      "test": "no_published_notice",
+      "item": "VOLKERHIGHWAYS",
+      "check": "active notices with same supplier_norm",
+      "expected": 0,
+      "recomputed": 0,
+      "pass": true
+    },
+    {
+      "test": "no_published_notice",
+      "item": "VOLKERHIGHWAYS",
+      "check": "annualised estimate at/above tender threshold",
+      "expected": true,
+      "recomputed": true,
+      "pass": true
+    },
+    {
+      "test": "duplicates",
+      "item": "OAKLANDS SEN SCHOOL BERKSHIRE \u00a320337.45",
+      "check": "all transaction ids exist",
+      "expected": 36,
+      "recomputed": 36,
+      "pass": true
+    },
+    {
+      "test": "duplicates",
+      "item": "OAKLANDS SEN SCHOOL BERKSHIRE \u00a320337.45",
+      "check": "one supplier",
+      "expected": [
+        "OAKLANDS SEN SCHOOL BERKSHIRE"
+      ],
+      "recomputed": [
+        "OAKLANDS SEN SCHOOL BERKSHIRE"
+      ],
+      "pass": true
+    },
+    {
+      "test": "duplicates",
+      "item": "OAKLANDS SEN SCHOOL BERKSHIRE \u00a320337.45",
+      "check": "one amount (pence)",
+      "expected": [
+        2033745
+      ],
+      "recomputed": [
+        2033745
+      ],
+      "pass": true
+    },
+    {
+      "test": "duplicates",
+      "item": "OAKLANDS SEN SCHOOL BERKSHIRE \u00a320337.45",
+      "check": "each date within duplicate_window_days of the next",
+      "expected": "<= 7",
+      "recomputed": 0,
+      "pass": true
+    },
+    {
+      "test": "duplicates",
+      "item": "OAKLANDS SEN SCHOOL BERKSHIRE \u00a320337.45",
+      "check": "group total \u00a3",
+      "expected": 73214820,
+      "recomputed": 73214820,
+      "pass": true
+    },
+    {
+      "test": "expired_notice_spend",
+      "item": "HOPE CLAY CONSTRUCTION",
+      "check": "exact-match notices",
+      "expected": [
+        "IT-402-1300-P00001300 - AWARD",
+        "IT-402-864-P00000864 - AWARD"
+      ],
+      "recomputed": [
+        "IT-402-1300-P00001300 - AWARD",
+        "IT-402-864-P00000864 - AWARD"
+      ],
+      "pass": true
+    },
+    {
+      "test": "expired_notice_spend",
+      "item": "HOPE CLAY CONSTRUCTION",
+      "check": "every exact-match notice ended before window start",
+      "expected": true,
+      "recomputed": true,
+      "pass": true
+    },
+    {
+      "test": "expired_notice_spend",
+      "item": "HOPE CLAY CONSTRUCTION",
+      "check": "3-month total \u00a3",
+      "expected": 9130675,
+      "recomputed": 9130675,
+      "pass": true
+    },
+    {
+      "test": "spend_vs_award",
+      "item": "NEC SOFTWARE SOLUTIONS UK",
+      "check": "annualised estimate \u00a3",
+      "expected": 125753428,
+      "recomputed": 125753428,
+      "pass": true
+    },
+    {
+      "test": "spend_vs_award",
+      "item": "NEC SOFTWARE SOLUTIONS UK",
+      "check": "exactly one active exact-match notice",
+      "expected": [
+        "RM6259/CL766"
+      ],
+      "recomputed": [
+        "RM6259/CL766"
+      ],
+      "pass": true
+    },
+    {
+      "test": "spend_vs_award",
+      "item": "NEC SOFTWARE SOLUTIONS UK",
+      "check": "single supplier block",
+      "expected": 1,
+      "recomputed": 1,
+      "pass": true
+    },
+    {
+      "test": "spend_vs_award",
+      "item": "NEC SOFTWARE SOLUTIONS UK",
+      "check": "Awarded Value \u00a3",
+      "expected": 61554000,
+      "recomputed": 61554000,
+      "pass": true
+    },
+    {
+      "test": "spend_vs_award",
+      "item": "NEC SOFTWARE SOLUTIONS UK",
+      "check": "contract years (4 dp)",
+      "expected": 2.9979,
+      "recomputed": 2.9979,
+      "pass": true
+    },
+    {
+      "test": "spend_vs_award",
+      "item": "NEC SOFTWARE SOLUTIONS UK",
+      "check": "ratio (4 dp)",
+      "expected": 6.1247,
+      "recomputed": 6.1247,
+      "pass": true
+    },
+    {
+      "test": "spend_vs_award",
+      "item": "NEC SOFTWARE SOLUTIONS UK",
+      "check": "ratio at/above award_ratio_flag",
+      "expected": true,
+      "recomputed": true,
+      "pass": true
+    },
+    {
+      "test": "high_value_suppliers",
+      "item": "VOLKERHIGHWAYS",
+      "check": "3-month total \u00a3",
+      "expected": 737792221,
+      "recomputed": 737792221,
+      "pass": true
+    },
+    {
+      "test": "high_value_suppliers",
+      "item": "VOLKERHIGHWAYS",
+      "check": "annualised estimate \u00a3",
+      "expected": 2951168884,
+      "recomputed": 2951168884,
+      "pass": true
+    },
+    {
+      "test": "high_value_suppliers",
+      "item": "population",
+      "check": "suppliers at/above quote threshold",
+      "expected": 674,
+      "recomputed": 674,
+      "pass": true
+    },
+    {
+      "test": "high_value_suppliers",
+      "item": "VOLKERHIGHWAYS",
+      "check": "ranked first by \u00a3",
+      "expected": "VOLKERHIGHWAYS",
+      "recomputed": "VOLKERHIGHWAYS",
+      "pass": true
+    }
+  ],
+  "not_checked": []
+}

@@ -132,14 +132,16 @@ the outputs.
 | 2 | every non-alphanumeric character → space; collapse whitespace | `D.J. Travel` → `D J TRAVEL` |
 | 3 | trading name: if the tokens `T A`, `T AS` or `TRADING AS` appear after at least one other token, keep only the text after the last one | `SIKANDAR HAYAT T A PROMPT CARS` → `PROMPT CARS` |
 | 4 | drop the tokens `LTD`, `LIMITED`, `PLC`, `LLP` anywhere | `WCL UK LTD` → `WCL UK` |
-| 5 | drop payment tags, a fixed list starting with `CHAPS ONLY` (token sequence) | `VEOLIA ES WEST BERKSHIRE CHAPS ONLY` → `VEOLIA ES WEST BERKSHIRE` |
+| 5 | drop payment tags, a fixed list of token sequences, longest first: `DD PAYMENTS ONLY`, `CHAPS ONLY`, `BACS`. Log rows affected per tag | `VEOLIA ES WEST BERKSHIRE CHAPS ONLY` → `VEOLIA ES WEST BERKSHIRE` |
 | 6 | collapse whitespace, strip; if empty, fall back to the rule-2 result and log it | |
 
 Log every rule to `normalisation-log.csv`, one row per (source, raw name),
 with the rules that changed it. `analytics.json` reports, per rule, how many
 distinct names it changed on each side (spend, notices). Do not add a rule or
-a tag of your own. If you see other likely payment tags (names containing
-BACS, CHEQUE, PAYMENT and so on), report them for the human to decide.
+a tag of your own. `PAYMENTS` on its own is deliberately not a tag: it is
+part of real company names (e.g. `FIS PAYMENTS`). If you see other likely
+payment tags (names containing CHEQUE, PAYMENT and so on), report them for
+the human to decide.
 
 ## Step 2: Parse the notices (`scripts/contracts.py`)
 
@@ -153,12 +155,16 @@ Read with `dtype=str, keep_default_na=False`.
    raw name (element 1), `supplier_norm`, ref type, Companies House number
    (element 4, only when ref type is `COMPANIES_HOUSE` and it is non-blank),
    number of blocks on the notice, and the notice's dates and Awarded Value.
-3. Dates: Start, End and Awarded Date with `format="%d/%m/%Y"`; Published Date
-   with `format="%Y-%m-%dT%H:%M:%S%z"`, which reads both the `Z` and the
-   `+01:00` forms in the export.
-4. Active: End Date on or after the spend window start (blank end = active)
-   AND Start Date on or before the spend window end. Awarded Value 0.00 still
-   counts as a contract.
+3. Dates: a notice's start and end are the `Contract start date` and
+   `Contract end date` columns, as CLAUDE.md says. The export also has
+   `Start Date`/`End Date`, which differ on some notices; do not use them.
+   Parse the contract dates and Awarded Date with `format="%d/%m/%Y"`;
+   Published Date with `format="%Y-%m-%dT%H:%M:%S%z"`, which reads both the
+   `Z` and the `+01:00` forms in the export.
+4. Active: `Contract end date` on or after the spend window start (blank end
+   = active) AND `Contract start date` on or before the spend window end.
+   Awarded Value 0.00 still counts as a contract. Every later use of a
+   notice's start or end (Tests 5 and 6) uses these same two columns.
 5. Export cap: warn only if contracts.csv has 950 or more data rows.
 
 ## Step 3: Thresholds from rules.json (`scripts/common.py`)

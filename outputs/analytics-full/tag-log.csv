@@ -1,0 +1,33 @@
+kind,rule,spend_tag,rule_text,narrative,rank,rows,net_total,redacted_rows
+rule,1,grant,"Narrative = ""Grants""",,,346,6047375.32,4
+top_narrative,1,grant,,Grants,1,346,6047375.32,
+rule,2,agency_staff,"Narrative = ""Agency & Temporary Staff""",,,24,1285541.24,0
+top_narrative,2,agency_staff,,Agency & Temporary Staff,1,24,1285541.24,
+rule,3,premises,"Expenditure category = ""Premises""",,,537,1147357.03,11
+top_narrative,3,premises,,Rents,1,202,539565.4,
+top_narrative,3,premises,,Corporate R&M,2,166,234317.01,
+top_narrative,3,premises,,Grounds Maintenance,3,49,184014.61,
+top_narrative,3,premises,,Cleaning,4,83,104175.66,
+top_narrative,3,premises,,Water Rates,5,8,31291.86,
+top_narrative,3,premises,,Energy costs,6,17,17905.88,
+top_narrative,3,premises,,Survey,7,8,16005.0,
+top_narrative,3,premises,,Waste,8,1,10967.77,
+top_narrative,3,premises,,Fixtures & Fittings,9,2,5417.0,
+top_narrative,3,premises,,Premises Insurance,10,1,3696.84,
+rule,4,placement,"Expenditure category = ""Third Party Payments"" and Service in Adult Social Care; Children's Social Care; Education & SEND; Education (DSG Funded) & Other Education Grants",,,5883,31915884.15,2
+top_narrative,4,placement,,Private Contractors,1,5223,24117723.49,
+top_narrative,4,placement,,Other agencies,2,300,4464951.28,
+top_narrative,4,placement,,Voluntary Associations,3,318,1990726.43,
+top_narrative,4,placement,,Payment to contractor,4,36,1307099.96,
+top_narrative,4,placement,,Private Contractors Additional Cost,5,6,35382.99,
+rule,5,general_procurement,everything else,,,1859,26760933.53,130
+top_narrative,5,general_procurement,,Private Contractors,1,158,12477783.92,
+top_narrative,5,general_procurement,,Payment to contractor,2,174,7388811.86,
+top_narrative,5,general_procurement,,Transport Hire,3,596,1574392.25,
+top_narrative,5,general_procurement,,IT,4,93,1461701.3,
+top_narrative,5,general_procurement,,Professional Fees,5,135,555588.04,
+top_narrative,5,general_procurement,,Minor Works,6,63,455062.35,
+top_narrative,5,general_procurement,,Public Transport,7,49,410931.83,
+top_narrative,5,general_procurement,,Subscriptions,8,29,304405.58,
+top_narrative,5,general_procurement,,ASC Deferred Debt,9,66,301181.59,
+top_narrative,5,general_procurement,,Catering,10,27,176325.57,

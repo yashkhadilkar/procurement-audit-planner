@@ -1,0 +1,1 @@
+- [Spend pipeline how-to](pipeline_howto.md) — pandas 3 dtypes, Excel row ids, integer pence, mixed-offset dates, compact split top20

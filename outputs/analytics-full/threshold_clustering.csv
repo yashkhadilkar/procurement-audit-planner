@@ -1,0 +1,639 @@
+threshold,band,transaction_id,date,service,supplier_name,supplier_norm,spend_tag,redacted,net
+25000,comparison,Over500_2026_P02_-_published:r2097,2026-05-26,Children's Social Care,Esland North Ltd,ESLAND NORTH,placement,False,27475.65
+25000,comparison,Over500_2026_P04_-_published:r3163,2026-07-24,Children's Social Care,Esland North Ltd,ESLAND NORTH,placement,False,27475.65
+25000,comparison,Over500_2026_P03_-_published:r492,2026-06-17,Education (DSG Funded) & Other Education Grants,HERMITAGE PRE SCHOOL PLAYGROU,HERMITAGE PRE SCHOOL PLAYGROU,grant,False,27436.28
+25000,comparison,Over500_2026_P03_-_published:r383,2026-06-30,Community Services,CIVICA  UK LTD,CIVICA UK,general_procurement,False,27176.36
+25000,comparison,Over500_2026_P02_-_published:r2160,2026-05-12,Development & Housing,TWO SAINTS LTD,TWO SAINTS,general_procurement,False,27147.69
+25000,comparison,Over500_2026_P02_-_published:r2161,2026-05-13,Development & Housing,TWO SAINTS LTD,TWO SAINTS,general_procurement,False,27147.69
+25000,comparison,Over500_2026_P02_-_published:r2162,2026-05-27,Development & Housing,TWO SAINTS LTD,TWO SAINTS,general_procurement,False,27147.69
+25000,comparison,Over500_2026_P03_-_published:r3080,2026-06-25,Development & Housing,TWO SAINTS LTD,TWO SAINTS,general_procurement,False,27147.69
+25000,comparison,Over500_2026_P04_-_published:r3781,2026-07-20,Development & Housing,TWO SAINTS LTD,TWO SAINTS,general_procurement,False,27147.69
+25000,comparison,Over500_2026_P04_-_published:r3248,2026-07-16,Education (DSG Funded) & Other Education Grants,CAMBIAN AUTISM SERVICES LIMITED,CAMBIAN AUTISM SERVICES,placement,False,27136.35
+25000,comparison,Over500_2026_P02_-_published:r2270,2026-05-26,Education (DSG Funded) & Other Education Grants,Huckleberry House,HUCKLEBERRY HOUSE,placement,False,26908.75
+25000,comparison,Over500_2026_P03_-_published:r373,2026-06-11,"Transformation, Customer & ICT",Servnet Ltd,SERVNET,general_procurement,False,26799.72
+25000,comparison,Over500_2026_P03_-_published:r1708,2026-06-24,Adult Social Care,Brighter Living Care Ltd,BRIGHTER LIVING CARE,placement,False,26734.96
+25000,comparison,Over500_2026_P04_-_published:r2250,2026-07-01,Adult Social Care,Brighter Living Care Ltd,BRIGHTER LIVING CARE,placement,False,26734.96
+25000,comparison,Over500_2026_P04_-_published:r2547,2026-07-29,Adult Social Care,Brighter Living Care Ltd,BRIGHTER LIVING CARE,placement,False,26734.96
+25000,comparison,Over500_2026_P02_-_published:r1737,2026-05-13,Adult Social Care,Brighter Living Care Ltd,BRIGHTER LIVING CARE,placement,False,26670.44
+25000,comparison,Over500_2026_P03_-_published:r1656,2026-06-24,Adult Social Care,Brighter Living Care Ltd,BRIGHTER LIVING CARE,placement,False,26596.08
+25000,comparison,Over500_2026_P04_-_published:r2249,2026-07-01,Adult Social Care,Brighter Living Care Ltd,BRIGHTER LIVING CARE,placement,False,26596.08
+25000,comparison,Over500_2026_P04_-_published:r3473,2026-07-29,Adult Social Care,Brighter Living Care Ltd,BRIGHTER LIVING CARE,placement,False,26596.08
+25000,comparison,Over500_2026_P02_-_published:r2036,2026-05-13,Children's Social Care,Esland North Ltd,ESLAND NORTH,placement,False,26589.34
+25000,comparison,Over500_2026_P03_-_published:r3047,2026-06-22,Children's Social Care,Esland North Ltd,ESLAND NORTH,placement,False,26589.34
+25000,comparison,Over500_2026_P03_-_published:r528,2026-06-12,Children's Social Care,Beam Up Ltd,BEAM UP,general_procurement,False,26556.33
+25000,comparison,Over500_2026_P02_-_published:r1730,2026-05-13,Adult Social Care,Brighter Living Care Ltd,BRIGHTER LIVING CARE,placement,False,26531.96
+25000,comparison,Over500_2026_P02_-_published:r2045,2026-05-19,Children's Social Care,Sukhbir Singh and Harvinder Singh T/A Calcot Services for Children (CSFC),CALCOT SERVICES FOR CHILDREN CSFC,placement,False,26481.44
+25000,comparison,Over500_2026_P03_-_published:r1628,2026-06-24,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,26394.66
+25000,comparison,Over500_2026_P04_-_published:r3196,2026-07-13,"Finance, Property & Procurement",Livity Life Ltd,LIVITY LIFE,general_procurement,False,26337.9
+25000,comparison,Over500_2026_P02_-_published:r2120,2026-05-26,Children's Social Care,Unity Residential Care Services,UNITY RESIDENTIAL CARE SERVICES,placement,False,26296.33
+25000,comparison,Over500_2026_P04_-_published:r1008,2026-07-15,Education & SEND,UNIVERSITY OF SOUTHAMPTON,UNIVERSITY OF SOUTHAMPTON,general_procurement,False,26204.0
+25000,comparison,Over500_2026_P03_-_published:r203,2026-06-03,Education & SEND,Sikandar Hayat t/a Prompt Cars,PROMPT CARS,general_procurement,False,26085.0
+25000,comparison,Over500_2026_P04_-_published:r3177,2026-07-16,Children's Social Care,CAMBIAN AUTISM SERVICES LIMITED,CAMBIAN AUTISM SERVICES,placement,False,26072.17
+25000,comparison,Over500_2026_P02_-_published:r2102,2026-05-26,Children's Social Care,POSITIVE FOOTSTEPS,POSITIVE FOOTSTEPS,placement,False,26000.0
+25000,comparison,Over500_2026_P03_-_published:r2098,2026-06-12,Development & Housing,THE NEWBURY COMMUNITY RESOURCE CENTRE LTD,THE NEWBURY COMMUNITY RESOURCE CENTRE,grant,False,26000.0
+25000,comparison,Over500_2026_P03_-_published:r3046,2026-06-22,Children's Social Care,POSITIVE FOOTSTEPS,POSITIVE FOOTSTEPS,placement,False,26000.0
+25000,comparison,Over500_2026_P04_-_published:r3085,2026-07-29,Children's Social Care,POSITIVE FOOTSTEPS,POSITIVE FOOTSTEPS,placement,False,26000.0
+25000,comparison,Over500_2026_P03_-_published:r3105,2026-06-03,Education (DSG Funded) & Other Education Grants,CAMBIAN AUTISM SERVICES LIMITED,CAMBIAN AUTISM SERVICES,placement,False,25988.28
+25000,comparison,Over500_2026_P04_-_published:r3249,2026-07-16,Education (DSG Funded) & Other Education Grants,CAMBIAN AUTISM SERVICES LIMITED,CAMBIAN AUTISM SERVICES,placement,False,25988.28
+25000,comparison,Over500_2026_P04_-_published:r797,2026-07-14,Environment,SWARCO SMART CHARGING LTD,SWARCO SMART CHARGING,general_procurement,False,25983.79
+25000,comparison,Over500_2026_P03_-_published:r2985,2026-06-17,Adult Social Care,FOCUS SUPPORT LTD,FOCUS SUPPORT,placement,False,25934.52
+25000,comparison,Over500_2026_P03_-_published:r1854,2026-06-17,Adult Social Care,FOCUS SUPPORT LTD,FOCUS SUPPORT,placement,False,25652.51
+25000,comparison,Over500_2026_P03_-_published:r1932,2026-06-16,Children's Social Care,Sukhbir Singh and Harvinder Singh T/A Calcot Services for Children (CSFC),CALCOT SERVICES FOR CHILDREN CSFC,placement,False,25627.2
+25000,comparison,Over500_2026_P02_-_published:r2272,2026-05-26,Education (DSG Funded) & Other Education Grants,ACORN CARE & EDUCATION LTD,ACORN CARE EDUCATION,placement,False,25533.7
+25000,comparison,Over500_2026_P02_-_published:r2276,2026-05-26,Education (DSG Funded) & Other Education Grants,ACORN CARE & EDUCATION LTD,ACORN CARE EDUCATION,placement,False,25533.7
+25000,comparison,Over500_2026_P03_-_published:r2228,2026-06-17,Education (DSG Funded) & Other Education Grants,ACORN CARE & EDUCATION LTD,ACORN CARE EDUCATION,placement,False,25533.7
+25000,comparison,Over500_2026_P03_-_published:r580,2026-06-17,Education (DSG Funded) & Other Education Grants,WINGS & WELLIES PRE-SCHOOL (ST GEORGE'S PRE-SCHOOL),WINGS WELLIES PRE SCHOOL ST GEORGE S PRE SCHOOL,grant,False,25492.93
+25000,comparison,Over500_2026_P02_-_published:r2202,2026-05-26,"Finance, Property & Procurement",SLOUGH CHILDREN FIRST LIMITED,SLOUGH CHILDREN FIRST,general_procurement,False,25469.56
+25000,comparison,Over500_2026_P04_-_published:r3768,2026-07-03,Children's Social Care,Unity Residential Care Services,UNITY RESIDENTIAL CARE SERVICES,placement,False,25448.06
+25000,comparison,Over500_2026_P02_-_published:r2278,2026-05-26,Education (DSG Funded) & Other Education Grants,ACORN CARE & EDUCATION LTD,ACORN CARE EDUCATION,placement,False,25316.03
+25000,comparison,Over500_2026_P03_-_published:r3118,2026-06-18,Education (DSG Funded) & Other Education Grants,ACORN CARE & EDUCATION LTD,ACORN CARE EDUCATION,placement,False,25316.03
+25000,comparison,Over500_2026_P03_-_published:r2187,2026-06-03,Education (DSG Funded) & Other Education Grants,CAMBIAN AUTISM SERVICES LIMITED,CAMBIAN AUTISM SERVICES,placement,False,25149.95
+25000,comparison,Over500_2026_P04_-_published:r3283,2026-07-03,Education (DSG Funded) & Other Education Grants,CAMBIAN AUTISM SERVICES LIMITED,CAMBIAN AUTISM SERVICES,placement,False,25149.95
+25000,comparison,Over500_2026_P03_-_published:r18,2026-06-01,Adult Social Care,The Better Group Ltd,THE BETTER GROUP,general_procurement,False,25136.34
+25000,comparison,Over500_2026_P04_-_published:r623,2026-07-16,Environment,BBOWT,BBOWT,general_procurement,False,25000.0
+25000,below,Over500_2026_P04_-_published:r2239,2026-07-01,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,24926.0
+25000,below,Over500_2026_P03_-_published:r2056,2026-06-17,Education (DSG Funded) & Other Education Grants,CHARMAINE CAULFIELD,CHARMAINE CAULFIELD,grant,False,24850.39
+25000,below,Over500_2026_P03_-_published:r2307,2026-06-03,Education (DSG Funded) & Other Education Grants,Sukhbir Singh and Harvinder Singh T/A Calcot Services for Children (CSFC),CALCOT SERVICES FOR CHILDREN CSFC,placement,False,24788.75
+25000,below,Over500_2026_P03_-_published:r1660,2026-06-24,Adult Social Care,FOCUS SUPPORT LTD,FOCUS SUPPORT,placement,False,24719.02
+25000,below,Over500_2026_P03_-_published:r2074,2026-06-17,Education (DSG Funded) & Other Education Grants,BEANSHEAF COMMUNITY PRE-SCHOO,BEANSHEAF COMMUNITY PRE SCHOO,grant,False,24705.36
+25000,below,Over500_2026_P02_-_published:r2241,2026-05-12,Education (DSG Funded) & Other Education Grants,Sukhbir Singh and Harvinder Singh T/A Calcot Services for Children (CSFC),CALCOT SERVICES FOR CHILDREN CSFC,placement,False,24618.75
+25000,below,Over500_2026_P03_-_published:r2106,2026-06-30,Children's Social Care,Unity Residential Care Services,UNITY RESIDENTIAL CARE SERVICES,placement,False,24587.49
+25000,below,Over500_2026_P02_-_published:r2265,2026-05-22,Education (DSG Funded) & Other Education Grants,ACORN CARE & EDUCATION LTD,ACORN CARE EDUCATION,placement,False,24578.67
+25000,below,Over500_2026_P04_-_published:r1281,2026-07-29,Adult Social Care,The Better Group Ltd,THE BETTER GROUP,placement,False,24476.02
+25000,below,Over500_2026_P02_-_published:r2268,2026-05-26,Education (DSG Funded) & Other Education Grants,Huckleberry House,HUCKLEBERRY HOUSE,placement,False,24453.39
+25000,below,Over500_2026_P02_-_published:r2201,2026-05-15,"Finance, Property & Procurement",WOKINGHAM BOROUGH COUNCIL,WOKINGHAM BOROUGH COUNCIL,general_procurement,False,24416.73
+25000,below,Over500_2026_P04_-_published:r3059,2026-07-09,Children's Social Care,Utopia Supported Housing Ltd,UTOPIA SUPPORTED HOUSING,placement,False,24383.88
+25000,below,Over500_2026_P03_-_published:r649,2026-06-18,Chief Executive,Triple Value Impact,TRIPLE VALUE IMPACT,general_procurement,False,24244.0
+25000,below,Over500_2026_P02_-_published:r560,2026-05-12,Development & Housing,DevComms South East Ltd,DEVCOMMS SOUTH EAST,general_procurement,False,24227.07
+25000,below,Over500_2026_P02_-_published:r2271,2026-05-26,Education (DSG Funded) & Other Education Grants,ACORN CARE & EDUCATION LTD,ACORN CARE EDUCATION,placement,False,24110.58
+25000,below,Over500_2026_P03_-_published:r13,2026-06-01,Children's Social Care,The Better Group Ltd,THE BETTER GROUP,general_procurement,False,24088.98
+25000,below,Over500_2026_P03_-_published:r396,2026-06-10,"Transformation, Customer & ICT",BookingLab Limited,BOOKINGLAB,general_procurement,False,24000.0
+25000,below,Over500_2026_P02_-_published:r2021,2026-05-01,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P02_-_published:r2033,2026-05-12,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P02_-_published:r2037,2026-05-13,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P02_-_published:r2096,2026-05-26,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P03_-_published:r1931,2026-06-16,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P03_-_published:r2004,2026-06-03,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P03_-_published:r2008,2026-06-16,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P03_-_published:r3044,2026-06-22,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P04_-_published:r3092,2026-07-23,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P04_-_published:r3154,2026-07-06,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P04_-_published:r3161,2026-07-23,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P04_-_published:r3165,2026-07-31,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P04_-_published:r3743,2026-07-01,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P04_-_published:r3750,2026-07-17,Children's Social Care,Care Services To You,CARE SERVICES TO YOU,placement,False,23989.77
+25000,below,Over500_2026_P02_-_published:r530,2026-05-27,Adult Social Care,Elior UK PLC,ELIOR UK,general_procurement,False,23694.03
+25000,below,Over500_2026_P03_-_published:r105,2026-06-09,Development & Housing,READING WEST APARTHOTEL,READING WEST APARTHOTEL,premises,False,23660.0
+25000,below,Over500_2026_P03_-_published:r683,2026-06-08,Environment,VolkerHighways Ltd,VOLKERHIGHWAYS,general_procurement,False,23591.22
+25000,below,Over500_2026_P03_-_published:r440,2026-06-16,Adult Social Care,Elior UK PLC,ELIOR UK,general_procurement,False,23516.69
+25000,below,Over500_2026_P02_-_published:r2245,2026-05-19,Education (DSG Funded) & Other Education Grants,Phoenix Child Care Limited -The Grange School,PHOENIX CHILD CARE THE GRANGE SCHOOL,placement,False,23210.0
+25000,below,Over500_2026_P02_-_published:r2258,2026-05-20,Education (DSG Funded) & Other Education Grants,Phoenix Child Care Limited -The Grange School,PHOENIX CHILD CARE THE GRANGE SCHOOL,placement,False,23210.0
+25000,below,Over500_2026_P02_-_published:r2262,2026-05-21,Education (DSG Funded) & Other Education Grants,Phoenix Child Care Limited -The Grange School,PHOENIX CHILD CARE THE GRANGE SCHOOL,placement,False,23210.0
+25000,below,Over500_2026_P04_-_published:r533,2026-07-28,Adult Social Care,Elior UK PLC,ELIOR UK,general_procurement,False,23173.08
+25000,below,Over500_2026_P02_-_published:r2887,2026-06-04,Adult Social Care,Redacted,,general_procurement,True,23168.64
+25000,below,Over500_2026_P02_-_published:r2259,2026-05-20,Education (DSG Funded) & Other Education Grants,Phoenix Child Care Limited -The Grange School,PHOENIX CHILD CARE THE GRANGE SCHOOL,placement,False,23076.67
+25000,below,Over500_2026_P03_-_published:r601,2026-06-17,Education (DSG Funded) & Other Education Grants,PIED PIPER PRE-SCHOOL,PIED PIPER PRE SCHOOL,grant,False,23073.34
+25000,below,Over500_2026_P03_-_published:r1833,2026-06-24,Adult Social Care,FOCUS SUPPORT LTD,FOCUS SUPPORT,placement,False,23053.87
+25000,below,Over500_2026_P04_-_published:r1271,2026-07-06,Education & SEND,WEST BERKSHIRE TRAINING CONSORTIUM,WEST BERKSHIRE TRAINING CONSORTIUM,grant,False,22963.98
+25000,below,Over500_2026_P03_-_published:r506,2026-06-17,Education (DSG Funded) & Other Education Grants,MINI OAKS PRESCHOOL,MINI OAKS PRESCHOOL,grant,False,22882.17
+25000,below,Over500_2026_P04_-_published:r2262,2026-07-01,Adult Social Care,Bleep 360 Care Limited,BLEEP 360 CARE,placement,False,22849.04
+25000,below,Over500_2026_P03_-_published:r2206,2026-06-17,Education (DSG Funded) & Other Education Grants,ACORN CARE & EDUCATION LTD,ACORN CARE EDUCATION,placement,False,22616.72
+1000,comparison,Over500_2026_P02_-_published:r342,2026-05-05,Education & SEND,Andrew Cox,ANDREW COX,general_procurement,False,1100.0
+1000,comparison,Over500_2026_P04_-_published:r3806,2026-07-22,Education (DSG Funded) & Other Education Grants,MARY HARE SCHOOL,MARY HARE SCHOOL,placement,False,1100.0
+1000,comparison,Over500_2026_P02_-_published:r890,2026-05-13,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1098.88
+1000,comparison,Over500_2026_P04_-_published:r1202,2026-07-01,Adult Social Care,Address Enterprise Ltd,ADDRESS ENTERPRISE,placement,False,1098.88
+1000,comparison,Over500_2026_P04_-_published:r1869,2026-07-01,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,1098.67
+1000,comparison,Over500_2026_P04_-_published:r1746,2026-07-29,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1098.66
+1000,comparison,Over500_2026_P04_-_published:r1795,2026-07-15,Adult Social Care,Goldcrest Care Services,GOLDCREST CARE SERVICES,placement,False,1098.65
+1000,comparison,Over500_2026_P04_-_published:r922,2026-07-08,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1098.38
+1000,comparison,Over500_2026_P03_-_published:r1306,2026-06-24,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,1095.58
+1000,comparison,Over500_2026_P02_-_published:r676,2026-05-20,Education & SEND,ARCHIBALD SHAW LTD,ARCHIBALD SHAW,placement,False,1095.0
+1000,comparison,Over500_2026_P04_-_published:r32,2026-07-29,Adult Social Care,ANCHOR PIPEWORK LIMITED,ANCHOR PIPEWORK,premises,False,1094.31
+1000,comparison,Over500_2026_P03_-_published:r219,2026-06-17,Education & SEND,SOUTHERN COACH LINES LTD,SOUTHERN COACH LINES,general_procurement,False,1093.63
+1000,comparison,Over500_2026_P04_-_published:r599,2026-07-24,Environment,VolkerHighways Ltd,VOLKERHIGHWAYS,general_procurement,False,1093.03
+1000,comparison,Over500_2026_P04_-_published:r2100,2026-07-29,Adult Social Care,I.V Care Limited t/a Good Oaks Home Care (Reading),GOOD OAKS HOME CARE READING,placement,False,1092.96
+1000,comparison,Over500_2026_P04_-_published:r2426,2026-07-15,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,1092.96
+1000,comparison,Over500_2026_P04_-_published:r2721,2026-07-15,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,1092.96
+1000,comparison,Over500_2026_P04_-_published:r2741,2026-07-01,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,1092.96
+1000,comparison,Over500_2026_P04_-_published:r2769,2026-07-01,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,1092.96
+1000,comparison,Over500_2026_P04_-_published:r3638,2026-07-15,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,1092.96
+1000,comparison,Over500_2026_P02_-_published:r221,2026-05-12,Children's Social Care,GREEN METRO CARS READING LTD,GREEN METRO CARS READING,general_procurement,False,1092.0
+1000,comparison,Over500_2026_P02_-_published:r266,2026-05-13,Education & SEND,FD TRAVELS LIMITED T/A SCHOOL EXPRESS,SCHOOL EXPRESS,general_procurement,False,1092.0
+1000,comparison,Over500_2026_P04_-_published:r1990,2026-07-15,Adult Social Care,Teonfa Ltd,TEONFA,placement,False,1092.0
+1000,comparison,Over500_2026_P03_-_published:r1048,2026-06-10,Adult Social Care,Caremark (West Berkshire & Reading),CAREMARK WEST BERKSHIRE READING,placement,False,1090.72
+1000,comparison,Over500_2026_P02_-_published:r1228,2026-05-20,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,1090.26
+1000,comparison,Over500_2026_P02_-_published:r1313,2026-05-20,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,1090.26
+1000,comparison,Over500_2026_P04_-_published:r1511,2026-07-22,Adult Social Care,THE NEWBURY COMMUNITY RESOURCE CENTRE LTD,THE NEWBURY COMMUNITY RESOURCE CENTRE,placement,False,1088.64
+1000,comparison,Over500_2026_P02_-_published:r220,2026-05-12,Children's Social Care,Go Green Taxis Ltd,GO GREEN TAXIS,general_procurement,False,1087.3
+1000,comparison,Over500_2026_P04_-_published:r1769,2026-07-01,Adult Social Care,Topline Care Solutions Ltd,TOPLINE CARE SOLUTIONS,placement,False,1087.28
+1000,comparison,Over500_2026_P03_-_published:r1249,2026-06-24,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,1087.27
+1000,comparison,Over500_2026_P02_-_published:r99,2026-05-08,Development & Housing,SOVEREIGN HOUSING GROUP,SOVEREIGN HOUSING GROUP,premises,False,1087.16
+1000,comparison,Over500_2026_P03_-_published:r294,2026-06-08,Development & Housing,SOVEREIGN HOUSING GROUP,SOVEREIGN HOUSING GROUP,premises,False,1087.16
+1000,comparison,Over500_2026_P04_-_published:r2824,2026-07-08,Adult Social Care,Parkcare Homes (No 2) Limited t/a White House,WHITE HOUSE,placement,False,1086.96
+1000,comparison,Over500_2026_P04_-_published:r213,2026-07-28,Environment,BARLOW & SONS (HERMITAGE) LTD,BARLOW SONS HERMITAGE,premises,False,1086.8
+1000,comparison,Over500_2026_P03_-_published:r2982,2026-06-10,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,1086.03
+1000,comparison,Over500_2026_P03_-_published:r2988,2026-06-10,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,1086.03
+1000,comparison,Over500_2026_P02_-_published:r94,2026-05-08,Development & Housing,SOVEREIGN HOUSING GROUP,SOVEREIGN HOUSING GROUP,premises,False,1085.32
+1000,comparison,Over500_2026_P03_-_published:r120,2026-06-08,Development & Housing,SOVEREIGN HOUSING GROUP,SOVEREIGN HOUSING GROUP,premises,False,1085.32
+1000,comparison,Over500_2026_P04_-_published:r2356,2026-07-29,Adult Social Care,Teonfa Ltd,TEONFA,placement,False,1085.18
+1000,comparison,Over500_2026_P03_-_published:r327,2026-06-22,Education & SEND,COMPASS EXECUTIVE CARS (UK) LTD,COMPASS EXECUTIVE CARS UK,general_procurement,False,1085.0
+1000,comparison,Over500_2026_P03_-_published:r827,2026-06-09,Children's Social Care,Vera Lizunova,VERA LIZUNOVA,general_procurement,False,1085.0
+1000,comparison,Over500_2026_P03_-_published:r971,2026-06-03,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,1084.57
+1000,comparison,Over500_2026_P02_-_published:r1129,2026-05-06,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1082.9
+1000,comparison,Over500_2026_P02_-_published:r882,2026-05-06,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1082.9
+1000,comparison,Over500_2026_P02_-_published:r1418,2026-05-13,Adult Social Care,I.V Care Limited t/a Good Oaks Home Care (Reading),GOOD OAKS HOME CARE READING,placement,False,1081.58
+1000,comparison,Over500_2026_P04_-_published:r1468,2026-07-15,Adult Social Care,Your Serenity Ltd,YOUR SERENITY,placement,False,1081.58
+1000,comparison,Over500_2026_P04_-_published:r1482,2026-07-15,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,1081.58
+1000,comparison,Over500_2026_P04_-_published:r395,2026-07-20,Development & Housing,CASTLE WATER LIMITED,CASTLE WATER,premises,False,1081.41
+1000,comparison,Over500_2026_P02_-_published:r1894,2026-05-06,Adult Social Care,Warm Hearts Services Ltd,WARM HEARTS SERVICES,placement,False,1080.0
+1000,comparison,Over500_2026_P04_-_published:r1058,2026-07-22,Adult Social Care,M&R Services,M R SERVICES,placement,False,1080.0
+1000,comparison,Over500_2026_P04_-_published:r339,2026-07-29,Education & SEND,Go Green Taxis Ltd,GO GREEN TAXIS,general_procurement,False,1080.0
+1000,comparison,Over500_2026_P04_-_published:r1735,2026-07-01,Adult Social Care,Care Outlook Ltd,CARE OUTLOOK,placement,False,1078.16
+1000,comparison,Over500_2026_P03_-_published:r2812,2026-06-24,Adult Social Care,Care Outlook Ltd,CARE OUTLOOK,placement,False,1078.15
+1000,comparison,Over500_2026_P02_-_published:r1079,2026-05-01,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,1078.0
+1000,comparison,Over500_2026_P02_-_published:r1080,2026-05-01,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,1078.0
+1000,comparison,Over500_2026_P03_-_published:r1671,2026-06-03,Adult Social Care,The Yume Project Ltd,THE YUME PROJECT,placement,False,1076.95
+1000,comparison,Over500_2026_P04_-_published:r2033,2026-07-15,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,1076.13
+1000,comparison,Over500_2026_P03_-_published:r1051,2026-06-10,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,1075.89
+1000,comparison,Over500_2026_P03_-_published:r1052,2026-06-10,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,1075.89
+1000,comparison,Over500_2026_P03_-_published:r1163,2026-06-24,Adult Social Care,Rofemaron Healthcare Ltd,ROFEMARON HEALTHCARE,placement,False,1075.88
+1000,comparison,Over500_2026_P03_-_published:r859,2026-06-10,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1074.8
+1000,comparison,Over500_2026_P02_-_published:r1288,2026-05-20,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,1073.38
+1000,comparison,Over500_2026_P03_-_published:r380,2026-06-09,Community Services,Colour Idea Ltd T/A Wild View Cameras,WILD VIEW CAMERAS,general_procurement,False,1071.6
+1000,comparison,Over500_2026_P04_-_published:r407,2026-07-13,Environment,CONNICK TREE CARE,CONNICK TREE CARE,premises,False,1071.2
+1000,comparison,Over500_2026_P02_-_published:r1588,2026-05-06,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1071.0
+1000,comparison,Over500_2026_P03_-_published:r385,2026-06-08,Environment,EUCLID LTD,EUCLID,general_procurement,False,1070.62
+1000,comparison,Over500_2026_P04_-_published:r842,2026-07-31,Education & SEND,WYNNE-WILLIAMS ASSOCIATES,WYNNE WILLIAMS ASSOCIATES,premises,False,1070.0
+1000,comparison,Over500_2026_P04_-_published:r898,2026-07-13,Adult Social Care,PREPAID FINANCIAL SERVICES,PREPAID FINANCIAL SERVICES,general_procurement,False,1070.0
+1000,comparison,Over500_2026_P04_-_published:r1536,2026-07-22,Adult Social Care,Eniro Care Ltd,ENIRO CARE,placement,False,1067.11
+1000,comparison,Over500_2026_P04_-_published:r3790,2026-07-21,Strategy & Governance,MOJ - HMCTS (for use by AP DD Payments Only),MOJ HMCTS FOR USE BY AP,general_procurement,False,1067.0
+1000,comparison,Over500_2026_P03_-_published:r1952,2026-06-24,Adult Social Care,KCARE NURSING AGENCY LTD,KCARE NURSING AGENCY,placement,False,1066.48
+1000,comparison,Over500_2026_P04_-_published:r2779,2026-07-08,Adult Social Care,KCARE NURSING AGENCY LTD,KCARE NURSING AGENCY,placement,False,1066.48
+1000,comparison,Over500_2026_P04_-_published:r2903,2026-07-29,Adult Social Care,KCARE NURSING AGENCY LTD,KCARE NURSING AGENCY,placement,False,1066.48
+1000,comparison,Over500_2026_P04_-_published:r2751,2026-07-17,Adult Social Care,All Seasons Care Services Limited,ALL SEASONS CARE SERVICES,placement,False,1066.24
+1000,comparison,Over500_2026_P02_-_published:r2213,2026-05-21,Education (DSG Funded) & Other Education Grants,FunctionAbility Ltd,FUNCTIONABILITY,placement,False,1065.58
+1000,comparison,Over500_2026_P02_-_published:r2207,2026-05-19,Education (DSG Funded) & Other Education Grants,FunctionAbility Ltd,FUNCTIONABILITY,placement,False,1065.37
+1000,comparison,Over500_2026_P03_-_published:r1178,2026-06-17,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,1065.28
+1000,comparison,Over500_2026_P03_-_published:r1368,2026-06-17,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,1065.28
+1000,comparison,Over500_2026_P04_-_published:r1398,2026-07-15,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,1065.28
+1000,comparison,Over500_2026_P02_-_published:r1402,2026-05-22,Adult Social Care,Care Outlook Ltd,CARE OUTLOOK,placement,False,1065.2
+1000,comparison,Over500_2026_P02_-_published:r2171,2026-05-20,Environment,Thames Valley Signs (Berkshire) Ltd,THAMES VALLEY SIGNS BERKSHIRE,general_procurement,False,1064.72
+1000,comparison,Over500_2026_P03_-_published:r2885,2026-06-24,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,1064.72
+1000,comparison,Over500_2026_P04_-_published:r2035,2026-07-15,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,1064.72
+1000,comparison,Over500_2026_P02_-_published:r298,2026-05-22,Education & SEND,Premier Cars,PREMIER CARS,general_procurement,False,1064.0
+1000,comparison,Over500_2026_P03_-_published:r1900,2026-06-24,Adult Social Care,KCARE NURSING AGENCY LTD,KCARE NURSING AGENCY,placement,False,1063.98
+1000,comparison,Over500_2026_P02_-_published:r1877,2026-05-20,Adult Social Care,All Seasons Care Services Limited,ALL SEASONS CARE SERVICES,placement,False,1063.68
+1000,comparison,Over500_2026_P04_-_published:r1483,2026-07-15,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,1062.67
+1000,comparison,Over500_2026_P03_-_published:r1427,2026-06-03,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,1062.15
+1000,comparison,Over500_2026_P04_-_published:r3565,2026-07-08,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1060.84
+1000,comparison,Over500_2026_P02_-_published:r58,2026-05-06,Environment,SSE ENERGY SOLUTIONS,SSE ENERGY SOLUTIONS,premises,False,1060.62
+1000,comparison,Over500_2026_P04_-_published:r2603,2026-07-01,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1060.4
+1000,comparison,Over500_2026_P02_-_published:r443,2026-05-27,Adult Social Care,PREPAID FINANCIAL SERVICES,PREPAID FINANCIAL SERVICES,general_procurement,False,1060.0
+1000,comparison,Over500_2026_P03_-_published:r706,2026-06-12,Environment,ARCHIBALD SHAW LTD,ARCHIBALD SHAW,general_procurement,False,1060.0
+1000,comparison,Over500_2026_P04_-_published:r322,2026-07-15,Education & SEND,Go Green Taxis Ltd,GO GREEN TAXIS,general_procurement,False,1059.55
+1000,comparison,Over500_2026_P03_-_published:r1365,2026-06-24,Adult Social Care,I.V Care Limited t/a Good Oaks Home Care (Reading),GOOD OAKS HOME CARE READING,placement,False,1058.81
+1000,comparison,Over500_2026_P02_-_published:r63,2026-05-07,Environment,SSE ENERGY SOLUTIONS,SSE ENERGY SOLUTIONS,premises,False,1057.95
+1000,comparison,Over500_2026_P02_-_published:r1693,2026-05-20,Adult Social Care,OPTALIS LTD,OPTALIS,placement,False,1057.24
+1000,comparison,Over500_2026_P02_-_published:r1106,2026-05-06,Adult Social Care,Goldcrest Care Services,GOLDCREST CARE SERVICES,placement,False,1056.0
+1000,comparison,Over500_2026_P02_-_published:r1243,2026-05-20,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,1054.97
+1000,comparison,Over500_2026_P03_-_published:r1979,2026-06-09,Children's Social Care,Aston Nursing Services LTD,ASTON NURSING SERVICES,placement,False,1054.31
+1000,comparison,Over500_2026_P03_-_published:r3032,2026-06-09,Children's Social Care,Aston Nursing Services LTD,ASTON NURSING SERVICES,placement,False,1054.26
+1000,comparison,Over500_2026_P02_-_published:r2168,2026-05-12,Environment,NETWORK MERCHANTS LIMITED,NETWORK MERCHANTS,general_procurement,False,1054.12
+1000,comparison,Over500_2026_P03_-_published:r708,2026-06-01,Development & Housing,MR LEONARD A CLARK & MRS MARGARET J CLARK,MR LEONARD A CLARK MRS MARGARET J CLARK,general_procurement,False,1053.97
+1000,comparison,Over500_2026_P02_-_published:r573,2026-05-08,"Finance, Property & Procurement",Stripeweb,STRIPEWEB,general_procurement,False,1053.26
+1000,comparison,Over500_2026_P04_-_published:r982,2026-07-15,"Finance, Property & Procurement",A&E FIRE & SECURITY LIMITED,A E FIRE SECURITY,general_procurement,False,1052.8
+1000,comparison,Over500_2026_P02_-_published:r634,2026-05-12,Development & Housing,Mr Chibundu Ibe,MR CHIBUNDU IBE,grant,False,1052.14
+1000,comparison,Over500_2026_P02_-_published:r639,2026-05-28,Development & Housing,Mr Chibundu Ibe,MR CHIBUNDU IBE,grant,False,1052.14
+1000,comparison,Over500_2026_P04_-_published:r584,2026-07-01,Development & Housing,Mr Chibundu Ibe,MR CHIBUNDU IBE,grant,False,1052.14
+1000,comparison,Over500_2026_P02_-_published:r453,2026-05-20,Development & Housing,BERKSHIRE MECHANICAL SERVICES,BERKSHIRE MECHANICAL SERVICES,general_procurement,False,1050.0
+1000,comparison,Over500_2026_P03_-_published:r2907,2026-06-17,Adult Social Care,Parkcare Homes (No 2) Limited t/a White House,WHITE HOUSE,placement,False,1050.0
+1000,comparison,Over500_2026_P04_-_published:r1057,2026-07-22,Adult Social Care,M&R Services,M R SERVICES,placement,False,1050.0
+1000,comparison,Over500_2026_P04_-_published:r610,2026-07-23,Community Services,Henley on Thames Surveyors Ltd Trading as Henley Surveying and Design Services,HENLEY SURVEYING AND DESIGN SERVICES,general_procurement,False,1050.0
+1000,comparison,Over500_2026_P03_-_published:r1079,2026-06-10,Adult Social Care,Apex Prime Care Ltd,APEX PRIME CARE,placement,False,1049.8
+1000,comparison,Over500_2026_P04_-_published:r1495,2026-07-15,Adult Social Care,Apex Prime Care Ltd,APEX PRIME CARE,placement,False,1049.8
+1000,comparison,Over500_2026_P04_-_published:r1256,2026-07-08,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,1047.43
+1000,comparison,Over500_2026_P02_-_published:r1326,2026-05-22,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,1047.42
+1000,comparison,Over500_2026_P02_-_published:r1311,2026-05-20,Adult Social Care,Apex Prime Care Ltd,APEX PRIME CARE,placement,False,1047.35
+1000,comparison,Over500_2026_P02_-_published:r1187,2026-05-13,Adult Social Care,Teonfa Ltd,TEONFA,placement,False,1046.52
+1000,comparison,Over500_2026_P02_-_published:r1077,2026-05-01,Adult Social Care,AUDLEY CARE WHITE HORSE LTD,AUDLEY CARE WHITE HORSE,placement,False,1045.98
+1000,comparison,Over500_2026_P03_-_published:r629,2026-06-04,Development & Housing,JOHN GREENOUGH,JOHN GREENOUGH,grant,False,1045.0
+1000,comparison,Over500_2026_P04_-_published:r1529,2026-07-17,Adult Social Care,Eniro Care Ltd,ENIRO CARE,placement,False,1044.34
+1000,comparison,Over500_2026_P03_-_published:r2002,2026-06-11,Children's Social Care,VELOX HEALTHCARE LIMITED,VELOX HEALTHCARE,placement,False,1044.0
+1000,comparison,Over500_2026_P04_-_published:r1480,2026-07-15,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,1043.54
+1000,comparison,Over500_2026_P04_-_published:r2800,2026-07-01,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,1043.52
+1000,comparison,Over500_2026_P04_-_published:r586,2026-07-14,Development & Housing,HDS EXPRESS TRANSPORT LIMITED,HDS EXPRESS TRANSPORT,grant,False,1041.6
+1000,comparison,Over500_2026_P02_-_published:r800,2026-05-20,Adult Social Care,THE NEWBURY COMMUNITY RESOURCE CENTRE LTD,THE NEWBURY COMMUNITY RESOURCE CENTRE,placement,False,1040.63
+1000,comparison,Over500_2026_P02_-_published:r1421,2026-05-20,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,1040.56
+1000,comparison,Over500_2026_P04_-_published:r283,2026-07-29,Children's Social Care,Nadeem Mirza Trading as Parker Travels,PARKER TRAVELS,general_procurement,False,1040.0
+1000,comparison,Over500_2026_P04_-_published:r444,2026-07-14,Education & SEND,FD TRAVELS LIMITED T/A SCHOOL EXPRESS,SCHOOL EXPRESS,general_procurement,False,1040.0
+1000,comparison,Over500_2026_P04_-_published:r225,2026-07-14,Education & SEND,FD TRAVELS LIMITED T/A SCHOOL EXPRESS,SCHOOL EXPRESS,general_procurement,False,1039.5
+1000,comparison,Over500_2026_P04_-_published:r301,2026-07-08,Education & SEND,WEAVAWAY TRAVEL LTD,WEAVAWAY TRAVEL,general_procurement,False,1039.14
+1000,comparison,Over500_2026_P04_-_published:r194,2026-07-29,Education & SEND,Newbury & District Ltd,NEWBURY DISTRICT,general_procurement,False,1038.0
+1000,comparison,Over500_2026_P04_-_published:r722,2026-07-09,Children's Social Care,WEST BERKSHIRE MENCAP,WEST BERKSHIRE MENCAP,placement,False,1037.8
+1000,comparison,Over500_2026_P02_-_published:r546,2026-05-07,Children's Social Care,PRESTIGE NETWORK,PRESTIGE NETWORK,general_procurement,False,1037.6
+1000,comparison,Over500_2026_P03_-_published:r1253,2026-06-24,Adult Social Care,Goldcrest Care Services,GOLDCREST CARE SERVICES,placement,False,1036.48
+1000,comparison,Over500_2026_P04_-_published:r937,2026-07-15,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1036.06
+1000,comparison,Over500_2026_P03_-_published:r1219,2026-06-24,Adult Social Care,Eniro Care Ltd,ENIRO CARE,placement,False,1036.05
+1000,comparison,Over500_2026_P02_-_published:r1138,2026-05-06,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1036.03
+1000,comparison,Over500_2026_P02_-_published:r1152,2026-05-06,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1036.03
+1000,comparison,Over500_2026_P02_-_published:r1135,2026-05-06,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1035.3
+1000,comparison,Over500_2026_P04_-_published:r2513,2026-07-29,Adult Social Care,Brighter Living Care Ltd,BRIGHTER LIVING CARE,placement,False,1034.12
+1000,comparison,Over500_2026_P03_-_published:r847,2026-06-24,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,1031.52
+1000,comparison,Over500_2026_P04_-_published:r891,2026-07-01,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,1031.52
+1000,comparison,Over500_2026_P02_-_published:r948,2026-05-27,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,1031.4
+1000,comparison,Over500_2026_P03_-_published:r1220,2026-06-24,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,1030.35
+1000,comparison,Over500_2026_P02_-_published:r421,2026-05-28,Education & SEND,MRS M F RICHARDSON T/A MFR Contracts,MFR CONTRACTS,general_procurement,False,1030.0
+1000,comparison,Over500_2026_P04_-_published:r2206,2026-07-15,Adult Social Care,Address Enterprise Ltd,ADDRESS ENTERPRISE,placement,False,1028.74
+1000,comparison,Over500_2026_P03_-_published:r1033,2026-06-03,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,1026.88
+1000,comparison,Over500_2026_P03_-_published:r257,2026-06-11,Education & SEND,1st Transport Innovation Reading Ltd T/A 5 Star Cars & Reading Central Cars,5 STAR CARS READING CENTRAL CARS,general_procurement,False,1026.0
+1000,comparison,Over500_2026_P04_-_published:r2282,2026-07-29,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,1024.68
+1000,comparison,Over500_2026_P04_-_published:r1774,2026-07-29,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1024.66
+1000,comparison,Over500_2026_P03_-_published:r885,2026-06-24,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1024.65
+1000,comparison,Over500_2026_P04_-_published:r792,2026-07-07,Environment,VolkerHighways Ltd,VOLKERHIGHWAYS,general_procurement,False,1024.51
+1000,comparison,Over500_2026_P04_-_published:r69,2026-07-22,"Finance, Property & Procurement",A&E FIRE & SECURITY LIMITED,A E FIRE SECURITY,premises,False,1023.39
+1000,comparison,Over500_2026_P04_-_published:r2623,2026-07-22,Adult Social Care,Interakt Community Limited,INTERAKT COMMUNITY,placement,False,1023.02
+1000,comparison,Over500_2026_P02_-_published:r1083,2026-05-01,Adult Social Care,Caremark (West Berkshire & Reading),CAREMARK WEST BERKSHIRE READING,placement,False,1023.0
+1000,comparison,Over500_2026_P03_-_published:r93,2026-06-03,Community Services,CHP MANAGEMENT LIMITED,CHP MANAGEMENT,premises,False,1021.63
+1000,comparison,Over500_2026_P02_-_published:r1700,2026-05-13,Adult Social Care,Transparent Care Ltd,TRANSPARENT CARE,placement,False,1021.44
+1000,comparison,Over500_2026_P03_-_published:r1516,2026-06-24,Adult Social Care,Transparent Care Ltd,TRANSPARENT CARE,placement,False,1021.44
+1000,comparison,Over500_2026_P04_-_published:r2148,2026-07-08,Adult Social Care,Transparent Care Ltd,TRANSPARENT CARE,placement,False,1021.44
+1000,comparison,Over500_2026_P04_-_published:r2958,2026-07-22,Adult Social Care,Transparent Care Ltd,TRANSPARENT CARE,placement,False,1021.44
+1000,comparison,Over500_2026_P03_-_published:r250,2026-06-16,Education & SEND,SOUTHERN COACH LINES LTD,SOUTHERN COACH LINES,general_procurement,False,1020.72
+1000,comparison,Over500_2026_P02_-_published:r167,2026-05-26,Environment,Glen Cleaning Company Ltd,GLEN CLEANING COMPANY,premises,False,1020.66
+1000,comparison,Over500_2026_P03_-_published:r133,2026-06-24,Environment,Glen Cleaning Company Ltd,GLEN CLEANING COMPANY,premises,False,1020.66
+1000,comparison,Over500_2026_P04_-_published:r147,2026-07-22,Environment,Glen Cleaning Company Ltd,GLEN CLEANING COMPANY,premises,False,1020.66
+1000,comparison,Over500_2026_P02_-_published:r1921,2026-05-20,Adult Social Care,Platform Care Services Ltd,PLATFORM CARE SERVICES,placement,False,1019.71
+1000,comparison,Over500_2026_P03_-_published:r1670,2026-06-03,Adult Social Care,The Yume Project Ltd,THE YUME PROJECT,placement,False,1018.81
+1000,comparison,Over500_2026_P03_-_published:r1744,2026-06-17,Adult Social Care,The Yume Project Ltd,THE YUME PROJECT,placement,False,1018.81
+1000,comparison,Over500_2026_P03_-_published:r1796,2026-06-17,Adult Social Care,The Yume Project Ltd,THE YUME PROJECT,placement,False,1018.81
+1000,comparison,Over500_2026_P03_-_published:r2963,2026-06-03,Adult Social Care,The Yume Project Ltd,THE YUME PROJECT,placement,False,1018.81
+1000,comparison,Over500_2026_P04_-_published:r2594,2026-07-15,Adult Social Care,The Yume Project Ltd,THE YUME PROJECT,placement,False,1018.81
+1000,comparison,Over500_2026_P02_-_published:r1802,2026-05-22,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1018.38
+1000,comparison,Over500_2026_P04_-_published:r1017,2026-07-05,"Finance, Property & Procurement",Stripeweb,STRIPEWEB,general_procurement,False,1017.74
+1000,comparison,Over500_2026_P04_-_published:r1693,2026-07-29,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,1015.99
+1000,comparison,Over500_2026_P02_-_published:r442,2026-05-20,Adult Social Care,PREPAID FINANCIAL SERVICES,PREPAID FINANCIAL SERVICES,general_procurement,False,1015.0
+1000,comparison,Over500_2026_P03_-_published:r365,2026-06-10,Adult Social Care,PREPAID FINANCIAL SERVICES,PREPAID FINANCIAL SERVICES,general_procurement,False,1015.0
+1000,comparison,Over500_2026_P04_-_published:r1867,2026-07-08,Adult Social Care,Sirona International Ltd t/a Poseidon Care,POSEIDON CARE,placement,False,1014.76
+1000,comparison,Over500_2026_P04_-_published:r2267,2026-07-01,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1012.76
+1000,comparison,Over500_2026_P04_-_published:r2300,2026-07-08,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1012.76
+1000,comparison,Over500_2026_P04_-_published:r2321,2026-07-08,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1012.76
+1000,comparison,Over500_2026_P04_-_published:r2334,2026-07-08,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1012.76
+1000,comparison,Over500_2026_P04_-_published:r2338,2026-07-01,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1012.76
+1000,comparison,Over500_2026_P04_-_published:r2391,2026-07-08,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1012.76
+1000,comparison,Over500_2026_P04_-_published:r2540,2026-07-29,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1012.76
+1000,comparison,Over500_2026_P04_-_published:r2560,2026-07-29,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1012.76
+1000,comparison,Over500_2026_P04_-_published:r3467,2026-07-29,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1012.76
+1000,comparison,Over500_2026_P04_-_published:r3468,2026-07-29,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1012.76
+1000,comparison,Over500_2026_P02_-_published:r187,2026-05-11,Environment,CONNICK TREE CARE,CONNICK TREE CARE,premises,False,1009.4
+1000,comparison,Over500_2026_P02_-_published:r188,2026-05-14,Environment,CONNICK TREE CARE,CONNICK TREE CARE,premises,False,1009.4
+1000,comparison,Over500_2026_P02_-_published:r191,2026-05-21,Environment,CONNICK TREE CARE,CONNICK TREE CARE,premises,False,1009.4
+1000,comparison,Over500_2026_P02_-_published:r197,2026-05-28,Environment,CONNICK TREE CARE,CONNICK TREE CARE,premises,False,1009.4
+1000,comparison,Over500_2026_P03_-_published:r141,2026-06-10,Environment,CONNICK TREE CARE,CONNICK TREE CARE,premises,False,1009.4
+1000,comparison,Over500_2026_P03_-_published:r142,2026-06-23,Environment,CONNICK TREE CARE,CONNICK TREE CARE,premises,False,1009.4
+1000,comparison,Over500_2026_P03_-_published:r144,2026-06-04,Environment,CONNICK TREE CARE,CONNICK TREE CARE,premises,False,1009.4
+1000,comparison,Over500_2026_P04_-_published:r2104,2026-07-29,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,1009.28
+1000,comparison,Over500_2026_P04_-_published:r433,2026-07-09,Education & SEND,Sikandar Hayat t/a Prompt Cars,PROMPT CARS,general_procurement,False,1008.0
+1000,comparison,Over500_2026_P02_-_published:r752,2026-05-18,Education & SEND,AMR CONSULT LTD,AMR CONSULT,general_procurement,False,1007.0
+1000,comparison,Over500_2026_P02_-_published:r753,2026-05-18,Education & SEND,AMR CONSULT LTD,AMR CONSULT,general_procurement,False,1007.0
+1000,comparison,Over500_2026_P02_-_published:r861,2026-05-06,Children's Social Care,Aston Nursing Services LTD,ASTON NURSING SERVICES,placement,False,1006.24
+1000,comparison,Over500_2026_P02_-_published:r862,2026-05-06,Children's Social Care,Aston Nursing Services LTD,ASTON NURSING SERVICES,placement,False,1006.24
+1000,comparison,Over500_2026_P03_-_published:r2921,2026-06-03,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,1005.62
+1000,comparison,Over500_2026_P02_-_published:r919,2026-05-27,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1005.38
+1000,comparison,Over500_2026_P04_-_published:r2110,2026-07-15,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,1003.99
+1000,comparison,Over500_2026_P02_-_published:r1629,2026-05-27,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1001.88
+1000,comparison,Over500_2026_P03_-_published:r1209,2026-06-24,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,1001.88
+1000,comparison,Over500_2026_P03_-_published:r1562,2026-06-24,Adult Social Care,I.V Care Limited t/a Good Oaks Home Care (Reading),GOOD OAKS HOME CARE READING,placement,False,1001.88
+1000,comparison,Over500_2026_P03_-_published:r2739,2026-06-10,Adult Social Care,Eternal Homecare Reading,ETERNAL HOMECARE READING,placement,False,1001.88
+1000,comparison,Over500_2026_P03_-_published:r839,2026-06-10,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,1001.88
+1000,comparison,Over500_2026_P03_-_published:r910,2026-06-10,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,1001.88
+1000,comparison,Over500_2026_P04_-_published:r1061,2026-07-29,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,1001.88
+1000,comparison,Over500_2026_P04_-_published:r1504,2026-07-15,Adult Social Care,Goldcrest Care Services,GOLDCREST CARE SERVICES,placement,False,1001.88
+1000,comparison,Over500_2026_P04_-_published:r1979,2026-07-01,Adult Social Care,I.V Care Limited t/a Good Oaks Home Care (Reading),GOOD OAKS HOME CARE READING,placement,False,1001.88
+1000,comparison,Over500_2026_P04_-_published:r2610,2026-07-29,Adult Social Care,FOCUS SUPPORT LTD,FOCUS SUPPORT,placement,False,1001.88
+1000,comparison,Over500_2026_P04_-_published:r995,2026-07-08,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,1001.88
+1000,comparison,Over500_2026_P04_-_published:r1988,2026-07-08,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,1001.87
+1000,comparison,Over500_2026_P02_-_published:r1767,2026-05-20,Adult Social Care,FOCUS SUPPORT LTD,FOCUS SUPPORT,placement,False,1000.53
+1000,below,Over500_2026_P02_-_published:r34,2026-05-08,Development & Housing,BERKSHIRE MECHANICAL SERVICES,BERKSHIRE MECHANICAL SERVICES,premises,False,1000.0
+1000,below,Over500_2026_P02_-_published:r449,2026-05-27,Development & Housing,PREPAID FINANCIAL SERVICES,PREPAID FINANCIAL SERVICES,general_procurement,False,1000.0
+1000,below,Over500_2026_P02_-_published:r538,2026-05-13,Adult Social Care,Becky Turner,BECKY TURNER,general_procurement,False,1000.0
+1000,below,Over500_2026_P02_-_published:r582,2026-05-11,Education (DSG Funded) & Other Education Grants,REGIS MANOR PRIMARY SCHOOL C/O SWALE ACADEMIES TRUST,REGIS MANOR PRIMARY SCHOOL C O SWALE ACADEMIES TRUST,grant,False,1000.0
+1000,below,Over500_2026_P02_-_published:r623,2026-05-08,Education (DSG Funded) & Other Education Grants,CHIEVELEY PRE-SCHOOL PLAYGROU,CHIEVELEY PRE SCHOOL PLAYGROU,grant,False,1000.0
+1000,below,Over500_2026_P02_-_published:r662,2026-05-06,"Finance, Property & Procurement",H F Limited,H F,general_procurement,False,1000.0
+1000,below,Over500_2026_P03_-_published:r280,2026-06-25,Development & Housing,BERKSHIRE MECHANICAL SERVICES,BERKSHIRE MECHANICAL SERVICES,premises,False,1000.0
+1000,below,Over500_2026_P03_-_published:r487,2026-06-08,Education (DSG Funded) & Other Education Grants,ROBIN HOOD MAT - YENTON PRIMARY,ROBIN HOOD MAT YENTON PRIMARY,grant,False,1000.0
+1000,below,Over500_2026_P03_-_published:r50,2026-06-03,Development & Housing,BERKSHIRE MECHANICAL SERVICES,BERKSHIRE MECHANICAL SERVICES,premises,False,1000.0
+1000,below,Over500_2026_P03_-_published:r651,2026-06-15,"Finance, Property & Procurement",MOTOFIX ACCIDENT REPAIR CENTRE LTD,MOTOFIX ACCIDENT REPAIR CENTRE,general_procurement,False,1000.0
+1000,below,Over500_2026_P04_-_published:r1006,2026-07-14,Adult Social Care,Becky Turner,BECKY TURNER,general_procurement,False,1000.0
+1000,below,Over500_2026_P04_-_published:r1131,2026-07-29,Adult Social Care,GCH (Alder) Ltd t/a Hungerford Care Home,HUNGERFORD CARE HOME,placement,False,1000.0
+1000,below,Over500_2026_P04_-_published:r1179,2026-07-07,Education (DSG Funded) & Other Education Grants,Buckinghamshire Council,BUCKINGHAMSHIRE COUNCIL,grant,False,1000.0
+1000,below,Over500_2026_P04_-_published:r1261,2026-07-02,Education (DSG Funded) & Other Education Grants,BEANSHEAF COMMUNITY PRE-SCHOO,BEANSHEAF COMMUNITY PRE SCHOO,grant,False,1000.0
+1000,below,Over500_2026_P04_-_published:r1263,2026-07-02,Education (DSG Funded) & Other Education Grants,KENNET VALLEY CATERPILLARS,KENNET VALLEY CATERPILLARS,grant,False,1000.0
+1000,below,Over500_2026_P04_-_published:r1265,2026-07-05,Education (DSG Funded) & Other Education Grants,PASKAY LIMITED,PASKAY,grant,False,1000.0
+1000,below,Over500_2026_P04_-_published:r18,2026-07-28,Children's Social Care,THE A PROJECT,THE A PROJECT,agency_staff,False,1000.0
+1000,below,Over500_2026_P04_-_published:r3787,2026-07-15,Environment,VolkerHighways Ltd,VOLKERHIGHWAYS,general_procurement,False,1000.0
+1000,below,Over500_2026_P04_-_published:r50,2026-07-09,Development & Housing,BERKSHIRE MECHANICAL SERVICES,BERKSHIRE MECHANICAL SERVICES,premises,False,1000.0
+1000,below,Over500_2026_P04_-_published:r535,2026-07-16,Adult Social Care,BCJD Ltd,BCJD,general_procurement,False,1000.0
+1000,below,Over500_2026_P04_-_published:r576,2026-07-02,Education (DSG Funded) & Other Education Grants,Childrey Little Ducks Pre-School,CHILDREY LITTLE DUCKS PRE SCHOOL,grant,False,1000.0
+1000,below,Over500_2026_P04_-_published:r580,2026-07-14,Education (DSG Funded) & Other Education Grants,LADYBIRDS PRE-SCHOOL,LADYBIRDS PRE SCHOOL,grant,False,1000.0
+1000,below,Over500_2026_P04_-_published:r597,2026-07-30,Environment,Roadside Technologies Ltd,ROADSIDE TECHNOLOGIES,general_procurement,False,1000.0
+1000,below,Over500_2026_P04_-_published:r613,2026-07-16,Community Services,ALAN FULLER,ALAN FULLER,general_procurement,False,1000.0
+1000,below,Over500_2026_P04_-_published:r666,2026-07-10,Education (DSG Funded) & Other Education Grants,Newbury Academy Trust Speenhamland School,NEWBURY ACADEMY TRUST SPEENHAMLAND SCHOOL,grant,False,1000.0
+1000,below,Over500_2026_P04_-_published:r703,2026-07-03,Education (DSG Funded) & Other Education Grants,JUBILEE DAY NURSERY,JUBILEE DAY NURSERY,grant,False,1000.0
+1000,below,Over500_2026_P04_-_published:r764,2026-07-02,Education (DSG Funded) & Other Education Grants,KENNET VALLEY CATERPILLARS,KENNET VALLEY CATERPILLARS,grant,False,1000.0
+1000,below,Over500_2026_P04_-_published:r765,2026-07-03,Education (DSG Funded) & Other Education Grants,ACORNS OPERATIONAL ACCOUNT,ACORNS OPERATIONAL ACCOUNT,grant,False,1000.0
+1000,below,Over500_2026_P02_-_published:r1618,2026-05-27,Adult Social Care,I.V Care Limited t/a Good Oaks Home Care (Reading),GOOD OAKS HOME CARE READING,placement,False,999.96
+1000,below,Over500_2026_P03_-_published:r1587,2026-06-24,Adult Social Care,Johav Care support Healthcare Limited,JOHAV CARE SUPPORT HEALTHCARE,placement,False,999.6
+1000,below,Over500_2026_P03_-_published:r2866,2026-06-10,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,999.6
+1000,below,Over500_2026_P04_-_published:r2803,2026-07-08,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,999.6
+1000,below,Over500_2026_P04_-_published:r2813,2026-07-29,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,999.6
+1000,below,Over500_2026_P02_-_published:r893,2026-05-13,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,999.57
+1000,below,Over500_2026_P02_-_published:r922,2026-05-13,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,999.57
+1000,below,Over500_2026_P04_-_published:r300,2026-07-08,Education & SEND,WEAVAWAY TRAVEL LTD,WEAVAWAY TRAVEL,general_procurement,False,999.32
+1000,below,Over500_2026_P03_-_published:r972,2026-06-03,Adult Social Care,Address Enterprise Ltd,ADDRESS ENTERPRISE,placement,False,996.75
+1000,below,Over500_2026_P02_-_published:r895,2026-05-20,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,996.48
+1000,below,Over500_2026_P03_-_published:r209,2026-06-04,Education & SEND,Sikandar Hayat t/a Prompt Cars,PROMPT CARS,general_procurement,False,996.43
+1000,below,Over500_2026_P04_-_published:r2654,2026-07-17,Adult Social Care,Goldcrest Care Services,GOLDCREST CARE SERVICES,placement,False,996.18
+1000,below,Over500_2026_P02_-_published:r341,2026-05-01,Education & SEND,Go Green Taxis Ltd,GO GREEN TAXIS,general_procurement,False,995.95
+1000,below,Over500_2026_P03_-_published:r3223,2026-06-09,"Finance, Property & Procurement",Redacted,,general_procurement,True,995.43
+1000,below,Over500_2026_P03_-_published:r17,2026-06-30,Community Services,PHF Training,PHF TRAINING,general_procurement,False,995.0
+1000,below,Over500_2026_P03_-_published:r831,2026-06-15,Children's Social Care,PRESTIGE NETWORK,PRESTIGE NETWORK,general_procurement,False,993.48
+1000,below,Over500_2026_P03_-_published:r61,2026-06-30,Environment,MECE FIRE & SECURITY LTD,MECE FIRE SECURITY,premises,False,991.01
+1000,below,Over500_2026_P04_-_published:r158,2026-07-08,Education & SEND,POTTINGER'S HIRE SERVICE,POTTINGER S HIRE SERVICE,general_procurement,False,990.83
+1000,below,Over500_2026_P03_-_published:r463,2026-06-16,Community Services,P S Aylmer Veterinary Consultancy,P S AYLMER VETERINARY CONSULTANCY,general_procurement,False,990.5
+1000,below,Over500_2026_P04_-_published:r242,2026-07-15,Environment,Rygor Commercials Ltd,RYGOR COMMERCIALS,general_procurement,False,990.06
+1000,below,Over500_2026_P03_-_published:r1567,2026-06-10,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,990.0
+1000,below,Over500_2026_P04_-_published:r1007,2026-07-15,Children's Social Care,FAMILY FUTURES CONSORTIUM CIC,FAMILY FUTURES CONSORTIUM CIC,general_procurement,False,990.0
+1000,below,Over500_2026_P04_-_published:r179,2026-07-08,Education & SEND,A1 CARS,A1 CARS,general_procurement,False,990.0
+1000,below,Over500_2026_P04_-_published:r390,2026-07-22,Development & Housing,KB Real Estate Management Ltd,KB REAL ESTATE MANAGEMENT,premises,False,990.0
+1000,below,Over500_2026_P02_-_published:r1784,2026-05-22,Adult Social Care,Cedar Hope Care Services Ltd,CEDAR HOPE CARE SERVICES,placement,False,989.8
+1000,below,Over500_2026_P04_-_published:r1923,2026-07-08,Adult Social Care,BUPA Care Services,BUPA CARE SERVICES,placement,False,989.29
+1000,below,Over500_2026_P02_-_published:r1332,2026-05-22,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,989.19
+1000,below,Over500_2026_P04_-_published:r827,2026-07-17,Environment,Arbtech Consulting Ltd,ARBTECH CONSULTING,general_procurement,False,989.0
+1000,below,Over500_2026_P02_-_published:r532,2026-05-06,Community Services,P. APPLEYARD (TOFFS CATERING),P APPLEYARD TOFFS CATERING,general_procurement,False,987.0
+1000,below,Over500_2026_P02_-_published:r792,2026-05-20,Adult Social Care,THE NEWBURY COMMUNITY RESOURCE CENTRE LTD,THE NEWBURY COMMUNITY RESOURCE CENTRE,placement,False,985.86
+1000,below,Over500_2026_P02_-_published:r795,2026-05-20,Adult Social Care,THE NEWBURY COMMUNITY RESOURCE CENTRE LTD,THE NEWBURY COMMUNITY RESOURCE CENTRE,placement,False,985.86
+1000,below,Over500_2026_P03_-_published:r1748,2026-06-24,Adult Social Care,Interakt Community Limited,INTERAKT COMMUNITY,placement,False,985.76
+1000,below,Over500_2026_P04_-_published:r1672,2026-07-29,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,984.81
+1000,below,Over500_2026_P04_-_published:r2655,2026-07-29,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,984.81
+1000,below,Over500_2026_P04_-_published:r1392,2026-07-15,Adult Social Care,Eternal Homecare Reading,ETERNAL HOMECARE READING,placement,False,984.8
+1000,below,Over500_2026_P04_-_published:r2015,2026-07-01,Adult Social Care,Address Enterprise Ltd,ADDRESS ENTERPRISE,placement,False,981.96
+1000,below,Over500_2026_P04_-_published:r2105,2026-07-29,Adult Social Care,Address Enterprise Ltd,ADDRESS ENTERPRISE,placement,False,981.96
+1000,below,Over500_2026_P02_-_published:r48,2026-05-28,Development & Housing,360 Security & Support Services Ltd,360 SECURITY SUPPORT SERVICES,premises,False,980.89
+1000,below,Over500_2026_P03_-_published:r43,2026-06-25,Development & Housing,360 Security & Support Services Ltd,360 SECURITY SUPPORT SERVICES,premises,False,980.89
+1000,below,Over500_2026_P03_-_published:r53,2026-06-17,Development & Housing,360 Security & Support Services Ltd,360 SECURITY SUPPORT SERVICES,premises,False,980.89
+1000,below,Over500_2026_P04_-_published:r52,2026-07-03,Development & Housing,360 Security & Support Services Ltd,360 SECURITY SUPPORT SERVICES,premises,False,980.89
+1000,below,Over500_2026_P02_-_published:r1986,2026-05-13,Adult Social Care,Shaw Healthcare (Group) Limited - Homefield House Nursing Home,SHAW HEALTHCARE GROUP HOMEFIELD HOUSE NURSING HOME,placement,False,980.49
+1000,below,Over500_2026_P02_-_published:r313,2026-05-12,Education & SEND,N Mehmood T/A A Star Executive Cars Ltd,A STAR EXECUTIVE CARS,general_procurement,False,980.0
+1000,below,Over500_2026_P04_-_published:r422,2026-07-30,"Finance, Property & Procurement",HSI FURNITURE,HSI FURNITURE,general_procurement,False,980.0
+1000,below,Over500_2026_P03_-_published:r2859,2026-06-03,Adult Social Care,Address Enterprise Ltd,ADDRESS ENTERPRISE,placement,False,979.59
+1000,below,Over500_2026_P03_-_published:r1803,2026-06-24,Adult Social Care,Interakt Community Limited,INTERAKT COMMUNITY,placement,False,979.55
+1000,below,Over500_2026_P03_-_published:r517,2026-06-15,Executive Director People - Children's Services,ADCS,ADCS,general_procurement,False,976.0
+1000,below,Over500_2026_P04_-_published:r2093,2026-07-15,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,975.8
+1000,below,Over500_2026_P04_-_published:r282,2026-07-29,Children's Social Care,MAISHA STAFFING SOLUTIONS LTD,MAISHA STAFFING SOLUTIONS,general_procurement,False,975.0
+1000,below,Over500_2026_P04_-_published:r380,2026-07-27,"Finance, Property & Procurement",CONNECT VENDING LTD,CONNECT VENDING,premises,False,975.0
+1000,below,Over500_2026_P04_-_published:r432,2026-07-29,Children's Social Care,MAISHA STAFFING SOLUTIONS LTD,MAISHA STAFFING SOLUTIONS,general_procurement,False,975.0
+1000,below,Over500_2026_P04_-_published:r48,2026-07-06,Development & Housing,BERKSHIRE MECHANICAL SERVICES,BERKSHIRE MECHANICAL SERVICES,premises,False,975.0
+1000,below,Over500_2026_P04_-_published:r1788,2026-07-15,Adult Social Care,Goldcrest Care Services,GOLDCREST CARE SERVICES,placement,False,973.43
+1000,below,Over500_2026_P04_-_published:r3145,2026-07-01,Children's Social Care,Next Step Services,NEXT STEP SERVICES,placement,False,973.35
+1000,below,Over500_2026_P04_-_published:r3803,2026-07-16,Education (DSG Funded) & Other Education Grants,Young Giants Ltd.,YOUNG GIANTS,placement,False,973.0
+1000,below,Over500_2026_P04_-_published:r1313,2026-07-08,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,972.72
+1000,below,Over500_2026_P03_-_published:r1035,2026-06-03,Adult Social Care,Eternal Homecare Reading,ETERNAL HOMECARE READING,placement,False,972.13
+1000,below,Over500_2026_P04_-_published:r615,2026-07-28,Development & Housing,360 Security & Support Services Ltd,360 SECURITY SUPPORT SERVICES,general_procurement,False,970.46
+1000,below,Over500_2026_P02_-_published:r222,2026-05-20,Children's Social Care,Sikandar Hayat t/a Prompt Cars,PROMPT CARS,general_procurement,False,970.0
+1000,below,Over500_2026_P03_-_published:r1923,2026-06-09,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,969.68
+1000,below,Over500_2026_P03_-_published:r2108,2026-06-08,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,969.68
+1000,below,Over500_2026_P03_-_published:r2109,2026-06-09,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,969.68
+1000,below,Over500_2026_P03_-_published:r2121,2026-06-09,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,969.68
+1000,below,Over500_2026_P03_-_published:r3067,2026-06-08,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,969.68
+1000,below,Over500_2026_P03_-_published:r3071,2026-06-08,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,969.68
+1000,below,Over500_2026_P03_-_published:r3072,2026-06-09,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,969.68
+1000,below,Over500_2026_P03_-_published:r3073,2026-06-09,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,969.68
+1000,below,Over500_2026_P02_-_published:r2072,2026-05-19,Children's Social Care,Aston Nursing Services LTD,ASTON NURSING SERVICES,placement,False,969.67
+1000,below,Over500_2026_P02_-_published:r2073,2026-05-19,Children's Social Care,Aston Nursing Services LTD,ASTON NURSING SERVICES,placement,False,969.67
+1000,below,Over500_2026_P04_-_published:r608,2026-07-28,Children's Social Care,PRESTIGE NETWORK,PRESTIGE NETWORK,general_procurement,False,969.0
+1000,below,Over500_2026_P03_-_published:r1002,2026-06-10,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,968.0
+1000,below,Over500_2026_P03_-_published:r166,2026-06-03,Education & SEND,Premier Cars,PREMIER CARS,general_procurement,False,968.0
+1000,below,Over500_2026_P04_-_published:r1742,2026-07-29,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,967.73
+1000,below,Over500_2026_P03_-_published:r1790,2026-06-03,Adult Social Care,Interakt Community Limited,INTERAKT COMMUNITY,placement,False,967.13
+1000,below,Over500_2026_P03_-_published:r2967,2026-06-17,Adult Social Care,Interakt Community Limited,INTERAKT COMMUNITY,placement,False,967.13
+1000,below,Over500_2026_P04_-_published:r3558,2026-07-15,Adult Social Care,Interakt Community Limited,INTERAKT COMMUNITY,placement,False,967.13
+1000,below,Over500_2026_P04_-_published:r3149,2026-07-29,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,967.12
+1000,below,Over500_2026_P02_-_published:r1830,2026-05-22,Adult Social Care,Johav Care support Healthcare Limited,JOHAV CARE SUPPORT HEALTHCARE,placement,False,966.0
+1000,below,Over500_2026_P04_-_published:r1741,2026-07-29,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,964.53
+1000,below,Over500_2026_P04_-_published:r353,2026-07-23,Children's Social Care,Go Green Taxis Ltd,GO GREEN TAXIS,general_procurement,False,962.6
+1000,below,Over500_2026_P04_-_published:r357,2026-07-23,Children's Social Care,Go Green Taxis Ltd,GO GREEN TAXIS,general_procurement,False,962.6
+1000,below,Over500_2026_P04_-_published:r484,2026-07-23,Children's Social Care,Go Green Taxis Ltd,GO GREEN TAXIS,general_procurement,False,962.6
+1000,below,Over500_2026_P02_-_published:r44,2026-05-12,Development & Housing,360 Security & Support Services Ltd,360 SECURITY SUPPORT SERVICES,premises,False,960.02
+1000,below,Over500_2026_P03_-_published:r51,2026-06-03,Development & Housing,360 Security & Support Services Ltd,360 SECURITY SUPPORT SERVICES,premises,False,960.02
+1000,below,Over500_2026_P04_-_published:r2034,2026-07-15,Adult Social Care,Address Enterprise Ltd,ADDRESS ENTERPRISE,placement,False,958.58
+1000,below,Over500_2026_P02_-_published:r470,2026-05-21,"Transformation, Customer & ICT",INSIGHT DIRECT (UK) LTD,INSIGHT DIRECT UK,general_procurement,False,958.46
+1000,below,Over500_2026_P04_-_published:r2378,2026-07-29,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,956.76
+1000,below,Over500_2026_P03_-_published:r1117,2026-06-10,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,956.36
+1000,below,Over500_2026_P03_-_published:r1162,2026-06-24,Adult Social Care,Topline Care Solutions Ltd,TOPLINE CARE SOLUTIONS,placement,False,956.36
+1000,below,Over500_2026_P03_-_published:r1223,2026-06-24,Adult Social Care,Topline Care Solutions Ltd,TOPLINE CARE SOLUTIONS,placement,False,956.36
+1000,below,Over500_2026_P03_-_published:r1367,2026-06-10,Adult Social Care,Eniro Care Ltd,ENIRO CARE,placement,False,956.36
+1000,below,Over500_2026_P03_-_published:r1558,2026-06-24,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,956.36
+1000,below,Over500_2026_P03_-_published:r1769,2026-06-24,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,956.36
+1000,below,Over500_2026_P03_-_published:r2697,2026-06-24,Adult Social Care,Goldcrest Care Services,GOLDCREST CARE SERVICES,placement,False,956.36
+1000,below,Over500_2026_P03_-_published:r2737,2026-06-10,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,956.36
+1000,below,Over500_2026_P03_-_published:r2780,2026-06-17,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,956.36
+1000,below,Over500_2026_P03_-_published:r2828,2026-06-24,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,956.36
+1000,below,Over500_2026_P03_-_published:r2980,2026-06-24,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r1235,2026-07-08,Adult Social Care,Topline Care Solutions Ltd,TOPLINE CARE SOLUTIONS,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r1347,2026-07-08,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r1616,2026-07-29,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r1662,2026-07-29,Adult Social Care,Topline Care Solutions Ltd,TOPLINE CARE SOLUTIONS,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r1679,2026-07-29,Adult Social Care,Topline Care Solutions Ltd,TOPLINE CARE SOLUTIONS,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r1797,2026-07-29,Adult Social Care,Eniro Care Ltd,ENIRO CARE,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r1884,2026-07-29,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r1900,2026-07-29,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r2016,2026-07-08,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r2043,2026-07-08,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r2116,2026-07-29,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r2122,2026-07-29,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r2722,2026-07-15,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r2739,2026-07-29,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r2744,2026-07-29,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r3628,2026-07-15,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r890,2026-07-01,Adult Social Care,Your Serenity Ltd,YOUR SERENITY,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r929,2026-07-08,Adult Social Care,Your Serenity Ltd,YOUR SERENITY,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r951,2026-07-15,Adult Social Care,Goldcrest Care Services,GOLDCREST CARE SERVICES,placement,False,956.36
+1000,below,Over500_2026_P04_-_published:r1393,2026-07-15,Adult Social Care,Caremark (West Berkshire & Reading),CAREMARK WEST BERKSHIRE READING,placement,False,956.34
+1000,below,Over500_2026_P03_-_published:r1183,2026-06-24,Adult Social Care,Eternal Homecare Reading,ETERNAL HOMECARE READING,placement,False,956.32
+1000,below,Over500_2026_P04_-_published:r1391,2026-07-15,Adult Social Care,Eternal Homecare Reading,ETERNAL HOMECARE READING,placement,False,956.32
+1000,below,Over500_2026_P04_-_published:r2653,2026-07-08,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,956.32
+1000,below,Over500_2026_P04_-_published:r2775,2026-07-29,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,956.32
+1000,below,Over500_2026_P04_-_published:r1440,2026-07-15,Adult Social Care,Bloomfield Care Ltd,BLOOMFIELD CARE,placement,False,955.36
+1000,below,Over500_2026_P02_-_published:r1193,2026-05-13,Adult Social Care,Topline Care Solutions Ltd,TOPLINE CARE SOLUTIONS,placement,False,954.05
+1000,below,Over500_2026_P02_-_published:r1233,2026-05-20,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,954.05
+1000,below,Over500_2026_P02_-_published:r1244,2026-05-20,Adult Social Care,Noubles Healthcare Ltd,NOUBLES HEALTHCARE,placement,False,954.05
+1000,below,Over500_2026_P02_-_published:r1589,2026-05-13,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,954.05
+1000,below,Over500_2026_P02_-_published:r886,2026-05-13,Adult Social Care,Your Serenity Ltd,YOUR SERENITY,placement,False,954.05
+1000,below,Over500_2026_P03_-_published:r1359,2026-06-10,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,954.05
+1000,below,Over500_2026_P03_-_published:r1762,2026-06-10,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,954.05
+1000,below,Over500_2026_P03_-_published:r2822,2026-06-03,Adult Social Care,Eniro Care Ltd,ENIRO CARE,placement,False,954.05
+1000,below,Over500_2026_P03_-_published:r2983,2026-06-10,Adult Social Care,Best Pinnacle Care Ltd,BEST PINNACLE CARE,placement,False,954.05
+1000,below,Over500_2026_P02_-_published:r1433,2026-05-13,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,954.02
+1000,below,Over500_2026_P02_-_published:r1876,2026-05-20,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,954.02
+1000,below,Over500_2026_P02_-_published:r553,2026-05-27,Education & SEND,Early Education,EARLY EDUCATION,general_procurement,False,954.0
+1000,below,Over500_2026_P03_-_published:r990,2026-06-03,Adult Social Care,Bloomfield Care Ltd,BLOOMFIELD CARE,placement,False,953.06
+1000,below,Over500_2026_P03_-_published:r1446,2026-06-24,Adult Social Care,Johav Care support Healthcare Limited,JOHAV CARE SUPPORT HEALTHCARE,placement,False,952.0
+1000,below,Over500_2026_P04_-_published:r2151,2026-07-15,Adult Social Care,Johav Care support Healthcare Limited,JOHAV CARE SUPPORT HEALTHCARE,placement,False,952.0
+1000,below,Over500_2026_P04_-_published:r2221,2026-07-29,Adult Social Care,Johav Care support Healthcare Limited,JOHAV CARE SUPPORT HEALTHCARE,placement,False,952.0
+1000,below,Over500_2026_P02_-_published:r455,2026-05-20,Community Services,Cirrus Research PLC,CIRRUS RESEARCH,general_procurement,False,951.0
+1000,below,Over500_2026_P04_-_published:r1665,2026-07-29,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,950.66
+1000,below,Over500_2026_P03_-_published:r1307,2026-06-24,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,950.63
+1000,below,Over500_2026_P03_-_published:r722,2026-06-10,Education & SEND,ADF ENVIRONMENTAL LTD,ADF ENVIRONMENTAL,premises,False,950.0
+1000,below,Over500_2026_P04_-_published:r1016,2026-07-31,Adult Social Care - Transformation Projects,ACCESS UK LIMITED,ACCESS UK,general_procurement,False,950.0
+1000,below,Over500_2026_P04_-_published:r1619,2026-07-29,Adult Social Care,Your Serenity Ltd,YOUR SERENITY,placement,False,949.96
+1000,below,Over500_2026_P04_-_published:r1857,2026-07-01,Adult Social Care,Your Serenity Ltd,YOUR SERENITY,placement,False,949.96
+1000,below,Over500_2026_P04_-_published:r2047,2026-07-08,Adult Social Care,Your Serenity Ltd,YOUR SERENITY,placement,False,949.96
+1000,below,Over500_2026_P03_-_published:r2912,2026-06-10,Adult Social Care,Johav Care support Healthcare Limited,JOHAV CARE SUPPORT HEALTHCARE,placement,False,948.8
+1000,below,Over500_2026_P02_-_published:r1611,2026-05-20,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,948.35
+1000,below,Over500_2026_P02_-_published:r1598,2026-05-13,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,947.96
+1000,below,Over500_2026_P02_-_published:r1180,2026-05-13,Adult Social Care,Your Serenity Ltd,YOUR SERENITY,placement,False,947.67
+1000,below,Over500_2026_P02_-_published:r920,2026-05-27,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,945.56
+1000,below,Over500_2026_P02_-_published:r866,2026-05-20,Children's Social Care,Purple Oak Support,PURPLE OAK SUPPORT,placement,False,945.0
+1000,below,Over500_2026_P04_-_published:r4,2026-07-31,Children's Social Care,CHANCES GIVES CHOICES,CHANCES GIVES CHOICES,agency_staff,False,945.0
+1000,below,Over500_2026_P04_-_published:r1816,2026-07-08,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,944.98
+1000,below,Over500_2026_P04_-_published:r1899,2026-07-15,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,944.97
+1000,below,Over500_2026_P02_-_published:r1787,2026-05-22,Adult Social Care,Cedar Hope Care Services Ltd,CEDAR HOPE CARE SERVICES,placement,False,944.35
+1000,below,Over500_2026_P02_-_published:r2630,2026-05-11,"Finance, Property & Procurement",Redacted,,general_procurement,True,943.29
+1000,below,Over500_2026_P02_-_published:r1614,2026-05-20,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,942.65
+1000,below,Over500_2026_P03_-_published:r720,2026-06-11,Development & Housing,WSP UK  LTD,WSP UK,general_procurement,False,942.18
+1000,below,Over500_2026_P02_-_published:r57,2026-05-07,Development & Housing,TOTALENERGIES GAS & POWER LIMITED,TOTALENERGIES GAS POWER,premises,False,941.91
+1000,below,Over500_2026_P04_-_published:r2616,2026-07-15,Adult Social Care,The Yume Project Ltd,THE YUME PROJECT,placement,False,940.44
+1000,below,Over500_2026_P04_-_published:r2639,2026-07-15,Adult Social Care,The Yume Project Ltd,THE YUME PROJECT,placement,False,940.44
+1000,below,Over500_2026_P03_-_published:r1523,2026-06-03,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,940.42
+1000,below,Over500_2026_P03_-_published:r1613,2026-06-03,Adult Social Care,Affinity Trust Support Ltd,AFFINITY TRUST SUPPORT,placement,False,940.42
+1000,below,Over500_2026_P03_-_published:r1238,2026-06-24,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,940.1
+1000,below,Over500_2026_P04_-_published:r2379,2026-07-29,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,940.1
+1000,below,Over500_2026_P04_-_published:r1532,2026-07-17,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,939.27
+1000,below,Over500_2026_P03_-_published:r1308,2026-06-24,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,939.26
+1000,below,Over500_2026_P03_-_published:r2740,2026-06-10,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,939.26
+1000,below,Over500_2026_P04_-_published:r2120,2026-07-29,Adult Social Care,I.V Care Limited t/a Good Oaks Home Care (Reading),GOOD OAKS HOME CARE READING,placement,False,939.26
+1000,below,Over500_2026_P04_-_published:r1763,2026-07-29,Adult Social Care,HOUSING CARE 21,HOUSING CARE 21,placement,False,939.22
+1000,below,Over500_2026_P02_-_published:r2078,2026-05-19,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P02_-_published:r2125,2026-05-18,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P02_-_published:r2126,2026-05-19,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P02_-_published:r2127,2026-05-20,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P02_-_published:r2128,2026-05-20,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P02_-_published:r2142,2026-05-19,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P02_-_published:r2147,2026-05-20,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P02_-_published:r2148,2026-05-20,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P04_-_published:r3115,2026-07-23,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P04_-_published:r3116,2026-07-23,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P04_-_published:r3205,2026-07-22,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P04_-_published:r3223,2026-07-22,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P04_-_published:r3224,2026-07-22,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P04_-_published:r3773,2026-07-22,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P04_-_published:r3774,2026-07-23,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P04_-_published:r3779,2026-07-23,Children's Social Care,STEP BY STEP PARTNERSHIP LTD,STEP BY STEP PARTNERSHIP,placement,False,938.4
+1000,below,Over500_2026_P03_-_published:r1967,2026-06-10,Adult Social Care,Apex Prime Care Ltd,APEX PRIME CARE,placement,False,938.08
+1000,below,Over500_2026_P04_-_published:r2923,2026-07-17,Adult Social Care,Apex Prime Care Ltd,APEX PRIME CARE,placement,False,938.08
+1000,below,Over500_2026_P02_-_published:r1612,2026-05-20,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,937.16
+1000,below,Over500_2026_P02_-_published:r2003,2026-05-20,Adult Social Care,Apex Prime Care Ltd,APEX PRIME CARE,placement,False,936.64
+1000,below,Over500_2026_P04_-_published:r359,2026-07-22,Education & SEND,READING TRANSPORT LTD,READING TRANSPORT,general_procurement,False,936.0
+1000,below,Over500_2026_P04_-_published:r425,2026-07-09,Environment,EUCLID LTD,EUCLID,general_procurement,False,935.3
+1000,below,Over500_2026_P04_-_published:r136,2026-07-17,Adult Social Care,SOUTHERN MEDICAL LTD,SOUTHERN MEDICAL,premises,False,933.91
+1000,below,Over500_2026_P03_-_published:r2882,2026-06-24,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,933.58
+1000,below,Over500_2026_P04_-_published:r1330,2026-07-08,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,933.57
+1000,below,Over500_2026_P04_-_published:r924,2026-07-08,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,933.57
+1000,below,Over500_2026_P02_-_published:r1819,2026-05-22,Adult Social Care,Transparent Care Ltd,TRANSPARENT CARE,placement,False,933.48
+1000,below,Over500_2026_P04_-_published:r2613,2026-07-08,Adult Social Care,Transparent Care Ltd,TRANSPARENT CARE,placement,False,933.48
+1000,below,Over500_2026_P04_-_published:r2614,2026-07-08,Adult Social Care,Transparent Care Ltd,TRANSPARENT CARE,placement,False,933.48
+1000,below,Over500_2026_P04_-_published:r2277,2026-07-22,Adult Social Care,Care @ Home Newbury Ltd,CARE HOME NEWBURY,placement,False,933.33
+1000,below,Over500_2026_P03_-_published:r4,2026-06-10,Adult Social Care,AMBITION 24 HOURS,AMBITION 24 HOURS,agency_staff,False,933.24
+1000,below,Over500_2026_P04_-_published:r1758,2026-07-08,Adult Social Care,Acorn Home Support Ltd,ACORN HOME SUPPORT,placement,False,931.6
+1000,below,Over500_2026_P04_-_published:r1786,2026-07-29,Adult Social Care,Acorn Home Support Ltd,ACORN HOME SUPPORT,placement,False,931.6
+1000,below,Over500_2026_P02_-_published:r1605,2026-05-20,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,931.25
+1000,below,Over500_2026_P02_-_published:r794,2026-05-20,Adult Social Care,THE NEWBURY COMMUNITY RESOURCE CENTRE LTD,THE NEWBURY COMMUNITY RESOURCE CENTRE,placement,False,931.09
+1000,below,Over500_2026_P03_-_published:r311,2026-06-09,Community Services,Glen Cleaning Company Ltd,GLEN CLEANING COMPANY,premises,False,930.63
+1000,below,Over500_2026_P03_-_published:r312,2026-06-30,Community Services,Glen Cleaning Company Ltd,GLEN CLEANING COMPANY,premises,False,930.63
+1000,below,Over500_2026_P04_-_published:r397,2026-07-24,Community Services,Glen Cleaning Company Ltd,GLEN CLEANING COMPANY,premises,False,930.63
+1000,below,Over500_2026_P02_-_published:r311,2026-05-08,Education & SEND,Sikandar Hayat t/a Prompt Cars,PROMPT CARS,general_procurement,False,930.0
+1000,below,Over500_2026_P02_-_published:r1585,2026-05-06,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,928.2
+1000,below,Over500_2026_P02_-_published:r932,2026-05-22,Adult Social Care,Care Outlook Ltd,CARE OUTLOOK,placement,False,926.76
+1000,below,Over500_2026_P04_-_published:r1572,2026-07-15,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,926.51
+1000,below,Over500_2026_P03_-_published:r2403,2026-06-10,Environment,VolkerHighways Ltd,VOLKERHIGHWAYS,general_procurement,False,925.84
+1000,below,Over500_2026_P04_-_published:r47,2026-07-28,Community Services,ANCHOR PIPEWORK LIMITED,ANCHOR PIPEWORK,premises,False,925.16
+1000,below,Over500_2026_P04_-_published:r1197,2026-07-01,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,923.96
+1000,below,Over500_2026_P03_-_published:r1620,2026-06-10,Adult Social Care,CREATIVE SUPPORT,CREATIVE SUPPORT,placement,False,923.52
+1000,below,Over500_2026_P04_-_published:r2443,2026-07-15,Adult Social Care,CREATIVE SUPPORT,CREATIVE SUPPORT,placement,False,923.52
+1000,below,Over500_2026_P04_-_published:r2608,2026-07-29,Adult Social Care,CREATIVE SUPPORT,CREATIVE SUPPORT,placement,False,923.52
+1000,below,Over500_2026_P02_-_published:r1350,2026-05-27,Adult Social Care,CARE PARTNERS (NEWBURY) LTD,CARE PARTNERS NEWBURY,placement,False,922.21
+1000,below,Over500_2026_P03_-_published:r2992,2026-06-24,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,922.18
+1000,below,Over500_2026_P04_-_published:r2063,2026-07-08,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,922.18
+1000,below,Over500_2026_P04_-_published:r2773,2026-07-08,Adult Social Care,Comfort Harmony Care Ltd,COMFORT HARMONY CARE,placement,False,922.18
+1000,below,Over500_2026_P04_-_published:r1859,2026-07-01,Adult Social Care,Bloomfield Care Ltd,BLOOMFIELD CARE,placement,False,921.24
+1000,below,Over500_2026_P04_-_published:r2280,2026-07-29,Adult Social Care,Bloomfield Care Ltd,BLOOMFIELD CARE,placement,False,921.06
+1000,below,Over500_2026_P03_-_published:r1160,2026-06-24,Adult Social Care,Care @ Home Newbury Ltd,CARE HOME NEWBURY,placement,False,920.86
+1000,below,Over500_2026_P02_-_published:r1440,2026-05-20,Adult Social Care,All-Care (GB) Ltd,ALL CARE GB,placement,False,920.65
+1000,below,Over500_2026_P02_-_published:r1780,2026-05-20,Adult Social Care,CREATIVE SUPPORT,CREATIVE SUPPORT,placement,False,920.42
+1000,below,Over500_2026_P03_-_published:r190,2026-06-30,Education & SEND,BRITS AIRPORT CARS LIMITED,BRITS AIRPORT CARS,general_procurement,False,920.0
+1000,below,Over500_2026_P03_-_published:r308,2026-06-01,Adult Social Care,SYNCARE T/A REDLAND HEALTHCARE LTD,REDLAND HEALTHCARE,premises,False,919.96
+1000,below,Over500_2026_P02_-_published:r1349,2026-05-27,Adult Social Care,Care @ Home Newbury Ltd,CARE HOME NEWBURY,placement,False,918.58
+1000,below,Over500_2026_P04_-_published:r2452,2026-07-15,Adult Social Care,The Yume Project Ltd,THE YUME PROJECT,placement,False,918.54
+1000,below,Over500_2026_P04_-_published:r665,2026-07-16,Adult Social Care,SPIRE RIDGE BOARDING KENNELS AND CATTERY,SPIRE RIDGE BOARDING KENNELS AND CATTERY,general_procurement,False,918.0
+1000,below,Over500_2026_P03_-_published:r129,2026-06-19,Development & Housing,CASTLE WATER LIMITED,CASTLE WATER,premises,False,917.01
+1000,below,Over500_2026_P04_-_published:r2325,2026-07-08,Adult Social Care,INDEPENDENCE WITH DIGNITY SUPPORT SERVICES LTD,INDEPENDENCE WITH DIGNITY SUPPORT SERVICES,placement,False,916.72
+1000,below,Over500_2026_P04_-_published:r2578,2026-07-29,Adult Social Care,INDEPENDENCE WITH DIGNITY SUPPORT SERVICES LTD,INDEPENDENCE WITH DIGNITY SUPPORT SERVICES,placement,False,916.72
+1000,below,Over500_2026_P04_-_published:r1548,2026-07-29,Adult Social Care,CARE PARTNERS (NEWBURY) LTD,CARE PARTNERS NEWBURY,placement,False,916.3
+1000,below,Over500_2026_P03_-_published:r682,2026-06-30,Environment,WSP UK  LTD,WSP UK,general_procurement,False,916.21
+1000,below,Over500_2026_P03_-_published:r1034,2026-06-03,Adult Social Care,Eternal Homecare Reading,ETERNAL HOMECARE READING,placement,False,915.74
+1000,below,Over500_2026_P02_-_published:r513,2026-05-07,Community Services,ACS Business Supplies Ltd,ACS BUSINESS SUPPLIES,general_procurement,False,914.93
+1000,below,Over500_2026_P04_-_published:r34,2026-07-31,Adult Social Care,Expert Access Solutions Ltd,EXPERT ACCESS SOLUTIONS,premises,False,914.0
+1000,below,Over500_2026_P02_-_published:r1763,2026-05-20,Adult Social Care,INDEPENDENCE WITH DIGNITY SUPPORT SERVICES LTD,INDEPENDENCE WITH DIGNITY SUPPORT SERVICES,placement,False,913.18
+1000,below,Over500_2026_P03_-_published:r1207,2026-06-24,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,913.12
+1000,below,Over500_2026_P04_-_published:r1460,2026-07-15,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,913.12
+1000,below,Over500_2026_P04_-_published:r1461,2026-07-15,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,913.1
+1000,below,Over500_2026_P03_-_published:r1145,2026-06-17,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,913.08
+1000,below,Over500_2026_P03_-_published:r1147,2026-06-17,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,913.08
+1000,below,Over500_2026_P03_-_published:r1305,2026-06-17,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,913.08
+1000,below,Over500_2026_P04_-_published:r1475,2026-07-15,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,913.08
+1000,below,Over500_2026_P04_-_published:r503,2026-07-15,Environment,Melanie Sneddon,MELANIE SNEDDON,general_procurement,False,912.5
+1000,below,Over500_2026_P02_-_published:r547,2026-05-27,Children's Social Care,PRESTIGE NETWORK,PRESTIGE NETWORK,general_procurement,False,912.0
+1000,below,Over500_2026_P04_-_published:r3804,2026-07-16,Education (DSG Funded) & Other Education Grants,Young Giants Ltd.,YOUNG GIANTS,placement,False,912.0
+1000,below,Over500_2026_P02_-_published:r1258,2026-05-20,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,910.9
+1000,below,Over500_2026_P02_-_published:r1263,2026-05-20,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,910.86
+1000,below,Over500_2026_P02_-_published:r1278,2026-05-20,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,910.86
+1000,below,Over500_2026_P02_-_published:r1434,2026-05-20,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,910.86
+1000,below,Over500_2026_P02_-_published:r927,2026-05-20,Adult Social Care,PureSoul Care Ltd,PURESOUL CARE,placement,False,910.86
+1000,below,Over500_2026_P04_-_published:r2651,2026-07-29,Adult Social Care,Topline Care Solutions Ltd,TOPLINE CARE SOLUTIONS,placement,False,910.81
+1000,below,Over500_2026_P04_-_published:r2810,2026-07-15,Adult Social Care,Abi-support Ltd,ABI SUPPORT,placement,False,910.81
+1000,below,Over500_2026_P03_-_published:r997,2026-06-03,Adult Social Care,Eniro Care Ltd,ENIRO CARE,placement,False,910.8
+1000,below,Over500_2026_P04_-_published:r1781,2026-07-01,Adult Social Care,Goldcrest Care Services,GOLDCREST CARE SERVICES,placement,False,910.8
+1000,below,Over500_2026_P04_-_published:r2064,2026-07-29,Adult Social Care,I.V Care Limited t/a Good Oaks Home Care (Reading),GOOD OAKS HOME CARE READING,placement,False,910.8
+1000,below,Over500_2026_P04_-_published:r2569,2026-07-29,Adult Social Care,FOCUS SUPPORT LTD,FOCUS SUPPORT,placement,False,910.8
+1000,below,Over500_2026_P04_-_published:r2801,2026-07-01,Adult Social Care,I.V Care Limited t/a Good Oaks Home Care (Reading),GOOD OAKS HOME CARE READING,placement,False,910.8
+1000,below,Over500_2026_P02_-_published:r762,2026-05-19,"Finance, Property & Procurement",G7 BUSINESS SOLUTIONS LIMITED,G7 BUSINESS SOLUTIONS,general_procurement,False,910.0
+1000,below,Over500_2026_P03_-_published:r3085,2026-06-01,Environment,SEISMIC SEWAGE SYSTEMS LTD,SEISMIC SEWAGE SYSTEMS,general_procurement,False,910.0
+1000,below,Over500_2026_P04_-_published:r2791,2026-07-15,Adult Social Care,JC99 Ltd T/A Visiting Angels,VISITING ANGELS,placement,False,909.19
+1000,below,Over500_2026_P03_-_published:r1261,2026-06-10,Adult Social Care,Acorn Home Support Ltd,ACORN HOME SUPPORT,placement,False,908.31
+1000,below,Over500_2026_P02_-_published:r1766,2026-05-20,Adult Social Care,FOCUS SUPPORT LTD,FOCUS SUPPORT,placement,False,907.72
+1000,below,Over500_2026_P02_-_published:r888,2026-05-13,Adult Social Care,We Are The Care Company Ltd,WE ARE THE CARE COMPANY,placement,False,907.16
+1000,below,Over500_2026_P02_-_published:r1791,2026-05-22,Adult Social Care,VOYAGE CARE,VOYAGE CARE,placement,False,906.72
+1000,below,Over500_2026_P03_-_published:r1707,2026-06-24,Adult Social Care,VOYAGE CARE,VOYAGE CARE,placement,False,906.72
+1000,below,Over500_2026_P04_-_published:r2404,2026-07-15,Adult Social Care,VOYAGE CARE,VOYAGE CARE,placement,False,906.72
+1000,below,Over500_2026_P03_-_published:r1767,2026-06-24,Adult Social Care,PURLEY PARK TRUST LTD,PURLEY PARK TRUST,placement,False,906.24
+1000,below,Over500_2026_P03_-_published:r1840,2026-06-10,Adult Social Care,JC99 Ltd T/A Visiting Angels,VISITING ANGELS,placement,False,906.07
+1000,below,Over500_2026_P04_-_published:r820,2026-07-02,Environment,WSP UK  LTD,WSP UK,general_procurement,False,905.58
+1000,below,Over500_2026_P04_-_published:r241,2026-07-14,Environment,EVM DIRECT LIMITED,EVM DIRECT,general_procurement,False,905.34
+1000,below,Over500_2026_P04_-_published:r3290,2026-07-16,Education (DSG Funded) & Other Education Grants,Manor Primary School,MANOR PRIMARY SCHOOL,placement,False,905.33
+1000,below,Over500_2026_P02_-_published:r1376,2026-05-13,Adult Social Care,Acorn Home Support Ltd,ACORN HOME SUPPORT,placement,False,905.15
+1000,below,Over500_2026_P03_-_published:r1142,2026-06-10,Adult Social Care,Eniro Care Ltd,ENIRO CARE,placement,False,905.1
+1000,below,Over500_2026_P02_-_published:r399,2026-05-20,Education & SEND,MRS M F RICHARDSON T/A MFR Contracts,MFR CONTRACTS,general_procurement,False,905.0
+1000,below,Over500_2026_P02_-_published:r871,2026-05-13,Adult Social Care,BUPA Care Services,BUPA CARE SERVICES,placement,False,903.95
+1000,below,Over500_2026_P03_-_published:r48,2026-06-09,Community Services,ANCHOR PIPEWORK LIMITED,ANCHOR PIPEWORK,premises,False,903.68
+1000,below,Over500_2026_P04_-_published:r1764,2026-07-29,Adult Social Care,HOUSING CARE 21,HOUSING CARE 21,placement,False,901.9
+1000,below,Over500_2026_P03_-_published:r137,2026-06-08,Community Services,Glen Cleaning Company Ltd,GLEN CLEANING COMPANY,premises,False,901.77
+1000,below,Over500_2026_P04_-_published:r126,2026-07-30,Community Services,Glen Cleaning Company Ltd,GLEN CLEANING COMPANY,premises,False,901.77
+1000,below,Over500_2026_P04_-_published:r141,2026-07-30,Community Services,Glen Cleaning Company Ltd,GLEN CLEANING COMPANY,premises,False,901.77
+1000,below,Over500_2026_P04_-_published:r142,2026-07-30,Community Services,Glen Cleaning Company Ltd,GLEN CLEANING COMPANY,premises,False,901.77
+1000,below,Over500_2026_P03_-_published:r306,2026-06-16,Adult Social Care,SOUTHERN MEDICAL LTD,SOUTHERN MEDICAL,premises,False,901.47
+1000,below,Over500_2026_P03_-_published:r80,2026-06-01,Environment,SSE ENERGY SOLUTIONS,SSE ENERGY SOLUTIONS,premises,False,901.45
+1000,below,Over500_2026_P02_-_published:r2165,2026-05-12,Environment,Chipside Ltd,CHIPSIDE,general_procurement,False,900.0
+1000,below,Over500_2026_P03_-_published:r1873,2026-06-17,Adult Social Care,Purple Oak Support,PURPLE OAK SUPPORT,placement,False,900.0
+1000,below,Over500_2026_P03_-_published:r2971,2026-06-08,Adult Social Care,Redacted,,placement,True,900.0
+1000,below,Over500_2026_P03_-_published:r462,2026-06-09,Community Services,Amber Athill (12CP Barristers),AMBER ATHILL 12CP BARRISTERS,general_procurement,False,900.0
+1000,below,Over500_2026_P04_-_published:r57,2026-07-09,Development & Housing,BERKSHIRE MECHANICAL SERVICES,BERKSHIRE MECHANICAL SERVICES,premises,False,900.0
