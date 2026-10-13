@@ -31,8 +31,8 @@ Consequences:
 1. Extract every testable rule from the Contract Procedure Rules with clause
    references and verbatim quotes.
 2. Analyse the full spend population against those rules to surface risk
-   indicators (threshold clustering, split purchases, off-contract spend,
-   duplicates), computed by code, never by the LLM.
+   indicators (threshold clustering, split purchases, spend with no published
+   notice found, duplicates), computed by code, never by the LLM.
 3. Summarise past audit coverage, open actions and registered risks.
 4. Rate risks on a fixed likelihood × impact scale where every rating cites
    evidence, producing a risk register a human auditor approves (or rejects).
@@ -48,7 +48,7 @@ Consequences:
 | --- | --- | --- |
 | `data/contract-rules.pdf` | WBC Contract Procedure Rules (Part 8, Sept 2025), council constitution | The criteria: thresholds, quote/tender rules, approvals, anti-splitting rule |
 | `data/spend/*.xlsx` | "Expenditure over £500" page, monthly workbooks, sheet "Data to publish" (Phase 1: 3 months, ~3–4k rows each; header row position varies) | Full-population transactions. Columns: Service, Expenditure category, Narrative, Date, Net amount, Supplier name. Dates are datetimes (M/D/YY if text) |
-| `data/contracts.csv` | Contracts Finder export: quoted phrase "West Berkshire Council", Awarded contract stage, notice status Open AND Closed, publication date 2021→today, no value filter (~147 notices; under the site's 1,000-row export cap). A second export for quoted "West Berkshire" may be appended to catch the short buyer-name variant | RAW notice export, not a clean register: see parsing rules in spend-analyst. Basis of the off-contract test |
+| `data/contracts.csv` | Contracts Finder export: quoted phrase "West Berkshire Council", Awarded contract stage, notice status Open AND Closed, publication date 2021→today, no value filter (~147 notices; under the site's 1,000-row export cap). A second export for quoted "West Berkshire" may be appended to catch the short buyer-name variant | RAW notice export, not a clean register: see parsing rules in spend-analyst. Basis of the no_published_notice test. The council's contracts register is NOT a data source: it goes on the auditor's request list |
 | `data/committee/*.pdf` | Governance Committee papers: internal audit completed-work appendices (2024/25 annual + 2025/26 Q3), Internal Audit Plan 2025–28, Risk Management Strategy 2024–2027. NOTE: the Strategic Risk Register is an exempt (confidential) report and is NOT public: the scoring method comes from the Risk Management Strategy instead | Audit history and the council's risk-rating scale |
 | (optional later) `data/pcard/*.csv` | Corporate procurement card spend, quarterly | Extra split-purchase surface |
 
@@ -125,7 +125,7 @@ audit-planner/
     challenger.md                
     qa-reviewer.md               
   .claude/agent-memory/           # per-agent memory (how-to lessons only; never evidence)
-  scripts/                       # Python written by spend-analyst
+  scripts/                       # Python written by spend-analyst, incl. selfcheck.py
     checks/                      # QA scripts run by qa-reviewer: run_checks.py,
                                  #   check_quotes.py, check_numbers.py, check_trace.py, check_samples.py
   outputs/
@@ -232,16 +232,43 @@ Cleaning spend workbooks (scripts/clean.py):
   stop with a clear message on mismatch.
 - Dates may load as datetimes; if text, parse as M/D/YY (month first).
   Never auto-detect formats.
-- Normalise supplier names: uppercase, strip punctuation, drop
-  LTD/LIMITED/PLC/LLP suffixes, collapse whitespace. Apply the SAME
-  normalisation to supplier names parsed from contracts.csv.
-- Exclude non-procurement rows (statutory/inter-authority payments, e.g. LGPS
-  pension deficit contributions; internal transfers). Log exclusions.
-- Rows where Supplier name is exactly "Redacted" (about 19% of rows, mostly
-  Transfer Payments in Children's and Adult Social Care, names withheld by the
+- Normalise supplier names: uppercase, strip punctuation, collapse
+  whitespace; keep only the trading name after "T/A", "T/AS" or "TRADING AS";
+  drop LTD/LIMITED/PLC/LLP anywhere in the name, not only as a suffix; drop
+  payment tags such as "CHAPS ONLY". Apply the SAME normalisation to supplier
+  names parsed from contracts.csv. Log every cleaning rule applied (rule,
+  rows affected) so each normalised name is reproducible.
+- Only an exact match on normalised name (or Companies House number) counts
+  as a match in any test. Anything else (near-miss, fuzzy, containment) is
+  reported as a candidate, never a match.
+- Exclude non-procurement rows by exact Narrative value and log each one with
+  its reason:
+  statutory/inter-authority: "Employers LGPS Deficit Contribution", "LGPS
+  Employees Control", "LGPS Employers Control", "Teachers LGPS ERS Control",
+  "Prudential AVC Teachers", "Joint Arrangements (with Other Local
+  Authorities or NHS)", "Payments to Other Local Authorities (excl Joint
+  Arrangements)", "Payments to NHS (excl Joint Arrangement)", "Council Tax
+  Court Orders", "Court Order Control";
+  payments to individuals: "Direct Payment", "Allowances for provision care",
+  "Adult Placement Allowances", "Payments to Carers".
+  Exclusions apply BEFORE the Redacted rule below.
+- Tag every remaining row with exactly one `spend_tag`, first matching rule
+  wins, and log rows and £ per rule:
+  1. `grant`: Narrative "Grants" (kept in every test);
+  2. `agency_staff`: Narrative "Agency & Temporary Staff";
+  3. `premises`: Expenditure category "Premises";
+  4. `placement` (care or education placement): Expenditure category "Third
+     Party Payments" and Service one of "Adult Social Care", "Children's
+     Social Care", "Education & SEND", "Education (DSG Funded) & Other
+     Education Grants";
+  5. `general_procurement`: everything else.
+  Every test reports its results per tag.
+- Rows where Supplier name is exactly "Redacted" that remain after the
+  exclusions above (19% of raw rows are Redacted, but most are Direct
+  Payments and care allowances and are excluded first; names withheld by the
   council) are kept in the cleaned data but left out of every test that groups
-  or matches by supplier (split_purchases, off_contract, duplicates,
-  expired_notice_spend, spend_vs_award). Log them in the exclusion log and
+  or matches by supplier (split_purchases, no_published_notice, duplicates,
+  expired_notice_spend, spend_vs_award, high_value_suppliers). Log them in the exclusion log and
   report their row count and net total separately in analytics.json so totals
   reconcile.
 
@@ -261,10 +288,12 @@ Parsing contracts.csv (it is a raw Contracts Finder notice export):
   explicit format; spend dates are M/D/Y.
   Parse both with EXPLICIT formats; never auto-detect.
 - Keep contracts active during the spend window: Contract end date on or
-  after the window start (blank end date = keep). Awarded Value of 0.00 is
+  after the window start (blank end date = keep) AND start date on or before
+  the window end. Awarded Value of 0.00 is
   common (frameworks/multi-lot) and does NOT mean "no contract".
-- If total kept rows or any year's row count looks implausibly low, warn:
-  the source export may have hit the 1,000-row download cap.
+- Warn that the source export may have hit the 1,000-row download cap only
+  when contracts.csv has 950 or more data rows. A low count in one year is
+  not a cap warning.
 
 Tests (thresholds parameterised from rules.json, never hardcoded). A test or
 band whose edge is a rules.json parameter with a null value is skipped and
@@ -273,20 +302,28 @@ tests still run.
 1. threshold_clustering: per threshold T, the window follows the bound's
    inclusive flag: if the stricter rule applies at T or more, payments in
    [0.9 × T, T); if it applies only above T, payments in [0.9 × T, T].
-2. split_purchases: same normalised supplier, ≥2 payments in a 30-day window,
+   Comparison band just above T, mirrored the same way: [T, 1.1 × T) or
+   (T, 1.1 × T]; report both bands' count and £.
+2. split_purchases: same normalised supplier, ≥2 payments in a 30-day window
+   (first and last date at most 30 days apart),
    combined total crossing a threshold each single payment stays under.
-3. off_contract: supplier 3-month total annualised (×4, labelled "annualised
-   estimate") exceeds the tender threshold with no match in contracts.csv.
-   The tender/publication threshold is the £25,000 lower bound of the
-   Appendix B rule that requires a published contract notice, read from
-   rules.json, not hardcoded;
-   exact matches (name or Companies House number) and near-miss names
-   reported separately. IMPORTANT: Contracts Finder only publishes contracts
+   Compare dates without the time of day.
+3. no_published_notice: supplier 3-month total annualised (×4, labelled
+   "annualised estimate") is at or above the tender threshold with no exact match in
+   contracts.csv. The result is named "no published notice found", never
+   "off contract", and is a list of suppliers to request contract evidence
+   for, not a finding. The tender/publication threshold is the £25,000 lower
+   bound of the Appendix B rule that requires a published contract notice,
+   read from rules.json, not hardcoded;
+   exact matches (name or Companies House number) and candidates (anything
+   not an exact match: difflib ratio ≥ 0.85, or one name containing the
+   other, both ≥ 6 characters) reported separately. IMPORTANT: Contracts Finder only publishes contracts
    above ~£25k, so suppliers below that will legitimately never appear in
-   contracts.csv; the test therefore only flags suppliers ABOVE the
+   contracts.csv; the test therefore only flags suppliers at or above the
    tender/publication threshold, and results must never be used to question
    smaller suppliers.
-4. duplicates: same supplier, same amount, within 7 days.
+4. duplicates: same supplier, same amount, within 7 days (dates at most 7
+   days apart). Compare dates without the time of day.
 5. expired_notice_spend: only when contracts.csv is present: suppliers
    paid in the spend window whose every matching notice ended before the
    window started. Indicator of spend after expiry without an approved
@@ -296,9 +333,25 @@ tests still run.
    ratio = annualised estimate ÷ (Awarded Value ÷ contract years); flag
    ratio ≥ 1.25. Indicator of spend beyond the award without an approved
    variation (App C row E); award values may be estimates or maxima.
+7. high_value_suppliers: always runs (does not need contracts.csv). Every
+   normalised supplier whose annualised estimate is at or above the quote
+   threshold, sorted by £: the population to request contract evidence for.
+   The quote threshold is the £25,000 lower bound of the Appendix B rules
+   requiring quotes from at least three sources via the Procurement Portal
+   (CPR-52/CPR-54), read from rules.json, not hardcoded. Where contracts.csv
+   is present, each supplier carries its no_published_notice class.
 
-analytics.json per test: parameters, counts, £ totals, top 20; full lists to
-analytics-full/.
+analytics.json per test: parameters, counts, £ totals, top 20, and the same
+counts and £ per `spend_tag`; full lists to analytics-full/. A top-level
+`parameters` block records every window definition and cutoff used (30-day
+split span, 7-day duplicate span, clustering and comparison band width,
+0.85 candidate cutoff, 6-character containment minimum, annualisation
+factor, 1.25 award ratio).
+
+Self-check (scripts/selfcheck.py), run after the analytics: for each test
+that flagged anything, re-derive the top-ranked item directly from the
+cleaned data, independently of the analytics code, and confirm it matches
+analytics.json. Any mismatch is a stop: report it, do not hand over.
 
 ### Sub-agent: `findings-analyst` (Phase 1)
 
@@ -319,7 +372,10 @@ Every item names its source document and page/section. Not in the papers → omi
 
 Row format per approved risk: risk → expected control → test step → sample
 approach + the specific flagged transactions to pull (from analytics-full/).
-PBC (request) list derived from the test steps.
+PBC (request) list derived from the test steps. It always includes the
+council's contracts register and contract evidence for the
+high_value_suppliers population, starting with the suppliers marked "no
+published notice found".
 
 ### Agent team (Phase 3)
 
