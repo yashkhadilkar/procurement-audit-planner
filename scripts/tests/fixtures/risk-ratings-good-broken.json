@@ -1,0 +1,49 @@
+{
+ "risks": [
+  {
+   "risk_id": "R-01",
+   "title": "Purchases split to stay under the quote and tender threshold",
+   "description": "Payments to one supplier, each under the threshold, that together reach it within {{$.parameters.split_window_days}} days may indicate a requirement split to avoid the quote or tender route [rule:CPR-12].",
+   "likelihood": {
+    "score": 4,
+    "rubric_row": "S3",
+    "signal": "$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.count",
+    "justification": "{{$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.count}} general procurement groups reach the quote threshold of £{{$.named_thresholds.quote.value}} within the window [metric:$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.count]; at that value quotes from at least three sources are required [rule:CPR-52].",
+    "repeat_uplift": null
+   },
+   "impact": {
+    "score": 3,
+    "category": "Compliance (litigation, regulatory, contract)",
+    "justification": "General procurement group totals of £{{$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.total}} may have sat outside the competition the rules require [rule:CPR-53] [metric:$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.total]: a reasonable possibility of successful challenge. Placement groups ({{$.tests.split_purchases.by_threshold[threshold=25000].by_tag.placement.count}}) are context only [metric:$.tests.split_purchases.by_threshold[threshold=25000].by_tag.placement.count]."
+   },
+   "evidence": "Full group list in outputs/analytics-full/split_purchases.csv. Contract Letting was last audited with Reasonable Assurance [history:AUD-01].",
+   "proposed_focus": "For the largest general procurement groups, establish whether the payments were one requirement and which quotes or tender were held."
+  },
+  {
+   "risk_id": "R-02",
+   "title": "Spend after contract expiry",
+   "description": "Spend continuing after the matching notice ended, without an approved extension [rule:CPR-63].",
+   "likelihood": {
+    "score": 3,
+    "rubric_row": "S2",
+    "signal": null,
+    "justification": "Suppliers paid after their notice ended [rule:CPR-99] [metric:$.tests.expired_notice_scan.counts.suppliers].",
+    "repeat_uplift": null
+   },
+   "impact": {
+    "score": 2,
+    "category": "Financial loss to Council",
+    "justification": "Placement spend after expiry [metric:$.tests.expired_notice_spend.by_tag.placement.total]."
+   },
+   "evidence": "See the expired notice list.",
+   "proposed_focus": "Request extension approvals."
+  }
+ ],
+ "noted_not_rated": [
+  {
+   "history": "AUD-16",
+   "reason": "Direct Payments are excluded from every spend test before tagging, so no test measures this area [history:AUD-16]."
+  }
+ ],
+ "revision": null
+}

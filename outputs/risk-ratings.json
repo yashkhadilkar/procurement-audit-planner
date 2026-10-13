@@ -1,0 +1,209 @@
+{
+  "risks": [
+    {
+      "risk_id": "R-01",
+      "title": "Purchases split to stay under the quote and contract-notice threshold",
+      "description": "Two or more payments to one supplier within {{$.parameters.split_window_days}} days that together reach £{{$.named_thresholds.quote.value}}, while each payment stays below it, may indicate a requirement disaggregated so that the three-quote and contract-notice rules are not applied [rule:CPR-12] [rule:CPR-52] [rule:CPR-53]. This is a risk indicator to investigate: recurring orders under a call-off or framework produce the same pattern.",
+      "likelihood": {
+        "score": 4,
+        "rubric_row": "S3",
+        "signal": "$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.count",
+        "justification": "{{$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.count}} general procurement supplier groups in the spend window reach £{{$.named_thresholds.quote.value}} in combination [metric:$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.count]; at that value quotes from at least three sources and a published contract notice are required [rule:CPR-52] [rule:CPR-53], and splitting to avoid the Rules is prohibited [rule:CPR-12].",
+        "repeat_uplift": null
+      },
+      "impact": {
+        "score": 3,
+        "category": "Compliance (litigation, regulatory, contract)",
+        "justification": "If a requirement was split, the competition and notice rules for the band from £{{$.named_thresholds.quote.value}} to the Threshold were not applied [rule:CPR-52] [rule:CPR-53] [rule:CPR-12]; the general procurement groups total £{{$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.total}} over the window [metric:$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.total], giving a reasonable possibility of challenge or regulatory interest in the sub-Threshold band."
+      },
+      "evidence": "Split tier at £{{$.named_thresholds.quote.value}}: {{$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.count}} general procurement groups, £{{$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.total}} [metric:$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.count]. The tier at the Threshold itself was {{$.tests.split_purchases.thresholds_not_run[value='THRESHOLD'].status}}, because rules.json does not hold the Threshold value. The lowest split tier flags by construction and is not used [rule:CPR-51].",
+      "proposed_focus": "Sample the general procurement groups in the split_purchases full list for the £{{$.named_thresholds.quote.value}} tier; for each, obtain the order and quote records and establish whether the payments relate to one requirement and, if so, whether three quotes were invited and a notice published."
+    },
+    {
+      "risk_id": "R-02",
+      "title": "Purchases split to stay under the full-tender and Key Decision level",
+      "description": "Payments to one supplier within {{$.parameters.split_window_days}} days that together reach £{{$.tests.split_purchases.by_threshold[threshold=500000].threshold}}, while each stays below it, may indicate a requirement disaggregated so that a full competitive tender and Key Decision were not applied [rule:CPR-12] [rule:CPR-56] [rule:CPR-04]. Risk indicator to investigate.",
+      "likelihood": {
+        "score": 2,
+        "rubric_row": "S1",
+        "signal": "$.tests.split_purchases.by_threshold[threshold=500000].by_tag.general_procurement.count",
+        "justification": "{{$.tests.split_purchases.by_threshold[threshold=500000].by_tag.general_procurement.count}} general procurement supplier groups reach £{{$.tests.split_purchases.by_threshold[threshold=500000].threshold}} in combination [metric:$.tests.split_purchases.by_threshold[threshold=500000].by_tag.general_procurement.count]; above that value a full tender is required for works, concession and light touch contracts [rule:CPR-56] and the award is a Key Decision [rule:CPR-04].",
+        "repeat_uplift": null
+      },
+      "impact": {
+        "score": 4,
+        "category": "Compliance (litigation, regulatory, contract)",
+        "justification": "At this value a split requirement would bypass a full competitive tender [rule:CPR-56], and for goods and services the Procurement Legislation procedures above the Threshold [rule:CPR-58], as well as the Key Decision [rule:CPR-04]; the general procurement groups total £{{$.tests.split_purchases.by_threshold[threshold=500000].by_tag.general_procurement.total}} [metric:$.tests.split_purchases.by_threshold[threshold=500000].by_tag.general_procurement.total], giving a high possibility of legal challenge if the rules were not applied."
+      },
+      "evidence": "Split tier at £{{$.tests.split_purchases.by_threshold[threshold=500000].threshold}}: {{$.tests.split_purchases.by_threshold[threshold=500000].by_tag.general_procurement.count}} general procurement groups, £{{$.tests.split_purchases.by_threshold[threshold=500000].by_tag.general_procurement.total}} [metric:$.tests.split_purchases.by_threshold[threshold=500000].by_tag.general_procurement.total]. The council's contract type for each group is not in the spend data, so whether [rule:CPR-56] or [rule:CPR-58] applies is for the auditor to establish.",
+      "proposed_focus": "Examine every general procurement group in the £{{$.tests.split_purchases.by_threshold[threshold=500000].threshold}} tier: obtain the contract, the tender record and the Key Decision record, and establish whether the payments are instalments under one competed contract."
+    },
+    {
+      "risk_id": "R-03",
+      "title": "Payment values held just under the quote and contract-notice threshold",
+      "description": "A concentration of single payments just below £{{$.named_thresholds.quote.value}} may indicate values set to stay under the three-quote and contract-notice rules [rule:CPR-52] [rule:CPR-53]. These are payment values, not contract values; risk indicator to investigate.",
+      "likelihood": {
+        "score": 2,
+        "rubric_row": "S1",
+        "signal": "$.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.count",
+        "justification": "{{$.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.count}} general procurement payments fall in the band just below £{{$.named_thresholds.quote.value}} [metric:$.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.count] and {{$.tests.threshold_clustering.by_threshold[threshold=25000].comparison.by_tag.general_procurement.count}} in the comparison band just above it [metric:$.tests.threshold_clustering.by_threshold[threshold=25000].comparison.by_tag.general_procurement.count]; the rubric row is set from these two counts. The threshold is set by [rule:CPR-52].",
+        "repeat_uplift": null
+      },
+      "impact": {
+        "score": 3,
+        "category": "Compliance (litigation, regulatory, contract)",
+        "justification": "A value held below £{{$.named_thresholds.quote.value}} to avoid three quotes and a published notice would mean the sub-Threshold competition rules were not applied [rule:CPR-52] [rule:CPR-53]; the band holds £{{$.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.total}} of general procurement payments [metric:$.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.total], a reasonable possibility of challenge or regulatory interest."
+      },
+      "evidence": "Clustering tier at £{{$.named_thresholds.quote.value}}: band below {{$.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.count}} payments, £{{$.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.total}}; comparison band {{$.tests.threshold_clustering.by_threshold[threshold=25000].comparison.by_tag.general_procurement.count}} payments [metric:$.tests.threshold_clustering.by_threshold[threshold=25000].comparison.by_tag.general_procurement.total]. The tier at £{{$.tests.split_purchases.by_threshold[threshold=500000].threshold}} found {{$.tests.threshold_clustering.by_threshold[threshold=500000].below.by_tag.general_procurement.count}} general procurement payments below it [metric:$.tests.threshold_clustering.by_threshold[threshold=500000].below.by_tag.general_procurement.count].",
+      "proposed_focus": "Sample general procurement payments from the band just below £{{$.named_thresholds.quote.value}} in the threshold_clustering full list and check the order value against the quote and notice records."
+    },
+    {
+      "risk_id": "R-04",
+      "title": "Payment values held just under the single-quote threshold",
+      "description": "A concentration of single payments just below £{{$.tests.threshold_clustering.by_threshold[threshold=1000].threshold}} may indicate values set to stay under the requirement to seek at least one quote [rule:CPR-51]. These are payment values, not contract values; risk indicator to investigate.",
+      "likelihood": {
+        "score": 4,
+        "rubric_row": "S3",
+        "signal": "$.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.count",
+        "justification": "{{$.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.count}} general procurement payments fall in the band just below £{{$.tests.threshold_clustering.by_threshold[threshold=1000].threshold}} [metric:$.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.count] and {{$.tests.threshold_clustering.by_threshold[threshold=1000].comparison.by_tag.general_procurement.count}} in the comparison band just above it [metric:$.tests.threshold_clustering.by_threshold[threshold=1000].comparison.by_tag.general_procurement.count]; the rubric row is set from these two counts. The threshold is set by [rule:CPR-51].",
+        "repeat_uplift": null
+      },
+      "impact": {
+        "score": 1,
+        "category": "Compliance (litigation, regulatory, contract)",
+        "justification": "The rule at this level asks for one quote and mandates no advertising [rule:CPR-51], and the band holds £{{$.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.total}} of general procurement payments [metric:$.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.total]: a negligible possibility of legal challenge or regulatory interest."
+      },
+      "evidence": "Clustering tier at £{{$.tests.threshold_clustering.by_threshold[threshold=1000].threshold}}: band below {{$.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.count}} payments, £{{$.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.total}}; comparison band {{$.tests.threshold_clustering.by_threshold[threshold=1000].comparison.by_tag.general_procurement.count}} payments, £{{$.tests.threshold_clustering.by_threshold[threshold=1000].comparison.by_tag.general_procurement.total}} [metric:$.tests.threshold_clustering.by_threshold[threshold=1000].comparison.by_tag.general_procurement.total]. Published spend starts just above £{{$.publication_floor.value}} [rule:CPR-05], and rules.json notes that no requirement is stated at or below the lower bound of [rule:CPR-51].",
+      "proposed_focus": "A small sample of general procurement payments from the band just below £{{$.tests.threshold_clustering.by_threshold[threshold=1000].threshold}}, checked for a quote record and for repeat orders to the same supplier."
+    },
+    {
+      "risk_id": "R-05",
+      "title": "Spend at or above the publication threshold with no published notice found",
+      "description": "Suppliers whose annualised estimate ({{$.window.months}}-month total times {{$.window.annualisation_factor}}) is at or above £{{$.named_thresholds.tender_publication.value}} with no exact match among active Contracts Finder notices may indicate contracts let without the required contract notice [rule:CPR-53] [rule:CPR-55]. The result is a list of suppliers to request contract evidence for, not a finding: frameworks, older contracts or notices under another buyer name may cover them.",
+      "likelihood": {
+        "score": 4,
+        "rubric_row": "S3",
+        "signal": "$.tests.no_published_notice.by_tag.general_procurement.count",
+        "justification": "{{$.tests.no_published_notice.by_tag.general_procurement.count}} general procurement suppliers at or above £{{$.named_thresholds.tender_publication.value}} annualised have no published notice found [metric:$.tests.no_published_notice.by_tag.general_procurement.count]; a contract notice is required from that value [rule:CPR-53] [rule:CPR-55].",
+        "repeat_uplift": null
+      },
+      "impact": {
+        "score": 3,
+        "category": "Compliance (litigation, regulatory, contract)",
+        "justification": "Where no notice was published the publication rule was not applied [rule:CPR-53] and the contracts register may be incomplete [rule:CPR-07]; the general procurement suppliers concerned account for £{{$.tests.no_published_notice.by_tag.general_procurement.total}} over the window [metric:$.tests.no_published_notice.by_tag.general_procurement.total], a reasonable possibility of regulatory interest."
+      },
+      "evidence": "no_published_notice: {{$.tests.no_published_notice.by_tag.general_procurement.count}} general procurement suppliers, £{{$.tests.no_published_notice.by_tag.general_procurement.total}} [metric:$.tests.no_published_notice.by_tag.general_procurement.total]. The high_value_suppliers population is {{$.tests.high_value_suppliers.by_tag.general_procurement.count}} general procurement suppliers, £{{$.tests.high_value_suppliers.by_tag.general_procurement.total}} [metric:$.tests.high_value_suppliers.by_tag.general_procurement.count]. The council's contracts register is not an input. The most recent Contract Letting audit gave Reasonable Assurance [history:AUD-01], so no repeat-finding uplift applies.",
+      "proposed_focus": "Request the contracts register and contract evidence for the high_value_suppliers population, starting with general procurement suppliers marked no published notice found, and check each for a notice, a framework call-off or an approved waiver."
+    },
+    {
+      "risk_id": "R-06",
+      "title": "Spend continuing after the matching notice ended, without an approved extension",
+      "description": "Suppliers paid in the window ({{$.window.start}} to {{$.window.end}}) whose every exact-match notice ended before the window started may indicate spend after expiry without the extension approval the Rules require [rule:CPR-63]. A newer contract may exist with no notice; risk indicator to investigate.",
+      "likelihood": {
+        "score": 3,
+        "rubric_row": "S2",
+        "signal": "$.tests.expired_notice_spend.by_tag.general_procurement.count",
+        "justification": "{{$.tests.expired_notice_spend.by_tag.general_procurement.count}} general procurement suppliers were paid after every matching notice had ended [metric:$.tests.expired_notice_spend.by_tag.general_procurement.count]; an extension needs the approval of the statutory finance officer named in [rule:CPR-63].",
+        "repeat_uplift": null
+      },
+      "impact": {
+        "score": 3,
+        "category": "Compliance (litigation, regulatory, contract)",
+        "justification": "Spend after expiry without an approved extension would be a direct award outside the Rules [rule:CPR-63]; the general procurement spend concerned is £{{$.tests.expired_notice_spend.by_tag.general_procurement.total}} over the window [metric:$.tests.expired_notice_spend.by_tag.general_procurement.total], a reasonable possibility of challenge or regulatory interest."
+      },
+      "evidence": "expired_notice_spend: {{$.tests.expired_notice_spend.by_tag.general_procurement.count}} general procurement suppliers, £{{$.tests.expired_notice_spend.by_tag.general_procurement.total}} [metric:$.tests.expired_notice_spend.by_tag.general_procurement.total]. A further {{$.tests.expired_notice_spend.counts.candidate_only_suppliers}} suppliers match a notice only as candidates and are listed separately, not treated as matches.",
+      "proposed_focus": "For each general procurement supplier in the expired_notice_spend list, obtain the current contract and any extension approval required by [rule:CPR-63]."
+    },
+    {
+      "risk_id": "R-07",
+      "title": "Spend beyond the awarded contract value without an approved variation",
+      "description": "Suppliers whose annualised estimate is at or above {{$.parameters.award_ratio_flag}} times the annual value of their single active notice may indicate spend beyond the award without the variation approval the Rules require [rule:CPR-64] [rule:CPR-65]. Award values may be estimates or maxima; risk indicator to investigate.",
+      "likelihood": {
+        "score": 3,
+        "rubric_row": "S2",
+        "signal": "$.tests.spend_vs_award.by_tag.general_procurement.count",
+        "justification": "{{$.tests.spend_vs_award.by_tag.general_procurement.count}} general procurement suppliers are flagged at or above the award ratio [metric:$.tests.spend_vs_award.by_tag.general_procurement.count]; a variation needs prior written approval of the Monitoring Officer and the statutory finance officer below the Threshold [rule:CPR-64] and board approval above it [rule:CPR-65].",
+        "repeat_uplift": null
+      },
+      "impact": {
+        "score": 3,
+        "category": "Compliance (litigation, regulatory, contract)",
+        "justification": "A variation made without approval would modify a contract outside the Rules [rule:CPR-64]; the flagged general procurement spend is £{{$.tests.spend_vs_award.by_tag.general_procurement.total}} over the window [metric:$.tests.spend_vs_award.by_tag.general_procurement.total], a reasonable possibility of challenge or regulatory interest."
+      },
+      "evidence": "spend_vs_award: {{$.tests.spend_vs_award.by_tag.general_procurement.count}} general procurement suppliers, £{{$.tests.spend_vs_award.by_tag.general_procurement.total}} [metric:$.tests.spend_vs_award.by_tag.general_procurement.total]. Only suppliers with one active single-supplier notice with a positive award value are evaluated ({{$.tests.spend_vs_award.counts.suppliers_evaluated}} suppliers, all tags).",
+      "proposed_focus": "For each flagged general procurement supplier, obtain the contract, its value basis and any variation approval."
+    },
+    {
+      "risk_id": "R-08",
+      "title": "Possible duplicate payments to the same supplier",
+      "description": "Payments to one supplier of the same amount within {{$.parameters.duplicate_window_days}} days may indicate a payment made twice for one purchase, contrary to the requirement that every purchase is evidenced [rule:CPR-30]. Regular fixed-fee payments produce the same pattern; risk indicator to investigate.",
+      "likelihood": {
+        "score": 4,
+        "rubric_row": "S3",
+        "signal": "$.tests.duplicates.by_tag.general_procurement.count",
+        "justification": "{{$.tests.duplicates.by_tag.general_procurement.count}} general procurement groups of same-supplier, same-amount payments fall within {{$.parameters.duplicate_window_days}} days [metric:$.tests.duplicates.by_tag.general_procurement.count]; each payment should rest on written evidence of a purchase [rule:CPR-30].",
+        "repeat_uplift": null
+      },
+      "impact": {
+        "score": 2,
+        "category": "Financial loss to Council",
+        "justification": "A confirmed duplicate is a loss of the repeated payment only; the general procurement group total of £{{$.tests.duplicates.by_tag.general_procurement.total}} includes the original payments [metric:$.tests.duplicates.by_tag.general_procurement.total], and the repeat value per tag is not computed in analytics.json. The most recent Accounts Payable audit gave Reasonable Assurance [history:AUD-15]."
+      },
+      "evidence": "duplicates: {{$.tests.duplicates.by_tag.general_procurement.count}} general procurement groups, £{{$.tests.duplicates.by_tag.general_procurement.total}} [metric:$.tests.duplicates.by_tag.general_procurement.total]. Accounts Payable: Reasonable Assurance [history:AUD-15]. No rule in rules.json addresses duplicate payment directly; [rule:CPR-30] is the nearest.",
+      "proposed_focus": "Sample general procurement groups from the duplicates full list and match each payment to an invoice; confirm any duplicate was recovered."
+    },
+    {
+      "risk_id": "R-09",
+      "title": "Waivers or exceptions to the Rules not approved in advance or not documented",
+      "description": "Contracts let under a waiver or exception may lack the prior approval of the Monitoring Officer or the statutory finance officer, or the written exception report, that the Rules require [rule:CPR-20] [rule:CPR-24] [rule:CPR-25]. Risk to test from the waiver records.",
+      "likelihood": {
+        "score": 2,
+        "rubric_row": "NT",
+        "signal": null,
+        "justification": "No spend test measures whether a waiver was approved in advance; the Rules require advance approval by the Monitoring Officer and/or the statutory finance officer [rule:CPR-20] and a written, documented exception report [rule:CPR-24].",
+        "repeat_uplift": null
+      },
+      "impact": {
+        "score": 3,
+        "category": "Compliance (litigation, regulatory, contract)",
+        "justification": "A waiver without the required approval would set aside competition for contracts above the waiver level [rule:CPR-19] without the safeguards of [rule:CPR-20] and [rule:CPR-25], a reasonable possibility of challenge or regulatory interest."
+      },
+      "evidence": "rules.json records a conflict on who may grant a waiver between [rule:CPR-19] and [rule:CPR-20], and a gap between the waiver level of [rule:CPR-19] and the exception route of [rule:CPR-21]. Suppliers with no published notice found [metric:$.tests.no_published_notice.by_tag.general_procurement.count] are where waivers would be expected to appear.",
+      "proposed_focus": "Request the waiver and exception log for the window; for a sample of waivers, check advance approval and the exception report, and cross-match the log to the suppliers with no published notice found."
+    },
+    {
+      "risk_id": "R-10",
+      "title": "Contract awards not made by the authorised decision-maker or not recorded as a Key Decision",
+      "description": "Awards may be made without the delegated authority, board report or Key Decision record that the Rules require for their value band [rule:CPR-02] [rule:CPR-04] [rule:CPR-47] [rule:CPR-48] [rule:CPR-49] [rule:CPR-50]. Risk to test from decision records.",
+      "likelihood": {
+        "score": 2,
+        "rubric_row": "NT",
+        "signal": null,
+        "justification": "No spend test measures award authority; every contract must rest on a recorded decision [rule:CPR-02], and awards over the Key Decision level are Key Decisions [rule:CPR-04].",
+        "repeat_uplift": null
+      },
+      "impact": {
+        "score": 3,
+        "category": "Compliance (litigation, regulatory, contract)",
+        "justification": "An award without the required authority or Key Decision record would leave the contract open to challenge on the decision-maker's authority [rule:CPR-02] [rule:CPR-49], a reasonable possibility of challenge or regulatory interest."
+      },
+      "evidence": "The high_value_suppliers population of {{$.tests.high_value_suppliers.by_tag.general_procurement.count}} general procurement suppliers [metric:$.tests.high_value_suppliers.by_tag.general_procurement.count] is where the larger awards sit. The approval bands depend on the Threshold, which rules.json does not hold [rule:CPR-47] [rule:CPR-48].",
+      "proposed_focus": "For a sample of the largest general procurement suppliers, obtain the award decision record and check it against the approval band in Appendix A [rule:CPR-47] and the Key Decision requirement [rule:CPR-04]."
+    }
+  ],
+  "noted_not_rated": [
+    {
+      "history": "AUD-16",
+      "reason": "Personal Budgets (Direct Payments) audit, Limited Assurance [history:AUD-16]. Payments with the Narrative Direct Payment are excluded before tagging as payments to individuals ({{$.cleaning.exclusions[narrative='Direct Payment'].rows}} rows in the exclusion log), so no spend test measures this area."
+    },
+    {
+      "history": "AUD-11",
+      "reason": "Follow-up of a single school, Garland (now Burghfield Common Federation), opinion Weak, implementation progress Unsatisfactory [history:AUD-11]. The record does not state the areas the follow-up covered, and no spend test measures an individual school's controls."
+    },
+    {
+      "history": "AUD-12",
+      "reason": "Follow-up of a single school, Westwood Farm, opinion Limited Assurance, implementation progress Satisfactory [history:AUD-12]. The record does not state the areas the follow-up covered, and no spend test measures an individual school's controls."
+    }
+  ],
+  "revision": null
+}

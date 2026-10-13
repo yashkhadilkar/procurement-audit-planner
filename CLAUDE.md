@@ -129,7 +129,7 @@ audit-planner/
   .claude/agent-memory/           # per-agent memory (how-to lessons only; never evidence)
   scripts/                       # Python written by spend-analyst, incl. selfcheck.py
     verify_history.py            # checks history.json quotes, fields and scoring consistency
-    tests/                       # verifier tests and fixtures with planted errors
+    tests/                       # verifier and builder tests, fixtures with planted errors
     checks/                      # QA scripts run by qa-reviewer: run_checks.py,
                                  #   check_quotes.py, check_numbers.py, check_trace.py, check_samples.py
   outputs/
