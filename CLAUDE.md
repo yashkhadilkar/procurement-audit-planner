@@ -49,7 +49,7 @@ Consequences:
 | `data/contract-rules.pdf` | WBC Contract Procedure Rules (Part 8, Sept 2025), council constitution | The criteria: thresholds, quote/tender rules, approvals, anti-splitting rule |
 | `data/spend/*.xlsx` | "Expenditure over £500" page, monthly workbooks, sheet "Data to publish" (Phase 1: 3 months, ~3–4k rows each; header row position varies) | Full-population transactions. Columns: Service, Expenditure category, Narrative, Date, Net amount, Supplier name. Dates are datetimes (M/D/YY if text) |
 | `data/contracts.csv` | Contracts Finder export: quoted phrase "West Berkshire Council", Awarded contract stage, notice status Open AND Closed, publication date 2021→today, no value filter (~147 notices; under the site's 1,000-row export cap). A second export for quoted "West Berkshire" may be appended to catch the short buyer-name variant | RAW notice export, not a clean register: see parsing rules in spend-analyst. Basis of the no_published_notice test. The council's contracts register is NOT a data source: it goes on the auditor's request list |
-| `data/committee/*.pdf` | Governance Committee papers: internal audit completed-work appendices (2024/25 annual + 2025/26 Q3), Internal Audit Plan 2025–28, Risk Management Strategy 2024–2027. NOTE: the Strategic Risk Register is an exempt (confidential) report and is NOT public: the scoring method comes from the Risk Management Strategy instead | Audit history and the council's risk-rating scale |
+| `data/committee/*.pdf` | Governance Committee papers: internal audit completed-work appendices (2024/25 annual + 2025/26 Q3), Internal Audit Plan 2025–28, Risk Management Strategy 2024–2027. NOTE: the Corporate Risk Register is reported to the Governance Committee as a Part II (confidential) report and is NOT public: the scoring method comes from the Risk Management Strategy instead | Audit history and the council's risk-rating scale |
 | (optional later) `data/pcard/*.csv` | Corporate procurement card spend, quarterly | Extra split-purchase surface |
 
 ## How the system works (full flow)
@@ -126,6 +126,7 @@ audit-planner/
     qa-reviewer.md               
   .claude/agent-memory/           # per-agent memory (how-to lessons only; never evidence)
   scripts/                       # Python written by spend-analyst, incl. selfcheck.py
+    verify_history.py            # checks history.json quotes, fields and scoring consistency
     checks/                      # QA scripts run by qa-reviewer: run_checks.py,
                                  #   check_quotes.py, check_numbers.py, check_trace.py, check_samples.py
   outputs/
@@ -359,14 +360,18 @@ In: data/committee/*.pdf. Out: outputs/history.json:
 - areas audited recently + assurance opinions (from the completed-work
   appendices and, if present, their covering reports),
 - open/overdue agreed actions (theme, due date, status),
-- any risk themes referenced in the audit papers (the Strategic Risk
-  Register itself is exempt/not public; do not expect it, and note its
-  absence in history.json),
+- any risk themes referenced in the audit papers (the Corporate Risk
+  Register itself is a Part II (confidential) report and not public; do not
+  expect it, and note its absence in history.json),
 - the council's risk scoring method (likelihood/impact scales, matrix,
   appetite): extract it from the Risk Management Strategy 2024–2027;
   if the strategy does not contain a usable scoring method, say so
   explicitly in history.json rather than inventing one.
 Every item names its source document and page/section. Not in the papers → omitted.
+Records only, never scores: every item carries file, pdf_page and a copy-exact
+quote; tables are rebuilt from `pdftotext -layout`; inconsistencies inside the
+papers go in `discrepancies` unresolved, absences in `gaps`. history.json is
+handed over only when `scripts/verify_history.py` passes.
 
 ### Skill: `audit-program` (agent-loaded; Phase 3)
 
