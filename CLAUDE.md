@@ -115,7 +115,7 @@ audit-planner/
     committee/*.pdf
   .claude/skills/
     extract-rules/SKILL.md       
-    risk-assessment/SKILL.md     
+    risk-assessment/SKILL.md      # + build_register.py: resolves citations, scores, renders the register
     audit-program/SKILL.md       
   .claude/agents/
     spend-analyst.md             
@@ -135,8 +135,10 @@ audit-planner/
     analytics.json
     analytics-full/              # full flagged-transaction lists
     history.json
+    risk-ratings.json            # risk-assessor's judgments; build_register.py renders the two files below
     risk-register.md
-    auditor-comments.md          # decision template written by risk-assessor; auditor fills it in
+    auditor-comments.md          # decision template written by build_register.py; auditor fills it in
+    register-snapshots/          # rN.json: the ratings each register revision was built from
     audit-plan.json              # planner's judgments; build_pack.py renders the three files below
     planning-memo.md            
     risk-control-matrix.md       
@@ -207,18 +209,50 @@ Converts `data/contract-rules.pdf` → `outputs/rules.json`, an object:
 
 ### Skill: `risk-assessment` (agent-loaded; Phase 1)
 
-Defines `risk-register.md`:
+Defines `risk-register.md`. The agent writes its judgments to
+`outputs/risk-ratings.json`: citations as `[rule:ID]`, `[metric:$.path]` (into
+analytics.json) and `[history:ID]`, every figure as a `{{$.path}}` placeholder,
+never a typed number. `build_register.py`, next to SKILL.md, resolves every
+citation, fills every placeholder, computes score, matrix label and band, and
+renders the register (ending with an "Auditor decisions" section) and
+`auditor-comments.md` (one row per rated risk and per noted item, blank
+Decision and Comment; decisions already in the file are kept). It warns on
+figures typed in prose.
 - Likelihood 1–5 × impact 1–5 using the council's own scoring method as
   extracted into history.json from the Risk Management Strategy 2024–2027;
   if history.json reports no usable method, fall back to 1–5 Very low…Very
   high and state the fallback in the register header.
 - Per risk: Risk · Likelihood (score + one-line justification) · Impact (score
   + justification) · Evidence · Proposed focus.
-- HARD RULE: every justification cites ≥1 of {rule_id, named analytics metric,
-  history item}. No citation → risk excluded.
+- Where the scoring method contains conflicting thresholds, the builder uses
+  one, marks the other, and says so in the register header with the history
+  item. Never resolved silently.
+- HARD RULE: every likelihood and impact justification cites ≥1 of {rule_id,
+  named analytics metric, history item} that resolves. No resolvable citation
+  (or any citation or placeholder that fails to resolve) → risk excluded and
+  listed.
+- Likelihood follows a fixed rubric so the same evidence always gets the same
+  rating: the signal is the `general_procurement` count of the one test or
+  tier the risk rests on, and the builder computes the base score from it.
 - A repeat finding on the same theme raises likelihood by one point, stated
-  explicitly.
+  explicitly; it must cite an audit with a Limited (or worse) opinion.
+- Likelihood and impact rest on the `general_procurement` figures in
+  analytics.json. Other tags (placement, grant, agency_staff, premises) may
+  be cited as context, never as the main evidence for a rating: placements
+  recur by design.
+- The £1,000 split_purchases tier never raises a rating on its own: any two
+  published payments under £1,000 already add up to more than £1,000, so the
+  tier flags by construction. The register header says so.
+- A history.json audit with a Limited (or worse) opinion on an area the spend
+  tests exclude (e.g. Personal Budgets (Direct Payments)) is neither rated nor
+  dropped: it goes in a short "Noted, not rated" section with its history
+  citation and the reason, for the auditor to decide at the gate.
 - Indicator language only (see design principles).
+- Revision after the gate: the agent applies the auditor's decisions and
+  lists each change in a `revision` block in risk-ratings.json. The builder
+  diffs against the snapshot the auditor decided on, writes a revision header
+  naming what changed, marks any auditor override, and fails if a decision
+  was left unapplied or something changed that the auditor did not ask for.
 
 ### Sub-agent: `spend-analyst` (Phase 1)
 
