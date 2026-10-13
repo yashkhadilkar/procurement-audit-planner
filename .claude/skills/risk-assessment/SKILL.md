@@ -100,9 +100,10 @@ Decisions that apply to every rating:
    (Direct Payments), whose payments are excluded before tagging) is neither
    rated nor dropped. Put it in `noted_not_rated` with the reason; the
    auditor decides at the gate. The builder warns about any adverse audit
-   you have neither cited nor noted. Decide each one: noted, cited, or
-   (for an audit plainly outside procurement, such as a single school) left,
-   with the warning explained in your report.
+   you have neither cited nor noted. Every adverse audit is either cited in
+   a rated risk it bears on, or listed in `noted_not_rated` with a reason
+   (for an audit plainly outside procurement, such as a single school, the
+   reason says so). Never leave one as a warning.
 
 ## Step 3: Write outputs/risk-ratings.json
 

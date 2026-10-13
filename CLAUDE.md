@@ -71,10 +71,12 @@ Consequences:
         +-------------------+--------------------+
                             |
  (3) risk-assessor ← SUB-AGENT merges rules + analytics + history
-     loads risk-assessment ← SKILL (the method); main agent launches
-     it and relays the report
+     follows risk-assessment ← SKILL (the method): writes
+     risk-ratings.json, runs build_register.py until 0 excluded and
+     0 warnings; recommends only. Main agent launches it and relays
+     the report
                             |
-                    risk-register.md
+           risk-register.md + auditor-comments.md
                             |
  (4) HUMAN GATE: auditor approves risks and scope, or rejects → back to (3)
                             |
@@ -120,7 +122,7 @@ audit-planner/
   .claude/agents/
     spend-analyst.md             
     findings-analyst.md          
-    risk-assessor.md              (merge step)
+    risk-assessor.md             # step (3): writes risk-ratings.json, runs build_register.py
     planner.md                    (agent team)
     challenger.md                
     qa-reviewer.md               
