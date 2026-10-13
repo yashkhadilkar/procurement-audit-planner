@@ -413,11 +413,15 @@ handed over only when `scripts/verify_history.py` passes.
 ### Skill: `audit-program` (agent-loaded; Phase 3)
 
 Row format per approved risk: risk → expected control → test step → sample
-approach + the specific flagged transactions to pull (from analytics-full/).
+approach + the specific flagged transactions to pull (from the
+general_procurement rows of the analytics-full/ lists, consistent with how
+the register was rated).
 PBC (request) list derived from the test steps. It always includes the
-council's contracts register and contract evidence for the
+council's contracts register; contract evidence for the
 high_value_suppliers population, starting with the suppliers marked "no
-published notice found".
+published notice found"; the waiver and exception log; the Threshold values
+the Rules name but do not state; and the Internal Audit Plan 2025–28
+appendices missing from the published paper.
 
 ### Agent team (Phase 3)
 
