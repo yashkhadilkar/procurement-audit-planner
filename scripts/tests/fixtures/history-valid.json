@@ -1,0 +1,198 @@
+{
+  "generated": "2026-10-12T00:00:00+01:00",
+  "sources": [
+    {"file": "data/committee/audit-completed-work-2024-25-annual.pdf", "sha256": "1e86e2d613889a7048f8b0478ddc835f784ad139488112061d5cc64114007247", "pages": 2, "title": "Internal Audit Plan Update Report (End of March 2025), Appendix A"},
+    {"file": "data/committee/audit-completed-work-2025-26-q3.pdf", "sha256": "6681b9a0f93771b0ba7660bdab33bcc605c7f32a06f132f37aa0f4465b48856c", "pages": 1, "title": "Internal Audit Plan Update Report (End of December 2025), Appendix A"},
+    {"file": "data/committee/internal-audit-plan-2025-28.pdf", "sha256": "7e36b4a7aac008018f05eb4d360c02dbe2685e499f75852c2fd6601cb5f28f8c", "pages": 7, "title": "Internal Audit Plan 2025-2028 (Governance Committee, 29th April 2025)"},
+    {"file": "data/committee/risk-management-strategy-2024-27.pdf", "sha256": "a5a881e486a63c5fb848d4d3e7adef2723c07b830a617f423b7d80e8764d72a7", "pages": 35, "title": "Risk Management Strategy 2024-27 (Governance, 12 December 2024)"}
+  ],
+  "audits": [
+    {
+      "id": "AUD-01", "kind": "completed_audit", "report_period": "(End of March 2025)",
+      "directorate": "Resources", "service": "Finance, Property and Procurement",
+      "title": "Contract Letting", "opinion": "Reasonable Assurance", "implementation_progress": null,
+      "cites": [{"file": "data/committee/audit-completed-work-2024-25-annual.pdf", "pdf_page": 1,
+                 "section": "Appendix A, 1) Completed Audits",
+                 "quote": ["Internal Audit Plan Update Report (End of March 2025)", "Finance, Property and Procurement", "Contract Letting", "Reasonable Assurance"],
+                 "layout_quote": "Resources Finance, Property and Contract Letting Reasonable Assurance Procurement"}]
+    },
+    {
+      "id": "AUD-02", "kind": "follow_up", "report_period": "(End of March 2025)",
+      "directorate": "Schools", "service": "Primary",
+      "title": "Garland (now Burghfield Common Federation)", "opinion": "Weak", "implementation_progress": "Unsatisfactory",
+      "cites": [{"file": "data/committee/audit-completed-work-2024-25-annual.pdf", "pdf_page": 2,
+                 "section": "Appendix A, 2) Completed Follow Ups",
+                 "quote": ["Internal Audit Plan Update Report (End of March 2025)", "Garland (now Burghfield Common Federation)", "Weak", "Unsatisfactory"],
+                 "layout_quote": "Schools Primary Garland (now Burghfield Weak Unsatisfactory"}]
+    },
+    {
+      "id": "AUD-03", "kind": "completed_audit", "report_period": "(End of December 2025)",
+      "directorate": "Resources", "service": "Finance, Property and Procurement",
+      "title": "Accounts Payable", "opinion": "Reasonable Assurance", "implementation_progress": null,
+      "cites": [{"file": "data/committee/audit-completed-work-2025-26-q3.pdf", "pdf_page": 1,
+                 "section": "Appendix A, 1) Completed Audits",
+                 "quote": ["Internal Audit Plan Update Report (End of December 2025)", "Resources", "Finance, Property and Procurement", "Accounts Payable", "Reasonable Assurance"],
+                 "layout_quote": "Finance, Property and Accounts Payable Reasonable Assurance Procurement"}]
+    }
+  ],
+  "opinion_basis": [
+    {"id": "OPB-01", "summary": "How the overall opinion in the completed-audits table is derived",
+     "cites": [{"file": "data/committee/audit-completed-work-2024-25-annual.pdf", "pdf_page": 1, "section": "Appendix A, NOTE",
+                "quote": "The overall opinion is derived from the number/significance of recommendations together with using professional judgement."}]}
+  ],
+  "agreed_actions": [],
+  "risk_themes": [
+    {"id": "THM-01", "kind": "risk_source_prompt", "theme": "Procurement contract and relationship management",
+     "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 33, "section": "Appendix 1, 6.7 Sources of Risk: Contracts & Partnerships",
+                "quote": "Dependency on, or failure of, contractors to deliver services or products to the agreed cost and specification. Procurement contract and relationship management."}]}
+  ],
+  "risk_register_access": {
+    "status": "not public", "name_in_papers": "Corporate Risk Register",
+    "note": "The register itself is not in the papers; the strategy says risk is reported to the Governance Committee as a Part II (confidential) report.",
+    "cites": [
+      {"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 28, "section": "Appendix 1, 4.3 Communication",
+       "quote": "In terms of public meetings, risk is reported as a Part II (confidential information) report to the Governance Committee."},
+      {"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 21, "section": "6.3, Figure 4. Risk Escalation",
+       "quote": "Corporate Risk Register (CRR)"}
+    ]
+  },
+  "risk_scoring_method": {
+    "status": "found", "not_found_reason": null,
+    "evaluation_levels": [
+      {"level": "Gross level", "definition": "likelihood and impact without additional, specific mitigation action",
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 13, "section": "4.1",
+                  "quote": "Gross level – likelihood and impact without additional, specific mitigation action."}]}
+    ],
+    "likelihood_scale": [
+      {"score": 5, "label": "Certain", "incidents": "Risk will occur within a 12 month period", "probability": "100%",
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 15, "section": "4.4, Table 2. Likelihood Ratings",
+                  "quote": "Risk will occur within a 12 month period",
+                  "layout_quote": "5 Risk will occur within a 12 month period 100% Certain"}]},
+      {"score": 4, "label": "Almost Certain", "incidents": "Risk is almost certain to occur within a 12 month period", "probability": "70% - 99%",
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 15, "section": "4.4, Table 2. Likelihood Ratings",
+                  "quote": ["4 Almost Certain", "Risk is almost certain to occur within a 12 month period"],
+                  "layout_quote": "4 Risk is almost certain to occur within a 12 month Almost 70% - 99% period Certain"}]},
+      {"score": 3, "label": "Likely", "incidents": "Risk is likely to occur within a 12 month period", "probability": "30% - 69%",
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 15, "section": "4.4, Table 2. Likelihood Ratings",
+                  "quote": "3 Likely",
+                  "layout_quote": "3 Risk is likely to occur within a 12 month period 30% - 69% Likely"}]},
+      {"score": 2, "label": "Unlikely", "incidents": "Risk is unlikely to occur within a 12 month period", "probability": "2% - 29%",
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 15, "section": "4.4, Table 2. Likelihood Ratings",
+                  "quote": "2 Unlikely",
+                  "layout_quote": "2 Risk is unlikely to occur within a 12 month period 2% - 29% Unlikely"}]},
+      {"score": 1, "label": "Rare", "incidents": "Risk is very rare and highly unlikely to occur within a 12 month period", "probability": "–<2%",
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 15, "section": "4.4, Table 2. Likelihood Ratings",
+                  "quote": ["1 Rare", "Risk is very rare and highly unlikely to occur within a 12 month period", "–<2%"],
+                  "layout_quote": "1 Risk is very rare and highly unlikely to occur –<2% Rare within a 12 month period"}]}
+    ],
+    "impact_scale": [
+      {"score": 5, "label": "Critical", "criteria": {"Financial loss to Council": "> 1% annual WBC budget >£2m"},
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 14, "section": "4.3, Table 1. Impact Ratings",
+                  "quote": "5 Critical > 1% annual WBC budget >£2m"}]},
+      {"score": 4, "label": "Major", "criteria": {"Financial loss to Council": "0.25% - 1% annual WBC budget £500k £2M"},
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 14, "section": "4.3, Table 1. Impact Ratings",
+                  "quote": "4 Major 0.25% - 1% annual WBC budget £500k £2M"}]},
+      {"score": 3, "label": "Medium", "criteria": {"Financial loss to Council": "0.1% - 0.3% annual WBC budget £175k -500k"},
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 14, "section": "4.3, Table 1. Impact Ratings",
+                  "quote": "3 Medium 0.1% - 0.3% annual WBC budget £175k -500k"}]},
+      {"score": 2, "label": "Minor", "criteria": {"Financial loss to Council": "0.01% 0.1% of annual WBC budget £17.5k £175k"},
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 14, "section": "4.3, Table 1. Impact Ratings",
+                  "quote": "2 Minor 0.01% 0.1% of annual WBC budget £17.5k £175k"}]},
+      {"score": 1, "label": "Negligible", "criteria": {"Financial loss to Council": "Less than 0.01% annual WBC budget £17.5k"},
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 14, "section": "4.3, Table 1. Impact Ratings",
+                  "quote": "1 Negligible Less than 0.01% annual WBC budget £17.5k"}]}
+    ],
+    "matrix": {
+      "title": "5x5 Risk Matrix Assessments",
+      "likelihood_axis": [{"score": 1, "label": "Rare"}, {"score": 2, "label": "Unlikely"}, {"score": 3, "label": "Likely"},
+                          {"score": 4, "label": "Almost Certain"}, {"score": 5, "label": "Certain"}],
+      "impact_axis": [{"score": 1, "label": "Negligible"}, {"score": 2, "label": "Minor"}, {"score": 3, "label": "Medium"},
+                      {"score": 4, "label": "Major"}, {"score": 5, "label": "Critical"}],
+      "axis_cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 18, "section": "5.11, Figure 1. 5x5 Risk Matrix Assessments",
+                      "quote": ["Figure 1. 5x5 Risk Matrix Assessments", "1. Negligible", "2. Minor", "3 Medium", "4 Major", "5 Critical"],
+                      "layout_quote": "1 2 3 4 5 Rare Unlikely Likely Almost Certain Certain"}],
+      "rows": [
+        {"impact": 5, "labels": ["Moderate", "High", "Extreme", "Extreme", "Extreme"], "scores": [5, 10, 15, 20, 25],
+         "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 18, "section": "Figure 1, impact row 5",
+                    "quote": "Moderate High Extreme Extreme Extreme", "layout_quote": "Moderate High Extreme Extreme Extreme 5 Critical 5 10 15 20 25"}]},
+        {"impact": 4, "labels": ["Moderate", "High", "High", "Extreme", "Extreme"], "scores": [4, 8, 12, 16, 20],
+         "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 18, "section": "Figure 1, impact row 4",
+                    "quote": "Moderate High High Extreme Extreme", "layout_quote": "Moderate High High Extreme Extreme 4 Major 4 8 12 16 20"}]},
+        {"impact": 3, "labels": ["Low", "Moderate", "High", "High", "Extreme"], "scores": [3, 6, 9, 12, 15],
+         "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 18, "section": "Figure 1, impact row 3",
+                    "quote": "Low Moderate High High Extreme", "layout_quote": "3 Medium 3 6 9 12 15"}]},
+        {"impact": 2, "labels": ["Low", "Moderate", "Moderate", "High", "High"], "scores": [2, 4, 6, 8, 10],
+         "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 18, "section": "Figure 1, impact row 2",
+                    "quote": "Low Moderate Moderate High High", "layout_quote": "Low Moderate Moderate High High 2. Minor 2 4 6 8 10"}]},
+        {"impact": 1, "labels": ["Low", "Low", "Low", "Moderate", "Moderate"], "scores": [1, 2, 3, 4, 5],
+         "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 18, "section": "Figure 1, impact row 1",
+                    "quote": "Low Low Low Moderate Moderate", "layout_quote": "Low Low Low Moderate Moderate 1. Negligible 1 2 3 4 5"}]}
+      ]
+    },
+    "bands": [
+      {"level": "Extreme", "rag": "Red", "score_printed": "15 -25", "escalation": "Add to Corporate Risk Register and mitigation action.",
+       "response": "Allocate to Executive Director to oversee and Service Director implement agreed actions.",
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 19, "section": "5.13, Table 4. RAG Levels, Risk Scores, Escalation and Responses",
+                  "quote": ["Extreme (Red)", "15 -25", "Add to Corporate Risk Register and mitigation action.", "Allocate to Executive Director to oversee and Service Director implement agreed actions."]}]},
+      {"level": "Medium High", "rag": "Amber", "score_printed": "8-12", "escalation": "Seek assurance that identified controls are effective",
+       "response": "Allocate to Service Director to put in place Controls Assurance.",
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 19, "section": "5.13, Table 4",
+                  "quote": ["Medium High", "(Amber)", "8-12", "Seek assurance that identified controls are effective", "Allocate to Service Director to put in place Controls Assurance."]}]},
+      {"level": "Moderate", "rag": null, "score_printed": "4-6", "escalation": "None", "response": "Monitor risk",
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 19, "section": "5.13, Table 4",
+                  "quote": "4-6 None Monitor risk", "layout_quote": "Moderate 4-6 None Monitor risk"}]},
+      {"level": "Low", "rag": "Green", "score_printed": "Up to 3", "escalation": "None", "response": "Consider at next annual review",
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 19, "section": "5.13, Table 4",
+                  "quote": ["Low (Green)", "Up to 3 None Consider at next annual review"]}]}
+    ],
+    "appetite": {
+      "levels": ["Averse", "Cautious", "Flexible", "Open", "Seeking"],
+      "levels_cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 16, "section": "5.8, Table 3. West Berkshire Council Risk Appetite",
+                        "quote": "Risk levels Averse Cautious Flexible Open Seeking"}],
+      "categories": [
+        {"category": "Financial/ Asset",
+         "cells": {"Averse": "Up to £100k", "Cautious": "£100k £250k", "Flexible": "£250k - £500k", "Open": "£500k - £1m", "Seeking": "£1m +"},
+         "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 16, "section": "Table 3, Financial/ Asset row",
+                    "quote": "Up to £100k £100k £250k £250k - £500k £500k - £1m £1m +",
+                    "layout_quote": "Financial/ Asset Up to £100k"}]}
+      ],
+      "statements": [
+        {"category": "Financial Risk Appetite", "appetite": "Flexible",
+         "statement": "The Council aims to operate with a financial risk between £250k – £500k.",
+         "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 17, "section": "5.10",
+                    "quote": ["Financial Risk Appetite – Flexible", "The Council aims to operate with a financial risk between £250k – £500k."]}]}
+      ]
+    },
+    "escalation": [
+      {"register": "Corporate Risk Register (CRR)", "criterion": "Score 9 or above",
+       "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 21, "section": "6.3, Figure 4. Risk Escalation",
+                  "quote": ["Corporate Risk Register (CRR)", "Score 9 or above"]}]}
+    ]
+  },
+  "discrepancies": [
+    {"id": "DIS-01", "kind": "internal_inconsistency", "check_ref": "impact.financial_pct:3-4",
+     "description": "Table 1 prints the Medium (3) financial band as 0.1% - 0.3% of annual budget and the Major (4) band as 0.25% - 1%; the two printed ranges overlap.",
+     "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 14, "section": "4.3, Table 1. Impact Ratings",
+                "quote": ["0.1% - 0.3%", "0.25% - 1%"]}]},
+    {"id": "DIS-02", "kind": "terminology", "check_ref": "matrix.label_name:High",
+     "description": "Figure 1 labels the cells scoring 8-12 'High'; Table 4 names the 8-12 band 'Medium High' (Amber).",
+     "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 18, "section": "Figure 1", "quote": "Low Moderate High High Extreme"},
+               {"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 19, "section": "Table 4", "quote": ["Medium High", "8-12"]}]},
+    {"id": "DIS-03", "kind": "internal_inconsistency", "check_ref": null,
+     "description": "Figure 4 says the Corporate Risk Register includes risks that score 9 or above; Table 4 gives 'Add to Corporate Risk Register' as the escalation for the Extreme band (15 -25) only.",
+     "cites": [{"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 21, "section": "Figure 4. Risk Escalation", "quote": "Score 9 or above"},
+               {"file": "data/committee/risk-management-strategy-2024-27.pdf", "pdf_page": 19, "section": "Table 4", "quote": ["15 -25", "Add to Corporate Risk Register and mitigation action."]}]}
+  ],
+  "gaps": [
+    {"id": "GAP-01", "topic": "agreed_actions",
+     "detail": "No individual agreed actions, due dates or statuses are listed in any of the papers; the follow-up table gives only an implementation-progress opinion per audit.",
+     "searched": ["data/committee/audit-completed-work-2024-25-annual.pdf", "data/committee/audit-completed-work-2025-26-q3.pdf",
+                  "data/committee/internal-audit-plan-2025-28.pdf", "data/committee/risk-management-strategy-2024-27.pdf"],
+     "cites": []},
+    {"id": "GAP-02", "topic": "source_document",
+     "detail": "The Internal Audit Plan PDF is the covering report only; its Appendix D (the plan of audits for 2025 to 2028) is listed but not included.",
+     "searched": ["data/committee/internal-audit-plan-2025-28.pdf"],
+     "cites": [{"file": "data/committee/internal-audit-plan-2025-28.pdf", "pdf_page": 6, "section": "8 Appendices",
+                "quote": "Appendix D - Internal Audit Plan 2025 to 2028;"}]}
+  ]
+}

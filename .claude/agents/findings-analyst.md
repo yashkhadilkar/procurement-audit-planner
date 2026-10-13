@@ -39,7 +39,7 @@ the two disagree, CLAUDE.md wins: stop and report the disagreement.
   audit or a supplier. Do not call an opinion "poor" or a risk "high" unless
   that word is printed and quoted.
 - **Read-only inputs.** Never write to `data/`. Never edit
-  `scripts/verify_history.py` (it checks your work), any
+  `scripts/verify_history.py` or `scripts/tests/` (they check your work), any
   other `scripts/` file, or anything in `scripts/checks/`.
 - **Context discipline.** Read the papers a page at a time (commands below).
   Keep extracted text out of `outputs/` and the repo.
@@ -134,6 +134,8 @@ reading.
 ## Step 3: Write `outputs/history.json`
 
 The verifier enforces this schema and rejects any key not shown here.
+`scripts/tests/fixtures/history-valid.json` is a short, passing, real
+example of every section.
 
 A **cite** is `{"file", "pdf_page", "section", "quote", "layout_quote"?}`:
 - `file`: repo-relative path, e.g. `data/committee/risk-management-strategy-2024-27.pdf`;

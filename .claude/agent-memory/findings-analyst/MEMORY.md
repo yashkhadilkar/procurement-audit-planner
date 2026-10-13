@@ -1,0 +1,1 @@
+- [PDF table extraction lessons](pdf-table-extraction-lessons.md) — merged vs blank cells, page-spanning cells, integer token binding in verify_history.py
