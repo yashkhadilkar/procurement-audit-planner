@@ -1,1 +1,2 @@
 - [Builder prose and path syntax](builder-prose-and-paths.md) — digits in officer titles (S151) trip the figure check; string filters need quotes
+- [Revision: amending a likelihood](revision-amend-likelihood.md) — change score only, keep rubric_row; builder marks the override

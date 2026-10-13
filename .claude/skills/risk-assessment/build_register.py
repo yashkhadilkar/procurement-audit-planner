@@ -979,7 +979,8 @@ def render_register(ctx, method, results, noted, n, rev_info, decisions_rows, in
     M = method
     out = [f"# Procurement risk register (revision r{n})", "",
            f"Built {built} by `.claude/skills/risk-assessment/build_register.py` from `outputs/risk-ratings.json`. "
-           "Draft for the auditor's decision at the gate.", "",
+           + ("Draft for the auditor's decision at the gate." if n == 0 else f"Revision r{n} for auditor sign-off."),
+           "",
            "> These are **risk indicators to investigate**, drawn from published data. They are not findings "
            "and do not suggest wrongdoing by the council, any service or any supplier.", ""]
 

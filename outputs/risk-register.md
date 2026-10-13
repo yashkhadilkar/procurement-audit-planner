@@ -1,8 +1,17 @@
-# Procurement risk register (revision r0)
+# Procurement risk register (revision r1)
 
-Built 2026-10-13T20:22:52+00:00 by `.claude/skills/risk-assessment/build_register.py` from `outputs/risk-ratings.json`. Draft for the auditor's decision at the gate.
+Built 2026-10-13T20:47:15+00:00 by `.claude/skills/risk-assessment/build_register.py` from `outputs/risk-ratings.json`. Revision r1 for auditor sign-off.
 
 > These are **risk indicators to investigate**, drawn from published data. They are not findings and do not suggest wrongdoing by the council, any service or any supplier.
+
+## Revision r1
+
+- **R-03**: status. Rejected by the auditor: no clustering, fewer payments just below the threshold than just above it. Asked for by: R-03 Reject ("No clustering: fewer payments just below £25,000 than just above it.").
+- **R-04**: status. Rejected by the auditor: negligible impact and low total value. Asked for by: R-04 Reject ("Negligible impact and low total value; not worth fieldwork time.").
+- **R-05**: likelihood.score. Likelihood lowered from Almost Certain to Likely at the auditor's request: the count may be inflated because the notice export holds notices only from 2021 onwards and framework call-offs have no notice of their own. Asked for by: R-05 Amend ("Lower likelihood from 4 to 3: the count is inflated by the export only holding notices since 2021 and by framework call-offs that have no notice of their own.").
+
+**Auditor overrides** (marked on the risk):
+- R-05: likelihood 3 Likely at the auditor's request; the rubric gives 4 Almost Certain
 
 ## How this register was built
 
@@ -10,7 +19,7 @@ Built 2026-10-13T20:22:52+00:00 by `.claude/skills/risk-assessment/build_registe
 
 | File | sha256 |
 | --- | --- |
-| `risk-ratings.json` | `479ec5ac8a1a4461199c68f83599a4e3dc2013f0ad3ad44d915d5ac47f78ecc6` |
+| `risk-ratings.json` | `1818ec8028a5ac16816afe1b7cc8354254fcfbac41a31d8cce9d35a613d1681d` |
 | `analytics.json` | `9c21ddd22edba5a620cbb50287fcb3b6c7c3a9241d721bdb43f247cd55696d76` |
 | `history.json` | `9137d23214792dd7da1259d647017d4806221a6869e2c66fd3b573922fc51dcf` |
 | `rules.json` | `2faecd244736c3f25b51019bdd6e83f506495f23010f878614bbff958c6d45f1` |
@@ -69,9 +78,7 @@ Likelihood = base + 1 for a repeat finding, at most 5. 5 Certain is reached only
 | --- | --- | --- | --- | --- | --- | --- |
 | R-01 | Purchases split to stay under the quote and contract-notice threshold | 4 Almost Certain | 3 Medium | 12 ‡ | High | Medium High (Amber) |
 | R-02 | Purchases split to stay under the full-tender and Key Decision level | 2 Unlikely | 4 Major | 8 | High | Medium High (Amber) |
-| R-03 | Payment values held just under the quote and contract-notice threshold | 2 Unlikely | 3 Medium | 6 | Moderate | Moderate |
-| R-04 | Payment values held just under the single-quote threshold | 4 Almost Certain | 1 Negligible | 4 | Moderate | Moderate |
-| R-05 | Spend at or above the publication threshold with no published notice found | 4 Almost Certain | 3 Medium | 12 ‡ | High | Medium High (Amber) |
+| R-05 | Spend at or above the publication threshold with no published notice found (auditor override) | 3 Likely | 3 Medium | 9 ‡ | High | Medium High (Amber) |
 | R-06 | Spend continuing after the matching notice ended, without an approved extension | 3 Likely | 3 Medium | 9 ‡ | High | Medium High (Amber) |
 | R-07 | Spend beyond the awarded contract value without an approved variation | 3 Likely | 3 Medium | 9 ‡ | High | Medium High (Amber) |
 | R-08 | Possible duplicate payments to the same supplier | 4 Almost Certain | 2 Minor | 8 | High | Medium High (Amber) |
@@ -116,48 +123,13 @@ Payments to one supplier within 30 days that together reach £500,000, while eac
   - rule CPR-58: clause AppB-D, page 12, threshold
   - metric $.tests.split_purchases.by_threshold[threshold=500000].by_tag.general_procurement.total = 6,046,162.94 (primary: general_procurement)
 
-### R-03 Payment values held just under the quote and contract-notice threshold
-
-A concentration of single payments just below £25,000 may indicate values set to stay under the three-quote and contract-notice rules `rule:CPR-52` `rule:CPR-53`. These are payment values, not contract values; risk indicator to investigate.
-
-- **Likelihood: 2 Unlikely.** Rubric row S1 (signal $.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.count = 10; comparison band = 15, no excess (capped at S1)), base 2 Unlikely. 10 general procurement payments fall in the band just below £25,000 `metric:$.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.count` and 15 in the comparison band just above it `metric:$.tests.threshold_clustering.by_threshold[threshold=25000].comparison.by_tag.general_procurement.count`; the rubric row is set from these two counts. The threshold is set by `rule:CPR-52`.
-- **Impact: 3 Medium.** Table 1, Compliance (litigation, regulatory, contract): "Reasonable possibility of successful legal challenge. Reasonable possibility of regulatory interest." A value held below £25,000 to avoid three quotes and a published notice would mean the sub-Threshold competition rules were not applied `rule:CPR-52` `rule:CPR-53`; the band holds £238,120.44 of general procurement payments `metric:$.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.total`, a reasonable possibility of challenge or regulatory interest.
-- **Score:** 6; matrix label Moderate; band Moderate: Monitor risk
-- **Evidence:** Clustering tier at £25,000: band below 10 payments, £238,120.44; comparison band 15 payments `metric:$.tests.threshold_clustering.by_threshold[threshold=25000].comparison.by_tag.general_procurement.total`. The tier at £500,000 found 0 general procurement payments below it `metric:$.tests.threshold_clustering.by_threshold[threshold=500000].below.by_tag.general_procurement.count`.
-- **Proposed focus:** Sample general procurement payments from the band just below £25,000 in the threshold_clustering full list and check the order value against the quote and notice records.
-- **Sources:**
-  - rule CPR-52: clause AppB-B1, page 12, threshold
-  - rule CPR-53: clause AppB-B1, page 12, threshold
-  - metric $.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.count = 10 (primary: general_procurement)
-  - metric $.tests.threshold_clustering.by_threshold[threshold=25000].comparison.by_tag.general_procurement.count = 15 (primary: general_procurement)
-  - metric $.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.total = 238,120.44 (primary: general_procurement)
-  - metric $.tests.threshold_clustering.by_threshold[threshold=25000].comparison.by_tag.general_procurement.total = 396,487.45 (primary: general_procurement)
-  - metric $.tests.threshold_clustering.by_threshold[threshold=500000].below.by_tag.general_procurement.count = 0 (primary: general_procurement)
-
-### R-04 Payment values held just under the single-quote threshold
-
-A concentration of single payments just below £1,000 may indicate values set to stay under the requirement to seek at least one quote `rule:CPR-51`. These are payment values, not contract values; risk indicator to investigate.
-
-- **Likelihood: 4 Almost Certain.** Rubric row S3 (signal $.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.count = 57; comparison band = 40), base 4 Almost Certain. 57 general procurement payments fall in the band just below £1,000 `metric:$.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.count` and 40 in the comparison band just above it `metric:$.tests.threshold_clustering.by_threshold[threshold=1000].comparison.by_tag.general_procurement.count`; the rubric row is set from these two counts. The threshold is set by `rule:CPR-51`.
-- **Impact: 1 Negligible.** Table 1, Compliance (litigation, regulatory, contract): "Negligible possibility of legal challenge or regulatory interest" The rule at this level asks for one quote and mandates no advertising `rule:CPR-51`, and the band holds £54,809.89 of general procurement payments `metric:$.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.total`: a negligible possibility of legal challenge or regulatory interest.
-- **Score:** 4; matrix label Moderate; band Moderate: Monitor risk
-- **Evidence:** Clustering tier at £1,000: band below 57 payments, £54,809.89; comparison band 40 payments, £42,114.81 `metric:$.tests.threshold_clustering.by_threshold[threshold=1000].comparison.by_tag.general_procurement.total`. Published spend starts just above £500 `rule:CPR-05`, and rules.json notes that no requirement is stated at or below the lower bound of `rule:CPR-51`.
-- **Proposed focus:** A small sample of general procurement payments from the band just below £1,000, checked for a quote record and for repeat orders to the same supplier.
-- **Sources:**
-  - rule CPR-51: clause AppB-A, page 12, threshold
-  - metric $.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.count = 57 (primary: general_procurement)
-  - metric $.tests.threshold_clustering.by_threshold[threshold=1000].comparison.by_tag.general_procurement.count = 40 (primary: general_procurement)
-  - metric $.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.total = 54,809.89 (primary: general_procurement)
-  - metric $.tests.threshold_clustering.by_threshold[threshold=1000].comparison.by_tag.general_procurement.total = 42,114.81 (primary: general_procurement)
-  - rule CPR-05: clause 5.1, page 3, threshold
-
 ### R-05 Spend at or above the publication threshold with no published notice found
 
 Suppliers whose annualised estimate (3-month total times 4) is at or above £25,000 with no exact match among active Contracts Finder notices may indicate contracts let without the required contract notice `rule:CPR-53` `rule:CPR-55`. The result is a list of suppliers to request contract evidence for, not a finding: frameworks, older contracts or notices under another buyer name may cover them.
 
-- **Likelihood: 4 Almost Certain.** Rubric row S3 (signal $.tests.no_published_notice.by_tag.general_procurement.count = 165), base 4 Almost Certain. 165 general procurement suppliers at or above £25,000 annualised have no published notice found `metric:$.tests.no_published_notice.by_tag.general_procurement.count`; a contract notice is required from that value `rule:CPR-53` `rule:CPR-55`.
+- **Likelihood: 3 Likely.** Rubric row S3 (signal $.tests.no_published_notice.by_tag.general_procurement.count = 165), base 4 Almost Certain. 165 general procurement suppliers at or above £25,000 annualised have no published notice found `metric:$.tests.no_published_notice.by_tag.general_procurement.count`; a contract notice is required from that value `rule:CPR-53` `rule:CPR-55`. **Auditor override:** the rubric gives 4 Almost Certain.
 - **Impact: 3 Medium.** Table 1, Compliance (litigation, regulatory, contract): "Reasonable possibility of successful legal challenge. Reasonable possibility of regulatory interest." Where no notice was published the publication rule was not applied `rule:CPR-53` and the contracts register may be incomplete `rule:CPR-07`; the general procurement suppliers concerned account for £22,996,068.03 over the window `metric:$.tests.no_published_notice.by_tag.general_procurement.total`, a reasonable possibility of regulatory interest.
-- **Score:** 12 ‡; matrix label High; band Medium High (Amber): Allocate to Service Director to put in place Controls Assurance.
+- **Score:** 9 ‡; matrix label High; band Medium High (Amber): Allocate to Service Director to put in place Controls Assurance.
 - **Evidence:** no_published_notice: 165 general procurement suppliers, £22,996,068.03 `metric:$.tests.no_published_notice.by_tag.general_procurement.total`. The high_value_suppliers population is 205 general procurement suppliers, £25,532,234.94 `metric:$.tests.high_value_suppliers.by_tag.general_procurement.count`. The council's contracts register is not an input. The most recent Contract Letting audit gave Reasonable Assurance `history:AUD-01`, so no repeat-finding uplift applies.
 - **Proposed focus:** Request the contracts register and contract evidence for the high_value_suppliers population, starting with general procurement suppliers marked no published notice found, and check each for a notice, a framework call-off or an approved waiver.
 - **Sources:**
@@ -262,6 +234,11 @@ Audits with a Limited (or worse) opinion on areas the spend tests exclude. They 
 
 None.
 
+## Rejected by the auditor
+
+- R-03 Payment values held just under the quote and contract-notice threshold
+- R-04 Payment values held just under the single-quote threshold
+
 ## Build warnings
 
 None.
@@ -272,16 +249,16 @@ Record decisions in `outputs/auditor-comments.md`; this section is regenerated f
 
 | Item | Decision | Comment | Applied |
 | --- | --- | --- | --- |
-| R-01 | (undecided) |  |  |
-| R-02 | (undecided) |  |  |
-| R-03 | (undecided) |  |  |
-| R-04 | (undecided) |  |  |
-| R-05 | (undecided) |  |  |
-| R-06 | (undecided) |  |  |
-| R-07 | (undecided) |  |  |
-| R-08 | (undecided) |  |  |
-| R-09 | (undecided) |  |  |
-| R-10 | (undecided) |  |  |
-| AUD-16 | (undecided) |  |  |
-| AUD-11 | (undecided) |  |  |
-| AUD-12 | (undecided) |  |  |
+| R-01 | Approve | Strongest signal in the register. |  |
+| R-02 | Approve | Few groups but high value; examine every one. |  |
+| R-03 | Reject | No clustering: fewer payments just below £25,000 than just above it. | r1 |
+| R-04 | Reject | Negligible impact and low total value; not worth fieldwork time. | r1 |
+| R-05 | Amend | Lower likelihood from 4 to 3: the count is inflated by the export only holding notices since 2021 and by framework call-offs that have no notice of their own. | r1 |
+| R-06 | Approve |  |  |
+| R-07 | Approve |  |  |
+| R-08 | Approve | Match the sampled payments to invoices. |  |
+| R-09 | Approve | The Rules disagree on who may grant a waiver; test alongside R-05. |  |
+| R-10 | Approve | Sample the largest suppliers' award decisions. |  |
+| AUD-16 | Leave out | Payments to individuals, not council procurement; covered by the existing audit's follow-up. |  |
+| AUD-11 | Leave out | Single-school follow-up, outside council-level procurement. |  |
+| AUD-12 | Leave out | Single-school follow-up, outside council-level procurement. |  |

@@ -1,10 +1,7 @@
 # Auditor comments: risk register decisions
 
-Register revision: r0  
-Built: 2026-10-13T20:22:52+00:00 from outputs/risk-ratings.json (sha256 479ec5ac8a1a)
-
-Reviewer: Yash Khadilkar  
-Date: 2026-10-13
+Register revision: r1  
+Built: 2026-10-13T20:47:15+00:00 from outputs/risk-ratings.json (sha256 1818ec8028a5)
 
 Fill in a Decision for every row, and a Comment where needed. Edit only the Decision and
 Comment cells; build_register.py rewrites the other columns and keeps what you wrote.
@@ -21,9 +18,9 @@ Do not use the | character in a comment.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | R-01 | Purchases split to stay under the quote and contract-notice threshold | 4 Almost Certain | 3 Medium | 12 | Medium High (Amber) | Approve | Strongest signal in the register. |  |
 | R-02 | Purchases split to stay under the full-tender and Key Decision level | 2 Unlikely | 4 Major | 8 | Medium High (Amber) | Approve | Few groups but high value; examine every one. |  |
-| R-03 | Payment values held just under the quote and contract-notice threshold | 2 Unlikely | 3 Medium | 6 | Moderate | Reject | No clustering: fewer payments just below £25,000 than just above it. |  |
-| R-04 | Payment values held just under the single-quote threshold | 4 Almost Certain | 1 Negligible | 4 | Moderate | Reject | Negligible impact and low total value; not worth fieldwork time. |  |
-| R-05 | Spend at or above the publication threshold with no published notice found | 4 Almost Certain | 3 Medium | 12 | Medium High (Amber) | Amend | Lower likelihood from 4 to 3: the count is inflated by the export only holding notices since 2021 and by framework call-offs that have no notice of their own. |  |
+| R-03 | Payment values held just under the quote and contract-notice threshold (rejected) |  |  |  |  | Reject | No clustering: fewer payments just below £25,000 than just above it. | r1 |
+| R-04 | Payment values held just under the single-quote threshold (rejected) |  |  |  |  | Reject | Negligible impact and low total value; not worth fieldwork time. | r1 |
+| R-05 | Spend at or above the publication threshold with no published notice found | 3 Likely | 3 Medium | 9 | Medium High (Amber) | Amend | Lower likelihood from 4 to 3: the count is inflated by the export only holding notices since 2021 and by framework call-offs that have no notice of their own. | r1 |
 | R-06 | Spend continuing after the matching notice ended, without an approved extension | 3 Likely | 3 Medium | 9 | Medium High (Amber) | Approve |  |  |
 | R-07 | Spend beyond the awarded contract value without an approved variation | 3 Likely | 3 Medium | 9 | Medium High (Amber) | Approve |  |  |
 | R-08 | Possible duplicate payments to the same supplier | 4 Almost Certain | 2 Minor | 8 | Medium High (Amber) | Approve | Match the sampled payments to invoices. |  |

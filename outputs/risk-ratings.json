@@ -55,7 +55,8 @@
         "justification": "A value held below £{{$.named_thresholds.quote.value}} to avoid three quotes and a published notice would mean the sub-Threshold competition rules were not applied [rule:CPR-52] [rule:CPR-53]; the band holds £{{$.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.total}} of general procurement payments [metric:$.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.total], a reasonable possibility of challenge or regulatory interest."
       },
       "evidence": "Clustering tier at £{{$.named_thresholds.quote.value}}: band below {{$.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.count}} payments, £{{$.tests.threshold_clustering.by_threshold[threshold=25000].below.by_tag.general_procurement.total}}; comparison band {{$.tests.threshold_clustering.by_threshold[threshold=25000].comparison.by_tag.general_procurement.count}} payments [metric:$.tests.threshold_clustering.by_threshold[threshold=25000].comparison.by_tag.general_procurement.total]. The tier at £{{$.tests.split_purchases.by_threshold[threshold=500000].threshold}} found {{$.tests.threshold_clustering.by_threshold[threshold=500000].below.by_tag.general_procurement.count}} general procurement payments below it [metric:$.tests.threshold_clustering.by_threshold[threshold=500000].below.by_tag.general_procurement.count].",
-      "proposed_focus": "Sample general procurement payments from the band just below £{{$.named_thresholds.quote.value}} in the threshold_clustering full list and check the order value against the quote and notice records."
+      "proposed_focus": "Sample general procurement payments from the band just below £{{$.named_thresholds.quote.value}} in the threshold_clustering full list and check the order value against the quote and notice records.",
+      "status": "rejected"
     },
     {
       "risk_id": "R-04",
@@ -74,14 +75,15 @@
         "justification": "The rule at this level asks for one quote and mandates no advertising [rule:CPR-51], and the band holds £{{$.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.total}} of general procurement payments [metric:$.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.total]: a negligible possibility of legal challenge or regulatory interest."
       },
       "evidence": "Clustering tier at £{{$.tests.threshold_clustering.by_threshold[threshold=1000].threshold}}: band below {{$.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.count}} payments, £{{$.tests.threshold_clustering.by_threshold[threshold=1000].below.by_tag.general_procurement.total}}; comparison band {{$.tests.threshold_clustering.by_threshold[threshold=1000].comparison.by_tag.general_procurement.count}} payments, £{{$.tests.threshold_clustering.by_threshold[threshold=1000].comparison.by_tag.general_procurement.total}} [metric:$.tests.threshold_clustering.by_threshold[threshold=1000].comparison.by_tag.general_procurement.total]. Published spend starts just above £{{$.publication_floor.value}} [rule:CPR-05], and rules.json notes that no requirement is stated at or below the lower bound of [rule:CPR-51].",
-      "proposed_focus": "A small sample of general procurement payments from the band just below £{{$.tests.threshold_clustering.by_threshold[threshold=1000].threshold}}, checked for a quote record and for repeat orders to the same supplier."
+      "proposed_focus": "A small sample of general procurement payments from the band just below £{{$.tests.threshold_clustering.by_threshold[threshold=1000].threshold}}, checked for a quote record and for repeat orders to the same supplier.",
+      "status": "rejected"
     },
     {
       "risk_id": "R-05",
       "title": "Spend at or above the publication threshold with no published notice found",
       "description": "Suppliers whose annualised estimate ({{$.window.months}}-month total times {{$.window.annualisation_factor}}) is at or above £{{$.named_thresholds.tender_publication.value}} with no exact match among active Contracts Finder notices may indicate contracts let without the required contract notice [rule:CPR-53] [rule:CPR-55]. The result is a list of suppliers to request contract evidence for, not a finding: frameworks, older contracts or notices under another buyer name may cover them.",
       "likelihood": {
-        "score": 4,
+        "score": 3,
         "rubric_row": "S3",
         "signal": "$.tests.no_published_notice.by_tag.general_procurement.count",
         "justification": "{{$.tests.no_published_notice.by_tag.general_procurement.count}} general procurement suppliers at or above £{{$.named_thresholds.tender_publication.value}} annualised have no published notice found [metric:$.tests.no_published_notice.by_tag.general_procurement.count]; a contract notice is required from that value [rule:CPR-53] [rule:CPR-55].",
@@ -205,5 +207,33 @@
       "reason": "Follow-up of a single school, Westwood Farm, opinion Limited Assurance, implementation progress Satisfactory [history:AUD-12]. The record does not state the areas the follow-up covered, and no spend test measures an individual school's controls."
     }
   ],
-  "revision": null
+  "revision": {
+    "number": 1,
+    "changes": [
+      {
+        "target": "R-03",
+        "decision_ref": "R-03",
+        "fields": [
+          "status"
+        ],
+        "summary": "Rejected by the auditor: no clustering, fewer payments just below the threshold than just above it."
+      },
+      {
+        "target": "R-04",
+        "decision_ref": "R-04",
+        "fields": [
+          "status"
+        ],
+        "summary": "Rejected by the auditor: negligible impact and low total value."
+      },
+      {
+        "target": "R-05",
+        "decision_ref": "R-05",
+        "fields": [
+          "likelihood.score"
+        ],
+        "summary": "Likelihood lowered from Almost Certain to Likely at the auditor's request: the count may be inflated because the notice export holds notices only from 2021 onwards and framework call-offs have no notice of their own."
+      }
+    ]
+  }
 }
