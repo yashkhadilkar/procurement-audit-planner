@@ -28,8 +28,10 @@ from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from pydantic import BaseModel
 
 from . import gates, runs
-from .runner import RunSpec, run_sdk
+from .runner import Outcome, RunSpec, run_sdk
 from .settings import REPO, STAGES, load_config, load_secrets, work_dir
+from .team import run_team
+from .team_agents import SdkTeamAgents
 from .workspace import Workspace, WorkspaceError
 
 # What each stage needs before it may start (relative to WORK_DIR) and what it produces (in outputs/).
@@ -47,7 +49,10 @@ STAGE_SPEC = {
                "needs": ["outputs/rules.json", "outputs/analytics.json", "outputs/history.json",
                          "outputs/risk-ratings.json", "outputs/auditor-comments.md"],
                "outputs": REGISTER_OUT},
-    "team": {"outputs": ["audit-plan.json", "planning-memo.md", "risk-control-matrix.md", "audit-program.md",
+    "team": {"needs": ["outputs/rules.json", "outputs/analytics.json", "outputs/analytics-full", "outputs/history.json",
+                       "outputs/risk-ratings.json", "outputs/risk-register.md", "outputs/auditor-comments.md",
+                       "outputs/register-snapshots"],
+             "outputs": ["audit-plan.json", "planning-memo.md", "risk-control-matrix.md", "audit-program.md",
                          "samples", "pack-figures.json", "challenges.md", "review.md"]},
     "signoff": {"outputs": ["review.md"]},
 }
@@ -83,11 +88,14 @@ def prompt_for(stage):
     return AGENT_PROMPT.format(stage=stage, agent=spec["agent"], task=spec.get("task", ""))
 
 
-def create_app(work_root=None, secrets=None, config=None, runner=None, repo=REPO):
+def create_app(work_root=None, secrets=None, config=None, runner=None, repo=REPO, team_agents=None):
+    """runner stands in for run_sdk and team_agents(root, run_id) for the team's SDK agents (tests)."""
     secrets = secrets or load_secrets()
     config = config or load_config()
     ws = Workspace(work_root or work_dir(), repo=repo)
     redact = runs.make_redactor(secrets.values())
+    team_agents = team_agents or (lambda root, run_id: SdkTeamAgents(
+        root, secrets.api_key, run_id, exclude_claude_md=[str(repo / "CLAUDE.md")]))
 
     @asynccontextmanager
     async def lifespan(app):
@@ -166,6 +174,8 @@ def create_app(work_root=None, secrets=None, config=None, runner=None, repo=REPO
         out = {"stage": stage, "kind": kind}
         if kind == "agent":
             out.update(config["stages"][stage])
+        elif kind == "team":
+            out.update(config["team"], max_budget_usd=config["team"]["max_cost_usd"])
         out["outputs"] = [output_info(rel) for rel in STAGE_SPEC[stage]["outputs"]]
         if cur is not None and cur.record["stage"] == stage:
             status = "running"
@@ -188,11 +198,21 @@ def create_app(work_root=None, secrets=None, config=None, runner=None, repo=REPO
 
     # ------------------------------------------------------------ run execution
 
-    async def execute(handle, spec, before):
+    async def run_team_stage(handle):
+        """The team stage as an Outcome: success only on READY FOR SIGN-OFF."""
+        cfg = config["team"]
+        result = await run_team(ws.root, cfg, team_agents(ws.root, handle.id), handle.emit)
+        handle.update(verdict=result.verdict, pack_version=result.version, reasons=result.reasons)
+        ok = result.verdict == gates.READY
+        return Outcome(subtype="success" if ok else "blocked", is_error=not ok, cost_usd=result.cost_usd,
+                       result_text=result.summary)
+
+    async def execute(handle, work, before):
         status, error = "error", None
         try:
-            outcome = await app.state.runner(spec, handle.emit)
-            status = "succeeded" if outcome.subtype == "success" and not outcome.is_error else "failed"
+            outcome = await work()
+            status = ("succeeded" if outcome.subtype == "success" and not outcome.is_error
+                      else "blocked" if outcome.subtype == "blocked" else "failed")
             handle.update(cost_usd=outcome.cost_usd, num_turns=outcome.num_turns, duration_ms=outcome.duration_ms,
                           result_subtype=outcome.subtype, result_text=outcome.result_text,
                           session_id=outcome.session_id)
@@ -205,7 +225,7 @@ def create_app(work_root=None, secrets=None, config=None, runner=None, repo=REPO
         finally:
             changed = []
             try:
-                after = ws.commit(f"Run {handle.id} ({spec.stage}): {status}")
+                after = ws.commit(f"Run {handle.id} ({handle.record['stage']}): {status}")
                 changed = ws.changed(before, after)
             except WorkspaceError as e:
                 error = (error + "; " if error else "") + str(e)
@@ -244,7 +264,12 @@ def create_app(work_root=None, secrets=None, config=None, runner=None, repo=REPO
         if not secrets.api_key:
             raise HTTPException(503, "the server has no ANTHROPIC_API_KEY configured")
         require_idle()
-        cfg = config["stages"][stage]
+        if STAGES[stage] == "team":
+            t = config["team"]
+            cfg = {"model": f"planner {t['planner_model']}, challenger {t['challenger_model']}",
+                   "max_budget_usd": t["max_cost_usd"]}
+        else:
+            cfg = config["stages"][stage]
         run_id = runs.new_run_id(stage)
         record = {"id": run_id, "stage": stage, "status": "running", "model": cfg["model"],
                   "max_budget_usd": cfg["max_budget_usd"], "started_at": runs.now_iso(), "finished_at": None,
@@ -258,16 +283,26 @@ def create_app(work_root=None, secrets=None, config=None, runner=None, repo=REPO
         except BaseException:
             app.state.current = None
             raise
-        spec = RunSpec(run_id=run_id, stage=stage, prompt=prompt_for(stage), model=cfg["model"],
-                       max_budget_usd=cfg["max_budget_usd"], cwd=ws.root, write_roots=ws.write_roots(),
-                       forward_subagent_text=config["forward_subagent_text"],
-                       exclude_claude_md=[str(repo / "CLAUDE.md")], api_key=secrets.api_key)
         handle.update(workspace_commit_before=before)
-        handle.emit({"type": "run_started", "stage": stage, "model": cfg["model"],
-                     "max_budget_usd": cfg["max_budget_usd"], "prompt": spec.prompt})
+        if STAGES[stage] == "team":
+            handle.emit({"type": "run_started", "stage": stage, "model": cfg["model"],
+                         "max_budget_usd": cfg["max_budget_usd"], "team": config["team"]})
+
+            def work():
+                return run_team_stage(handle)
+        else:
+            spec = RunSpec(run_id=run_id, stage=stage, prompt=prompt_for(stage), model=cfg["model"],
+                           max_budget_usd=cfg["max_budget_usd"], cwd=ws.root, write_roots=ws.write_roots(),
+                           forward_subagent_text=config["forward_subagent_text"],
+                           exclude_claude_md=[str(repo / "CLAUDE.md")], api_key=secrets.api_key)
+            handle.emit({"type": "run_started", "stage": stage, "model": cfg["model"],
+                         "max_budget_usd": cfg["max_budget_usd"], "prompt": spec.prompt})
+
+            def work():
+                return app.state.runner(spec, handle.emit)
         app.state.handles[run_id] = handle
         app.state.summaries[run_id] = runs.summary(record)
-        app.state.task = asyncio.create_task(execute(handle, spec, before))
+        app.state.task = asyncio.create_task(execute(handle, work, before))
         return {"run_id": run_id, "events": f"/api/runs/{run_id}/events"}
 
     @app.get("/api/runs/{run_id}/events")

@@ -14,16 +14,25 @@ REPO = Path(__file__).resolve().parent.parent
 CONFIG_FILE = Path(__file__).resolve().parent / "config.json"
 SECRET_NAMES = ("ANTHROPIC_API_KEY", "ACCESS_CODE")
 
-# Stages in flow order. kind: "agent" runs through the Agent SDK, "stub" is not
-# built yet (501), "none" has no agent (its endpoint is /api/signoff).
+# Stages in flow order. kind: "agent" runs through the Agent SDK, "team" is the
+# harness-run agent team (app/team.py), "stub" is not built yet (501), "none"
+# has no agent (its endpoint is /api/signoff).
 STAGES = {
     "rules": "agent",
     "spend": "agent",
     "history": "agent",
     "register": "agent",
     "revise": "agent",
-    "team": "stub",
+    "team": "team",
     "signoff": "none",
+}
+TEAM_DEFAULTS = {
+    "planner_model": "claude-sonnet-5-5",
+    "challenger_model": "claude-haiku-5-5",
+    "max_cost_usd": 3.0,        # hard cap for the whole team stage, checked before every model call
+    "challenges_round1": 4,
+    "challenges_round2": 2,
+    "qa_fix_attempts": 3,       # across the whole stage
 }
 
 
@@ -75,8 +84,26 @@ def work_dir(environ=None):
     return (p if p.is_absolute() else REPO / p).resolve()
 
 
+def team_config(raw, path):
+    cfg = {**TEAM_DEFAULTS, **(raw or {})}
+    unknown = set(cfg) - set(TEAM_DEFAULTS)
+    if unknown:
+        raise ValueError(f"{path}: unknown team settings {sorted(unknown)}")
+    for k in ("planner_model", "challenger_model"):
+        if not isinstance(cfg[k], str) or not cfg[k]:
+            raise ValueError(f"{path}: team.{k} must be a model name")
+    cap = cfg["max_cost_usd"]
+    if not isinstance(cap, (int, float)) or isinstance(cap, bool) or cap <= 0:
+        raise ValueError(f"{path}: team.max_cost_usd must be a positive number")
+    cfg["max_cost_usd"] = float(cap)
+    for k in ("challenges_round1", "challenges_round2", "qa_fix_attempts"):
+        if not isinstance(cfg[k], int) or isinstance(cfg[k], bool) or cfg[k] < 0:
+            raise ValueError(f"{path}: team.{k} must be a whole number, 0 or more")
+    return cfg
+
+
 def load_config(path=CONFIG_FILE):
-    """{"stages": {stage: {"model", "max_budget_usd"}}, "forward_subagent_text": bool}."""
+    """{"stages": {stage: {"model", "max_budget_usd"}}, "team": {...}, "forward_subagent_text": bool}."""
     raw = json.loads(Path(path).read_text(encoding="utf-8"))
     default = raw.get("default", {})
     overrides = raw.get("stages", {})
@@ -94,4 +121,5 @@ def load_config(path=CONFIG_FILE):
         if not isinstance(budget, (int, float)) or isinstance(budget, bool) or budget <= 0:
             raise ValueError(f"{path}: stage {name} needs a positive max_budget_usd")
         stages[name] = {"model": model, "max_budget_usd": float(budget)}
-    return {"stages": stages, "forward_subagent_text": bool(raw.get("forward_subagent_text", False))}
+    return {"stages": stages, "team": team_config(raw.get("team"), path),
+            "forward_subagent_text": bool(raw.get("forward_subagent_text", False))}

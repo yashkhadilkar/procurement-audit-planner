@@ -36,6 +36,15 @@ class RunSpec:
     forward_subagent_text: bool = True
     exclude_claude_md: list = field(default_factory=list)
     api_key: str = field(default="", repr=False)
+    # The team stage runs each role as its own session: its own tools, a system
+    # prompt appended to Claude Code's, a JSON schema for the final reply, and
+    # extra denials (command patterns, folders it may not read).
+    tools: list = field(default_factory=lambda: list(TOOLS))
+    skills: list = field(default_factory=lambda: list(SKILLS))
+    system_prompt: str | None = None
+    output_format: dict | None = None
+    bash_deny: list = field(default_factory=list)  # [(regex, reason)]
+    read_deny: list = field(default_factory=list)  # paths: no read, list or search inside them
 
 
 @dataclass
@@ -47,6 +56,7 @@ class Outcome:
     duration_ms: int | None = None
     result_text: str | None = None
     session_id: str | None = None
+    structured_output: object = None
 
 
 def clip(s, n):
@@ -84,8 +94,10 @@ def _inside(path, roots):
 
 
 def make_guard(spec, emit):
-    """PreToolUse hook: deny writes outside the writable roots, and any .env access."""
+    """PreToolUse hook: deny writes outside the writable roots, any .env access, and the spec's extra denials."""
     write_roots = [Path(r).resolve() for r in spec.write_roots] + list(TEMP_ROOTS)
+    read_deny = [Path(r).resolve() for r in spec.read_deny]
+    bash_deny = [(re.compile(rx), reason) for rx, reason in spec.bash_deny]
 
     def deny(reason, tool):
         emit({"type": "guard", "tool": tool, "reason": reason})
@@ -97,9 +109,18 @@ def make_guard(spec, emit):
         ti = input_data.get("tool_input") or {}
         base = Path(input_data.get("cwd") or spec.cwd)
         if tool == "Bash":
-            if DOTENV_IN_COMMAND.search(str(ti.get("command", ""))):
+            command = str(ti.get("command", ""))
+            if DOTENV_IN_COMMAND.search(command):
                 return deny("The web app does not allow access to .env files.", tool)
+            for rx, reason in bash_deny:
+                if rx.search(command):
+                    return deny(reason, tool)
             return {}
+        if tool == "Glob" and read_deny and ti.get("pattern"):
+            literal = re.split(r"[*?\[{]", str(ti["pattern"]), maxsplit=1)[0]
+            p = Path(ti.get("path") or base) / literal
+            if any(_inside(p.resolve(), [r]) for r in read_deny):
+                return deny(f"{ti['pattern']} reaches a folder that is not open to this agent.", tool)
         raw = ti.get("file_path") or ti.get("notebook_path") or ti.get("path")
         if not raw:
             return {}
@@ -110,6 +131,8 @@ def make_guard(spec, emit):
         if tool in WRITE_TOOLS and not _inside(p, write_roots):
             return deny(f"Writes are allowed only under {', '.join(str(r) for r in spec.write_roots)}; "
                         f"{p} is outside them.", tool)
+        if any(_inside(p, [r]) for r in read_deny):
+            return deny(f"{p} is not open to this agent.", tool)
         return {}
 
     return guard
@@ -126,9 +149,12 @@ async def run_sdk(spec, emit):
         cwd=str(spec.cwd),
         model=spec.model,
         setting_sources=["project"],
-        skills=list(SKILLS),
-        tools=list(TOOLS),
-        allowed_tools=list(TOOLS),
+        skills=list(spec.skills),
+        tools=list(spec.tools),
+        allowed_tools=list(spec.tools),
+        system_prompt=({"type": "preset", "preset": "claude_code", "append": spec.system_prompt,
+                        "exclude_dynamic_sections": True} if spec.system_prompt else None),
+        output_format=spec.output_format,
         permission_mode="dontAsk",
         max_budget_usd=spec.max_budget_usd,
         forward_subagent_text=spec.forward_subagent_text,
@@ -195,7 +221,8 @@ async def run_sdk(spec, emit):
                     outcome = Outcome(subtype=msg.subtype, is_error=bool(msg.is_error),
                                       cost_usd=msg.total_cost_usd, num_turns=msg.num_turns,
                                       duration_ms=msg.duration_ms, result_text=msg.result,
-                                      session_id=msg.session_id)
+                                      session_id=msg.session_id,
+                                      structured_output=getattr(msg, "structured_output", None))
                     emit({"type": "result", "subtype": msg.subtype, "is_error": bool(msg.is_error),
                           "cost_usd": msg.total_cost_usd, "num_turns": msg.num_turns,
                           "duration_ms": msg.duration_ms, "text": clip(msg.result or "", 8000),

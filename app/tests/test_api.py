@@ -54,13 +54,17 @@ def work(tmp_path):
     return tmp_path / "work"
 
 
+def no_team_agents(root, run_id):
+    raise AssertionError("a test reached the real team agents; pass scripted ones")
+
+
 @pytest.fixture
 def client_for(work):
     clients = []
 
-    def make(runner=None):
+    def make(runner=None, team_agents=no_team_agents):
         app = create_app(work_root=work, secrets=Secrets(api_key=KEY, access_code=CODE),
-                         config=load_config(), runner=runner or FakeRunner(block=False))
+                         config=load_config(), runner=runner or FakeRunner(block=False), team_agents=team_agents)
         c = TestClient(app)
         c.__enter__()
         clients.append(c)
@@ -98,7 +102,9 @@ def test_workspace_seeded_from_committed_outputs(client_for, work):
     assert by["history"]["model"] == "claude-haiku-5-5" and by["rules"]["model"] == "claude-sonnet-5-5"
     assert all(by[s]["max_budget_usd"] == 1.5 for s in ("rules", "spend", "history", "register", "revise"))
     assert by["rules"]["status"] == "signed-off run"
-    assert by["team"]["status"] == "not available"
+    assert by["team"]["status"] == "signed-off run" and by["team"]["kind"] == "team"
+    assert by["team"]["max_budget_usd"] == 3.0 and by["team"]["planner_model"] == "claude-sonnet-5-5"
+    assert by["team"]["challenger_model"] == "claude-haiku-5-5"
     assert by["signoff"]["status"] == "signed"
     assert KEY not in json.dumps(st) and CODE not in json.dumps(st)
 
@@ -373,7 +379,6 @@ def test_run_endpoint_refusals(client_for, work):
     c = client_for()
     assert c.post("/api/run/history").status_code == 401
     assert c.post("/api/run/nonsense", headers=AUTH).status_code == 404
-    assert c.post("/api/run/team", headers=AUTH).status_code == 501
     assert c.post("/api/run/signoff", headers=AUTH).status_code == 400
     # The signed-off run's comments are all decided and applied: no r0 build, nothing to revise.
     r = c.post("/api/run/register", headers=AUTH)
