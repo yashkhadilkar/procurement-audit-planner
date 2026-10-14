@@ -71,7 +71,7 @@ def assert_protected_unchanged(root):
 def test_pass_v1(tmp_path):
     out, events, agents, root = scenario("pass_v1", tmp_path)
     assert out.verdict == READY and out.version == 1 and not agents.steps
-    assert kinds(events) == ["GATE", "PACK READY", "QA", "CHALLENGER DONE", "PLANNER DONE", "QA DONE"]
+    assert kinds(events) == ["GATE", "PLAN BACKUP", "PACK READY", "QA", "CHALLENGER DONE", "PLANNER DONE", "QA DONE"]
     assert protocol(events, "QA")[0]["text"].startswith("QA v1: PASS\nPack: built ")
     ch = (root / "outputs/challenges.md").read_text()
     assert "Round 1 on: v1 · Round 2 on: not run: round 1 raised nothing" in ch
@@ -159,6 +159,59 @@ def test_qa_fix_limit_blocks(tmp_path):
     assert any("the 3 QA fix attempts for the stage are used up" in r for r in out.reasons)
     assert any(r.startswith("#1 check_numbers:") for r in out.reasons)  # the final run's points, as printed
     assert not [c for c in agents.calls if c.role == "challenger"]
+
+
+# ---------------------------------------------------------------- fresh plan (default) and reuse
+
+PACK_FILES = ["outputs/audit-plan.json", "outputs/planning-memo.md", "outputs/risk-control-matrix.md",
+              "outputs/audit-program.md", "outputs/pack-figures.json", "outputs/samples"]
+
+
+def test_fresh_plan_backs_up_the_old_plan_and_pack(ws):
+    assert CFG["fresh_plan"] is True  # the default
+    before = tree_hashes(ws.root, PACK_FILES)
+    out, events, agents = run(ws, SCENARIOS["pass_v1"][1]())
+    assert out.verdict == READY, out.reasons
+    assert agents.plan_existed[0] == ("build v1", False)  # the planner started without a plan
+    assert "There is no outputs/audit-plan.json" in agents.calls[0].prompt
+    backup = next(e for e in events if e["type"] == "plan_backup")
+    folder = ws.root / backup["folder"]
+    assert backup["folder"].startswith("plan-backups/") and folder.parent == ws.root / "plan-backups"
+    # Every file of the old plan and pack is in the backup, byte for byte, at the same relative path.
+    assert {k: v for k, v in tree_hashes(folder, PACK_FILES).items()} == before
+    assert sorted(backup["files"]) == sorted(before)
+    assert protocol(events, "PLAN BACKUP")
+    # The workspace git does not take the backups in.
+    assert "plan-backups/" in (ws.root / ".gitignore").read_text()
+
+
+def test_reuse_plan_keeps_the_existing_plan(ws):
+    plan_before = (ws.root / "outputs/audit-plan.json").read_bytes()
+    out, events, agents = run(ws, SCENARIOS["pass_v1"][1](), cfg={**CFG, "fresh_plan": False})
+    assert out.verdict == READY, out.reasons
+    assert agents.plan_existed[0] == ("build v1", True)
+    assert "audit-plan.json exists from the previous run; start from it" in agents.calls[0].prompt
+    assert not [e for e in events if e["type"] == "plan_backup"] and not protocol(events, "PLAN BACKUP")
+    assert not (ws.root / "plan-backups").exists()
+    assert (ws.root / "outputs/audit-plan.json").read_bytes() == plan_before
+
+
+def test_two_fresh_runs_keep_two_backups(ws):
+    run(ws, SCENARIOS["pass_v1"][1]())
+    run(ws, SCENARIOS["pass_v1"][1]())
+    assert len(list((ws.root / "plan-backups").iterdir())) == 2
+
+
+def test_backups_and_history_are_closed_to_both_roles(ws):
+    for role in ("planner", "challenger"):
+        d = guard_for(role, ws.root)
+        assert d("Read", file_path="plan-backups/20260101T000000Z/outputs/audit-plan.json") == "deny", role
+        assert d("Glob", pattern="plan-backups/**/*.json") == "deny", role
+        assert d("Bash", command="cat plan-backups/x/outputs/audit-plan.json") == "deny", role
+        assert d("Bash", command="git show HEAD:outputs/audit-plan.json") == "deny", role
+        assert d("Bash", command="git log -p outputs/audit-plan.json") == "deny", role
+        assert d("Read", file_path=".git/HEAD") == "deny", role
+        assert d("Bash", command="git status --porcelain") == "allow", role
 
 
 def test_every_scenario_is_tested():
@@ -342,7 +395,8 @@ def test_sdk_agents_spec_and_reply(ws):
 def test_team_config_validation():
     assert team_config(None, "x")["max_cost_usd"] == 3.0
     assert team_config({"max_cost_usd": 1}, "x")["max_cost_usd"] == 1.0
-    for bad in [{"max_cost_usd": 0}, {"max_cost_usd": True}, {"challenges_round1": -1}, {"qa_fix_attempts": 1.5},
+    assert team_config({"fresh_plan": False}, "x")["fresh_plan"] is False
+    for bad in [{"fresh_plan": "no"}, {"max_cost_usd": 0}, {"max_cost_usd": True}, {"challenges_round1": -1}, {"qa_fix_attempts": 1.5},
                 {"planner_model": ""}, {"nonsense": 1}]:
         with pytest.raises(ValueError):
             team_config(bad, "x")

@@ -9,7 +9,8 @@
     "max_cost_usd": 3.00,
     "challenges_round1": 4,
     "challenges_round2": 2,
-    "qa_fix_attempts": 3
+    "qa_fix_attempts": 3,
+    "fresh_plan": true
   },
   "forward_subagent_text": true
 }

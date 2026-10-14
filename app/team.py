@@ -46,6 +46,7 @@ PLAN = "outputs/audit-plan.json"
 PACK = ["outputs/audit-plan.json", "outputs/planning-memo.md", "outputs/risk-control-matrix.md",
         "outputs/audit-program.md", "outputs/pack-figures.json", "outputs/samples"]
 OWNED = ["outputs/challenges.md", "outputs/review.md"]  # written by this module only
+BACKUPS = "plan-backups"  # WORK_DIR/plan-backups/<stamp>/: the plan and pack a fresh run moved aside
 # What no role may change: the planner's and the qa-reviewer's Step 0 lists, all of data/ and .claude/.
 PROTECTED = ["outputs/rules.json", "outputs/analytics.json", "outputs/history.json", "outputs/risk-ratings.json",
              "outputs/risk-register.md", "outputs/auditor-comments.md", "outputs/register-snapshots",
@@ -717,15 +718,21 @@ class Team:
             return TeamOutcome("GATE FAILED", 0, 0.0, [out], "The gate is closed: nothing was run or written. "
                                "The auditor completes auditor-comments.md and the risk-assessor builds the revision.")
         self.gate_line = gate
+        if self.cfg.get("fresh_plan", True):
+            self.back_up_plan()
         self.owned = self.owned_state()
         self.plan_sha = sha256(self.root / PLAN) if (self.root / PLAN).exists() else None
         self.write_challenges()  # a fresh record: the previous run's no longer applies
         self.write_owned("outputs/review.md", "# QA review: audit planning pack\n\nThe team stage is running; "
                          "this review is written when it finishes.\n")
         reasons = []
+        start = ("There is no outputs/audit-plan.json: the previous plan and pack were moved out of the workspace "
+                 "for this run. Write a new plan from the register and the evidence."
+                 if not (self.root / PLAN).exists() else
+                 "outputs/audit-plan.json exists from the previous run; start from it.")
         try:
-            first = await self.planner("build v1", "Plan and build the pack (your instructions, Build). The gate "
-                                       f"printed:\n\n```text\n{out}\n```")
+            first = await self.planner("build v1", f"Plan and build the pack (your instructions, Build). {start} "
+                                       f"The gate printed:\n\n```text\n{out}\n```")
             await self.publish(first)
             await self.qa_until_pass()
             await self.challenge_rounds()
@@ -735,6 +742,27 @@ class Team:
             reasons.append(f"closed by the harness: {e}")
             self.say("lead", TEAMMATES, "STOPPED", str(e), version=self.version)
         return await self.close(reasons)
+
+    def back_up_plan(self):
+        """Move the existing plan and pack to plan-backups/<stamp>/ (same relative paths), so the planner
+        writes a new plan. Neither role may read the backups (team_agents)."""
+        found = [rel for rel in PACK if (self.root / rel).exists()]
+        if not found:
+            self.emit({"type": "plan_backup", "folder": None, "files": []})
+            return
+        stamp = f"{datetime.now(timezone.utc):%Y%m%dT%H%M%SZ}"
+        dest, k = self.root / BACKUPS / stamp, 1
+        while dest.exists():
+            k += 1
+            dest = self.root / BACKUPS / f"{stamp}-{k}"
+        moved = sorted(tree_hashes(self.root, found))
+        for rel in found:
+            (dest / rel).parent.mkdir(parents=True, exist_ok=True)
+            os.replace(self.root / rel, dest / rel)
+        folder = dest.relative_to(self.root).as_posix()
+        self.emit({"type": "plan_backup", "folder": folder, "files": moved})
+        self.say("lead", TEAMMATES, "PLAN BACKUP", f"Fresh plan: moved {len(moved)} files of the previous plan and "
+                 f"pack to {folder}/ (audit-plan.json, the three documents, pack-figures.json, samples/).")
 
     async def close(self, reasons):
         """The qa-reviewer's final run (Step 5) and review.md."""

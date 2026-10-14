@@ -13,6 +13,7 @@ WORK_DIR therefore holds its own copies:
     .venv                 symlink to the repo's virtualenv
     runs/                 one <id>.json per run (not part of the workspace git)
     dry-runs/             team-stage dry runs, each in its own throwaway workspace
+    plan-backups/         the plan and pack a fresh team run moved aside, one <stamp>/ per run
 
 WORK_DIR is its own git repository: the agents run `git status --porcelain`
 to confirm they changed only their own files, and the app commits before and
@@ -34,7 +35,7 @@ READ_ONLY_INPUTS = ["data", "CLAUDE.md", ".claude/skills", ".claude/agents", ".c
 SEEDED_ONCE = ["scripts", ".claude/agent-memory"]
 WRITABLE = ["outputs", "scripts", ".claude/agent-memory"]
 IGNORE = shutil.ignore_patterns("__pycache__", ".DS_Store")
-GITIGNORE = ".venv\nruns/\ndry-runs/\nworkspace.json\n__pycache__/\n.DS_Store\n"
+GITIGNORE = ".venv\nruns/\ndry-runs/\nplan-backups/\nworkspace.json\n__pycache__/\n.DS_Store\n"
 GIT_ID = ["-c", "user.name=audit-planner app", "-c", "user.email=app@localhost",
           "-c", "commit.gpgsign=false", "-c", "core.hooksPath=/dev/null"]
 

@@ -21,6 +21,8 @@ SKILL = ".claude/skills/audit-program/SKILL.md"
 PATH_FLAGS = r"build_pack\.py[^\n;&|]*\s--(root|out-dir|plan|analytics|history|rules|analytics-full)\b"
 COMMON_DENY = [
     (r"procurement-holding", "Nothing under ~/procurement-holding/ may be read."),
+    (r"plan-backups", "The previous plan and pack in plan-backups/ are not open to the team."),
+    (r"\bgit\b(?!\s+status\b)", "Only git status is allowed: the workspace history holds earlier plans."),
     (PATH_FLAGS, "build_pack.py runs without path flags: they point it at copies of the inputs."),
     (r"build_register\.py(?![^\n;&|]*--resolve)", "build_register.py runs only with --resolve."),
 ]
@@ -28,7 +30,7 @@ ROLES = {
     "planner": {
         "tools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep"],
         "write": ["outputs/audit-plan.json"],
-        "read_deny": [],
+        "read_deny": ["plan-backups", ".git"],
         "bash_deny": COMMON_DENY + [
             (r"run_checks\.py|check_(quotes|numbers|trace|samples)\.py", "The harness runs the QA checks."),
         ],
@@ -36,7 +38,7 @@ ROLES = {
     "challenger": {
         "tools": ["Read", "Bash", "Glob", "Grep"],
         "write": [],
-        "read_deny": ["data", "outputs/analytics-full"],
+        "read_deny": ["data", "outputs/analytics-full", "plan-backups", ".git"],
         "bash_deny": COMMON_DENY + [
             (r"build_pack\.py(?![^\n;&|]*--gate)", "The challenger runs build_pack.py only with --gate."),
             (r"--lists\b", "--lists reads the full lists, which the challenger never reads."),

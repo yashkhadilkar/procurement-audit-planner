@@ -33,6 +33,7 @@ TEAM_DEFAULTS = {
     "challenges_round1": 4,
     "challenges_round2": 2,
     "qa_fix_attempts": 3,       # across the whole stage
+    "fresh_plan": True,         # move the existing plan and pack to plan-backups/ first; false reuses the plan
 }
 
 
@@ -99,6 +100,8 @@ def team_config(raw, path):
     for k in ("challenges_round1", "challenges_round2", "qa_fix_attempts"):
         if not isinstance(cfg[k], int) or isinstance(cfg[k], bool) or cfg[k] < 0:
             raise ValueError(f"{path}: team.{k} must be a whole number, 0 or more")
+    if not isinstance(cfg["fresh_plan"], bool):
+        raise ValueError(f"{path}: team.fresh_plan must be true or false")
     return cfg
 
 

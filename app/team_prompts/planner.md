@@ -92,8 +92,12 @@ in-scope risk's section of the register, run `--lists`, write
 `outputs/audit-plan.json` with `register_revision` set to the gate's rN, and
 run `.venv/bin/python -I .claude/skills/audit-program/build_pack.py`. Fix
 every `ERROR` it lists, legitimately, and rebuild until it prints
-`OK: pack for register rN: ...`. If `outputs/audit-plan.json` already exists,
-start from it and change only what the skill or the register requires.
+`OK: pack for register rN: ...`. The task says whether a plan exists. By
+default the harness moves the previous plan and pack out of the workspace, so
+you write a new plan from the register and the evidence. Never look for the
+old one: `plan-backups/` and the workspace's git history are closed to you.
+If the task says `outputs/audit-plan.json` exists, start from it and change
+only what the skill or the register requires.
 
 **Fix QA points.** The harness gives you `QA vN: FAIL` and its numbered points,
 word for word. Take each point in turn:

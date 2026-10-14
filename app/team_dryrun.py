@@ -29,7 +29,7 @@ from pathlib import Path
 from typing import Callable
 
 from . import runs
-from .settings import load_config, load_secrets, work_dir
+from .settings import REPO, load_config, load_secrets, work_dir
 from .team import BUILD, PLAN, Reply, run_team
 from .workspace import Workspace
 
@@ -45,6 +45,11 @@ class Step:
     action: Callable | None = None   # action(root): anything else the agent does to the workspace
 
 
+def committed_plan():
+    return subprocess.run(["git", "-C", str(REPO), "show", f"HEAD:{PLAN}"], capture_output=True, text=True,
+                          check=True).stdout
+
+
 class ScriptedAgents:
     """Stands in for SdkTeamAgents: each call takes the next step of the script, in order."""
 
@@ -52,6 +57,7 @@ class ScriptedAgents:
         self.root = Path(root)
         self.steps = list(steps)
         self.calls = []
+        self.plan_existed = []  # (purpose, whether audit-plan.json was there when the call came in)
 
     async def __call__(self, call, emit):
         self.calls.append(call)
@@ -67,7 +73,12 @@ class ScriptedAgents:
         if step.action:
             await asyncio.to_thread(step.action, self.root)
         reply = json.loads(json.dumps(step.reply))
-        if step.edit or (call.role == "planner" and call.purpose.startswith("build") and reply["status"] == "built"):
+        first_build = call.role == "planner" and call.purpose.startswith("build") and reply["status"] == "built"
+        self.plan_existed.append((call.purpose, (self.root / PLAN).exists()))
+        if first_build and not (self.root / PLAN).exists():
+            # A fresh run moved the plan away: the scripted planner "writes a new plan", the repo's committed one.
+            (self.root / PLAN).write_text(committed_plan(), encoding="utf-8")
+        if step.edit or first_build:
             if step.edit:
                 p = self.root / PLAN
                 plan = json.loads(p.read_text(encoding="utf-8"))
