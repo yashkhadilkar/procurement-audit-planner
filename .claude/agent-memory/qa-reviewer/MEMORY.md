@@ -1,0 +1,1 @@
+- [Fingerprint check in zsh](fingerprint-check-zsh.md) — PIPESTATUS is empty in zsh; count non-OK lines with grep -vc instead

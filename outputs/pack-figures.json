@@ -1,0 +1,699 @@
+{
+ "built": "2026-10-14T01:07:59+00:00",
+ "register_revision": 1,
+ "inputs": {
+  "audit-plan.json": "e854327f68b45583ffb72f82cb48d66ae36994bb171102636d6f26cfccead68b",
+  "analytics.json": "9c21ddd22edba5a620cbb50287fcb3b6c7c3a9241d721bdb43f247cd55696d76",
+  "history.json": "9137d23214792dd7da1259d647017d4806221a6869e2c66fd3b573922fc51dcf",
+  "rules.json": "2faecd244736c3f25b51019bdd6e83f506495f23010f878614bbff958c6d45f1",
+  "risk-ratings.json": "1818ec8028a5ac16816afe1b7cc8354254fcfbac41a31d8cce9d35a613d1681d",
+  "spend-clean.csv": "66a15a5974c4b029ed6b36fbb07cda17833bcbe87f0c54d597e4ec011d1ed5b9"
+ },
+ "figures": [
+  {
+   "id": "escalation.figure4_threshold",
+   "value": 9,
+   "basis": "history.json risk_scoring_method.escalation: Figure 4",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "escalation.table4_band",
+   "value": "15 -25",
+   "basis": "history.json risk_scoring_method.bands: Extreme",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "escalation.disputed_scores",
+   "value": [
+    9,
+    14
+   ],
+   "basis": "scores on which Figure 4 and Table 4 disagree",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "escalation.risks",
+   "value": [
+    "R-01",
+    "R-05",
+    "R-06",
+    "R-07"
+   ],
+   "basis": "in-scope risks scoring 9 to 14",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "PBC.contract_evidence.suppliers",
+   "value": 205,
+   "basis": "general_procurement rows of high_value_suppliers.csv",
+   "in": [
+    "audit-program.md"
+   ]
+  },
+  {
+   "id": "PBC.contract_evidence.no_published_notice_found",
+   "value": 165,
+   "basis": "general_procurement rows of high_value_suppliers.csv with no_published_notice_class = no published notice found",
+   "in": [
+    "audit-program.md"
+   ]
+  },
+  {
+   "id": "R-01.score",
+   "value": 12,
+   "basis": "likelihood 4 x impact 3 on the council's matrix",
+   "in": [
+    "audit-program.md",
+    "risk-control-matrix.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-01.population",
+   "value": 46,
+   "basis": "general_procurement rows where threshold = 25000 of split_purchases.csv; equals $.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.count",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-01.size_rule",
+   "value": 20,
+   "basis": "items for score 12 from the size table",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-01.items",
+   "value": 20,
+   "basis": "items drawn: sorted by best_window_total descending",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-01.transactions",
+   "value": 319,
+   "basis": "rows of outputs/samples/T-01.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-01.value",
+   "value": 1677616.08,
+   "basis": "sum of net_amount over outputs/samples/T-01.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-02.score",
+   "value": 8,
+   "basis": "likelihood 2 x impact 4 on the council's matrix",
+   "in": [
+    "audit-program.md",
+    "risk-control-matrix.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-02.population",
+   "value": 2,
+   "basis": "general_procurement rows where threshold = 500000 of split_purchases.csv; equals $.tests.split_purchases.by_threshold[threshold=500000].by_tag.general_procurement.count",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-02.size_rule",
+   "value": 15,
+   "basis": "items for score 8 from the size table",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-02.items",
+   "value": 2,
+   "basis": "items drawn: sorted by best_window_total descending",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-02.transactions",
+   "value": 59,
+   "basis": "rows of outputs/samples/T-02.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-02.value",
+   "value": 3510454.59,
+   "basis": "sum of net_amount over outputs/samples/T-02.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-05.score",
+   "value": 9,
+   "basis": "likelihood 3 x impact 3 on the council's matrix",
+   "in": [
+    "audit-program.md",
+    "risk-control-matrix.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-03.population",
+   "value": 165,
+   "basis": "general_procurement rows where class_active = no published notice found of no_published_notice.csv; equals $.tests.no_published_notice.by_tag.general_procurement.count",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-03.size_rule",
+   "value": 15,
+   "basis": "items for score 9 from the size table",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-03.items",
+   "value": 15,
+   "basis": "items drawn: sorted by total descending",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-03.transactions",
+   "value": 36,
+   "basis": "rows of outputs/samples/T-03.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-03.value",
+   "value": 13949334.2,
+   "basis": "sum of net_amount over outputs/samples/T-03.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-06.score",
+   "value": 9,
+   "basis": "likelihood 3 x impact 3 on the council's matrix",
+   "in": [
+    "audit-program.md",
+    "risk-control-matrix.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-04.population",
+   "value": 5,
+   "basis": "all general_procurement rows of expired_notice_spend.csv; equals $.tests.expired_notice_spend.by_tag.general_procurement.count",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-04.size_rule",
+   "value": 15,
+   "basis": "items for score 9 from the size table",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-04.items",
+   "value": 5,
+   "basis": "items drawn: sorted by total descending",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-04.transactions",
+   "value": 12,
+   "basis": "rows of outputs/samples/T-04.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-04.value",
+   "value": 121644.98,
+   "basis": "sum of net_amount over outputs/samples/T-04.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-07.score",
+   "value": 9,
+   "basis": "likelihood 3 x impact 3 on the council's matrix",
+   "in": [
+    "audit-program.md",
+    "risk-control-matrix.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-05.population",
+   "value": 7,
+   "basis": "general_procurement rows where flag = True of spend_vs_award.csv; equals $.tests.spend_vs_award.by_tag.general_procurement.count",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-05.size_rule",
+   "value": 15,
+   "basis": "items for score 9 from the size table",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-05.items",
+   "value": 7,
+   "basis": "items drawn: sorted by ratio descending",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-05.transactions",
+   "value": 31,
+   "basis": "rows of outputs/samples/T-05.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-05.value",
+   "value": 643153.28,
+   "basis": "sum of net_amount over outputs/samples/T-05.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-08.score",
+   "value": 8,
+   "basis": "likelihood 4 x impact 2 on the council's matrix",
+   "in": [
+    "audit-program.md",
+    "risk-control-matrix.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-06.population",
+   "value": 50,
+   "basis": "all general_procurement rows of duplicates.csv; equals $.tests.duplicates.by_tag.general_procurement.count",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-06.size_rule",
+   "value": 15,
+   "basis": "items for score 8 from the size table",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-06.items",
+   "value": 15,
+   "basis": "items drawn: sorted by repeat_value descending",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-06.transactions",
+   "value": 35,
+   "basis": "rows of outputs/samples/T-06.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-06.value",
+   "value": 542579.56,
+   "basis": "sum of net_amount over outputs/samples/T-06.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-09.score",
+   "value": 6,
+   "basis": "likelihood 2 x impact 3 on the council's matrix",
+   "in": [
+    "audit-program.md",
+    "risk-control-matrix.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-10.score",
+   "value": 6,
+   "basis": "likelihood 2 x impact 3 on the council's matrix",
+   "in": [
+    "audit-program.md",
+    "risk-control-matrix.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-08.population",
+   "value": 205,
+   "basis": "all general_procurement rows of high_value_suppliers.csv; equals $.tests.high_value_suppliers.by_tag.general_procurement.count",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-08.size_rule",
+   "value": 10,
+   "basis": "items for score 6 from the size table",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-08.items",
+   "value": 10,
+   "basis": "items drawn: sorted by total descending",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-08.transactions",
+   "value": 28,
+   "basis": "rows of outputs/samples/T-08.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "T-08.value",
+   "value": 13639190.99,
+   "basis": "sum of net_amount over outputs/samples/T-08.csv",
+   "in": [
+    "audit-program.md",
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "rules.total",
+   "value": 67,
+   "basis": "rules in rules.json",
+   "in": [
+    "risk-control-matrix.md"
+   ]
+  },
+  {
+   "id": "rules.traced",
+   "value": 38,
+   "basis": "rules cited by an in-scope risk, control or test",
+   "in": [
+    "risk-control-matrix.md"
+   ]
+  },
+  {
+   "id": "rules.not_tested",
+   "value": 29,
+   "basis": "rules listed as not tested with a reason",
+   "in": [
+    "risk-control-matrix.md"
+   ]
+  },
+  {
+   "id": "scope.risks",
+   "value": 8,
+   "basis": "risks approved or amended by the auditor",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-01.sample_items",
+   "value": 20,
+   "basis": "items drawn across the risk's tests",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-02.sample_items",
+   "value": 2,
+   "basis": "items drawn across the risk's tests",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-05.sample_items",
+   "value": 15,
+   "basis": "items drawn across the risk's tests",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-06.sample_items",
+   "value": 5,
+   "basis": "items drawn across the risk's tests",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-07.sample_items",
+   "value": 7,
+   "basis": "items drawn across the risk's tests",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-08.sample_items",
+   "value": 15,
+   "basis": "items drawn across the risk's tests",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-09.sample_items",
+   "value": 0,
+   "basis": "items drawn across the risk's tests",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "R-10.sample_items",
+   "value": 10,
+   "basis": "items drawn across the risk's tests",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "id": "sampling.size_table",
+   "value": [
+    [
+     15,
+     25
+    ],
+    [
+     10,
+     20
+    ],
+    [
+     8,
+     15
+    ],
+    [
+     4,
+     10
+    ],
+    [
+     1,
+     5
+    ]
+   ],
+   "basis": "(lowest score, items per test); fixed in build_pack.py",
+   "in": [
+    "planning-memo.md"
+   ]
+  }
+ ],
+ "placeholders": [
+  {
+   "path": "$.window.start",
+   "value": "2026-05-01",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "path": "$.window.end",
+   "value": "2026-07-31",
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "path": "$.contracts.kept",
+   "value": 141,
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "path": "$.contracts.active_notices",
+   "value": 61,
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "path": "$.tests.split_purchases.by_threshold[threshold=25000].by_tag.general_procurement.count",
+   "value": 46,
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "path": "$.tests.no_published_notice.by_tag.general_procurement.count",
+   "value": 165,
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "path": "$.cleaning.redacted.rows",
+   "value": 147,
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "path": "$.cleaning.redacted.net_total",
+   "value": 422766.47,
+   "in": [
+    "planning-memo.md"
+   ]
+  },
+  {
+   "path": "$.parameters.annualisation_factor",
+   "value": 4,
+   "in": [
+    "planning-memo.md"
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "test_id": "T-01",
+   "file": "outputs/samples/T-01.csv",
+   "rows": 319,
+   "sha256": "a2756f7412e746302c0988ee9547f9b668964c814f452f36bb4fc38bf47412dc"
+  },
+  {
+   "test_id": "T-02",
+   "file": "outputs/samples/T-02.csv",
+   "rows": 59,
+   "sha256": "45e0027d2d037389df0c1b78cad6f9cc0fd6855f862718ede8c22fe6e1ee84ee"
+  },
+  {
+   "test_id": "T-03",
+   "file": "outputs/samples/T-03.csv",
+   "rows": 36,
+   "sha256": "9b53f8814ad546989806b65cad071b25109e42494fd7b2b583578c67841f70f5"
+  },
+  {
+   "test_id": "T-04",
+   "file": "outputs/samples/T-04.csv",
+   "rows": 12,
+   "sha256": "741125a4e41802ff3888e3a88f1e76eea79320d561ff9764751832a21f4e832d"
+  },
+  {
+   "test_id": "T-05",
+   "file": "outputs/samples/T-05.csv",
+   "rows": 31,
+   "sha256": "e0b459d2da730cf0508deb6bb42c350216212157f333ad3499fae000cf9e7990"
+  },
+  {
+   "test_id": "T-06",
+   "file": "outputs/samples/T-06.csv",
+   "rows": 35,
+   "sha256": "d7f8734e8dfcd8c9afb80690a822c37ce795dcc3b129ecef72fa70f6e881cc97"
+  },
+  {
+   "test_id": "T-08",
+   "file": "outputs/samples/T-08.csv",
+   "rows": 28,
+   "sha256": "052671d91cd43c975786661d396001f43b8ab232d048a3e2af2f70a37c042715"
+  }
+ ]
+}
