@@ -246,7 +246,7 @@ Run `git status --porcelain`. Your only change should be
 `outputs/challenges.md`; the planner's plan and pack, `outputs/review.md`
 and your memory directory may also show. Report anything else to the lead.
 
-Send `planner` and the lead, by name (under 200 words):
+Send `planner`, `qa-reviewer` and the lead, by name (under 200 words):
 
 ```
 CHALLENGER DONE
