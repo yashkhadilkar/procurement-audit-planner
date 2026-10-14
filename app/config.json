@@ -1,0 +1,7 @@
+{
+  "default": {"model": "claude-sonnet-5-5", "max_budget_usd": 1.50},
+  "stages": {
+    "history": {"model": "claude-haiku-5-5"}
+  },
+  "forward_subagent_text": true
+}
