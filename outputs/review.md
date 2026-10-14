@@ -48,9 +48,9 @@ To be completed by the auditor. QA does not sign off.
 | --- | --- |
 | QA verdict | READY FOR SIGN-OFF |
 | Pack version | v3 |
-| Challenges marked *for the auditor* in `outputs/challenges.md` considered | Yes / No |
-| QA points answered *for the auditor* considered | Yes / No |
-| Decision | Signed off / Not signed off |
-| Auditor | |
-| Date | |
-| Comment | |
+| Challenges marked *for the auditor* in `outputs/challenges.md` considered | Yes |
+| QA points answered *for the auditor* considered | Yes |
+| Decision | Signed off |
+| Auditor | Yash Khadilkar |
+| Date | 2026-10-13 |
+| Comment | Challenge #1 (AUD-16) considered. The Leave out decision stands, but its gate comment overstated the record: history.json shows no follow-up of this audit. The reason for leaving it out is that Direct Payments are payments to individuals, not council procurement, and the spend tests exclude them. The Limited opinion and its agreed actions should be followed up with the internal audit plan owner, outside this audit. |
