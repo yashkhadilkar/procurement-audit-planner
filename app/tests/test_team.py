@@ -439,6 +439,28 @@ def test_planner_guard(ws):
     assert d("Bash", command=".venv/bin/python -I scripts/checks/run_checks.py") == "deny"
 
 
+def test_temp_exception_never_reaches_the_workspace(tmp_path, monkeypatch):
+    """A WORK_DIR under a temp root (or a TMPDIR that is or contains it) leaves only the write roots open there."""
+    temp = tmp_path.resolve() / "tmp"
+    root = temp / "work"
+    (root / "outputs").mkdir(parents=True)
+    for temp_roots in ({temp}, {root}, {root / "outputs"}):
+        monkeypatch.setattr("app.runner.TEMP_ROOTS", temp_roots)
+        spec = RunSpec("r", "rules", "p", "m", 1.0, cwd=root, write_roots=[root / "outputs"])
+        g = make_guard(spec, lambda e: None)
+
+        def decide(path):
+            r = asyncio.run(g({"tool_name": "Write", "tool_input": {"file_path": str(path), "content": "x"},
+                               "cwd": str(root)}, "t", None))
+            return "deny" if r else "allow"
+
+        assert decide(root / "outputs/rules.json") == "allow"
+        for p in [root / "data/contracts.csv", root / ".claude/skills/x/SKILL.md", root / "CLAUDE.md"]:
+            assert decide(p) == "deny", (temp_roots, p)
+        if temp in temp_roots:
+            assert decide(temp / "scratch.txt") == "allow"
+
+
 def test_sdk_agents_spec_and_reply(ws):
     seen = []
 

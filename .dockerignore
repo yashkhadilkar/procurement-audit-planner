@@ -1,0 +1,32 @@
+# Secrets: the image must never contain them. Railway passes them as variables.
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Local environment and the app's workspace (WORK_DIR lives on the volume)
+.venv/
+work/
+
+# Git: the image has no repository. Workspace seeding falls back to the image's
+# outputs/, which is the committed copy the image was built from.
+.git/
+.gitignore
+.gitattributes
+
+# Caches and scratch files
+**/__pycache__/
+**/*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+**/.DS_Store
+**/*.swp
+**/*.tmp
+**/*.log
+.vscode/
+.idea/
+
+# Build files
+Dockerfile
+.dockerignore

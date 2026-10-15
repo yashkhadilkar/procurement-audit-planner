@@ -5,6 +5,7 @@
 
 Endpoints
     GET  /                          the web UI (app/static/, plain HTML, CSS and JavaScript)
+    GET  /healthz                   "ok"; no model call, no access code (the platform's health check)
     GET  /api/state                 each stage's status, last run, cost and outputs; total spend
     GET  /api/access                200 if the X-Access-Code header is right (the UI's unlock check)
     POST /api/run/{stage}           start a stage (X-Access-Code); 409 while another run is active
@@ -26,7 +27,7 @@ from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 
 from fastapi import FastAPI, Header, HTTPException, Request
-from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
+from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -243,6 +244,10 @@ def create_app(work_root=None, secrets=None, config=None, runner=None, repo=REPO
             app.state.current = None
 
     # ------------------------------------------------------------ endpoints
+
+    @app.get("/healthz", response_class=PlainTextResponse)
+    async def healthz():
+        return "ok"
 
     @app.get("/api/state")
     async def state():

@@ -94,8 +94,13 @@ def _inside(path, roots):
 
 
 def make_guard(spec, emit):
-    """PreToolUse hook: deny writes outside the writable roots, any .env access, and the spec's extra denials."""
-    write_roots = [Path(r).resolve() for r in spec.write_roots] + list(TEMP_ROOTS)
+    """PreToolUse hook: deny writes outside the writable roots, any .env access, and the spec's extra denials.
+
+    Writes to the system temp folders are allowed too, but never inside the workspace (spec.cwd): if
+    WORK_DIR or TMPDIR puts the workspace under a temp root, the write roots alone still apply there."""
+    workspace = Path(spec.cwd).resolve()
+    write_roots = [Path(r).resolve() for r in spec.write_roots]
+    temp_roots = [t for t in TEMP_ROOTS if not _inside(t, [workspace])]
     read_deny = [Path(r).resolve() for r in spec.read_deny]
     bash_deny = [(re.compile(rx), reason) for rx, reason in spec.bash_deny]
 
@@ -128,7 +133,8 @@ def make_guard(spec, emit):
         p = (p if p.is_absolute() else base / p).resolve()
         if p.name == ".env" or p.name.startswith(".env."):
             return deny("The web app does not allow access to .env files.", tool)
-        if tool in WRITE_TOOLS and not _inside(p, write_roots):
+        if tool in WRITE_TOOLS and not (_inside(p, write_roots)
+                                        or (_inside(p, temp_roots) and not _inside(p, [workspace]))):
             return deny(f"Writes are allowed only under {', '.join(str(r) for r in spec.write_roots)}; "
                         f"{p} is outside them.", tool)
         if any(_inside(p, [r]) for r in read_deny):

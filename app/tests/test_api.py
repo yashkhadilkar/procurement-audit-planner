@@ -90,6 +90,14 @@ def committed(path):
                           check=True).stdout
 
 
+def test_healthz_needs_no_code_and_runs_nothing(client_for, work):
+    runner = FakeRunner(block=False)
+    c = client_for(runner=runner)
+    r = c.get("/healthz")
+    assert r.status_code == 200 and r.text == "ok"
+    assert runner.specs == [] and c.get("/api/state").json()["running"] is None
+
+
 # ---------------------------------------------------------------- workspace
 
 def test_workspace_seeded_from_committed_outputs(client_for, work):
