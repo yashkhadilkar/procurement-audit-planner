@@ -8,6 +8,7 @@ Each test runs in its own workspace seeded from the repo's committed outputs.
 import asyncio
 import json
 import time
+from pathlib import Path
 from datetime import date
 
 import pytest
@@ -152,6 +153,71 @@ def test_cost_cap_blocks(tmp_path):
     assert "accepted, not verified: the stage stopped at v2" in (root / "outputs/challenges.md").read_text()
 
 
+def test_duplicate_not_tested_reasons_fail_like_qa(tmp_path):
+    out, events, agents, root = scenario("dup_reasons", tmp_path)
+    assert out.verdict == READY and out.version == 2 and not agents.steps, out.reasons
+    assert [c.purpose for c in agents.calls] == ["build v1", "fix QA v1 (attempt 1 of 3)",
+                                                 "fix QA v1 (attempt 1 of 3)", "round 1"]
+    qa = protocol(events, "QA")
+    assert [q["verdict"] for q in qa] == ["FAIL", "PASS"]
+    # run_checks.py passes v1; the harness's own point is the only one, numbered #1.
+    assert qa[0]["text"].startswith("QA v1: FAIL\n#1 harness_not_tested_reasons: 4 rules share the not-tested "
+                                    "reason 'No in-scope risk concerns it.'")
+    assert "#1 harness_not_tested_reasons:" in agents.calls[1].prompt
+    # The point cannot go to the auditor: the reply is refused and asked again.
+    assert "QA point #1 is the harness's not-tested reason check: the answer is always fixed" in agents.calls[2].prompt
+    assert [e for e in events if e["type"] == "reply_refused"]
+    text = (root / "outputs/review.md").read_text()
+    assert "| FAIL | 1 point: #1 harness_not_tested_reasons |" in text and "| v2 | Pack: built" in text
+
+
+def test_templated_not_tested_reasons_fail_like_qa(tmp_path):
+    out, events, agents, root = scenario("templated_reasons", tmp_path)
+    assert out.verdict == READY and out.version == 2 and not agents.steps, out.reasons
+    qa = protocol(events, "QA")
+    assert [q["verdict"] for q in qa] == ["FAIL", "PASS"]
+    # Every v1 reason was a different string; masked, they are one template per rule type, as in the live run:
+    # run_checks.py passed v1, so the harness's three points are the only ones.
+    lines = qa[0]["text"].splitlines()
+    points = lines[1:-1]
+    assert lines[0] == "QA v1: FAIL" and lines[-1].startswith("Pack: ") and len(points) == 3
+    for n, p in enumerate(points, 1):
+        assert p.startswith(f"#{n} harness_not_tested_reasons: ") and "share the not-tested reason 'Checked against " \
+            "R-…: a" in p and 'covering "…"; no test step reaches it' in p, p
+        assert "compared with quoted text and risk-ID lists masked" in p
+    assert sum(int(p.split(": ", 1)[1].split()[0]) for p in points) == 29  # every rule not tested is in a group
+    assert all(f"#{n} harness_not_tested_reasons:" in agents.calls[1].prompt for n in (1, 2, 3))
+
+
+def test_templated_reasons_are_distinct_strings_but_one_template():
+    from app.team import shared_reasons
+    from app.team_dryrun import committed_plan, templated_reasons
+    plan = json.loads(committed_plan())
+    assert shared_reasons(plan) == []  # the signed-off plan's own reasons pass
+    templated_reasons(plan)
+    reasons = [x["reason"] for x in plan["rules_not_tested"]]
+    assert max(map(reasons.count, reasons)) <= 3  # an exact comparison would pass them
+    groups = shared_reasons(plan)
+    assert len(groups) == 3 and sorted(i for _, ids in groups for i in ids) == sorted(
+        x["rule_id"] for x in plan["rules_not_tested"])
+
+
+def test_three_shared_reasons_are_allowed(ws):
+    from app.team import reason_template, shared_reasons
+    plan = {"rules_not_tested": [{"rule_id": f"CPR-0{i}", "reason": "No  in-scope risk concerns it."} for i in range(3)]
+            + [{"rule_id": "CPR-09", "reason": "Checked against R-01: not a payment rule."}]}
+    assert shared_reasons(plan) == []
+    plan["rules_not_tested"].append({"rule_id": "CPR-08", "reason": "no in-scope risk concerns  it."})
+    assert shared_reasons(plan) == [("No in-scope risk concerns it.", ["CPR-00", "CPR-01", "CPR-02", "CPR-08"])]
+    # Quoted text (straight, curly, single) and risk-ID lists are masked; apostrophes are left alone.
+    assert reason_template('Checked against R-01, R-02 and R-10: covers "Any contract"; the council\'s log') == \
+        'Checked against R-…: covers "…"; the council\'s log'
+    assert reason_template("R-05 or R-06 & R-07: “x” and ‘y’ and 'z'") == "R-…: \"…\" and \"…\" and \"…\""
+    # Different risks, same sentence: one template.
+    same = [{"rule_id": f"CPR-1{i}", "reason": f"Checked against R-0{i}: no sample reaches it."} for i in range(4)]
+    assert [len(ids) for _, ids in shared_reasons({"rules_not_tested": same})] == [4]
+
+
 def test_qa_fix_limit_blocks(tmp_path):
     out, events, agents, root = scenario("qa_blocked", tmp_path)
     assert out.verdict == BLOCKED and out.version == 4 and not agents.steps
@@ -215,7 +281,8 @@ def test_backups_and_history_are_closed_to_both_roles(ws):
 
 
 def test_every_scenario_is_tested():
-    tested = {"pass_v1", "qa_fail_fix", "round2", "round2_skipped", "cost_cap", "qa_blocked"}
+    tested = {"pass_v1", "qa_fail_fix", "round2", "round2_skipped", "cost_cap", "qa_blocked", "dup_reasons",
+              "templated_reasons"}
     assert set(SCENARIOS) == tested
 
 
@@ -392,8 +459,18 @@ def test_sdk_agents_spec_and_reply(ws):
     assert p.write_roots == [ws.root / "outputs/audit-plan.json"] and "Write" in p.tools and "Agent" not in p.tools
 
 
+def test_work_dir_from_env_then_dotenv(tmp_path):
+    from app.settings import work_dir
+    env = tmp_path / ".env"
+    env.write_text("ANTHROPIC_API_KEY=x\nexport WORK_DIR='/tmp/from-dotenv'\n")
+    assert work_dir({}, env) == Path("/tmp/from-dotenv").resolve()
+    assert work_dir({"WORK_DIR": "/tmp/from-env"}, env) == Path("/tmp/from-env").resolve()
+    assert work_dir({}, tmp_path / "missing") == REPO / "work"
+
+
 def test_team_config_validation():
     assert team_config(None, "x")["max_cost_usd"] == 3.0
+    assert (team_config(None, "x")["challenges_round1"], team_config(None, "x")["challenges_round2"]) == (6, 3)
     assert team_config({"max_cost_usd": 1}, "x")["max_cost_usd"] == 1.0
     assert team_config({"fresh_plan": False}, "x")["fresh_plan"] is False
     for bad in [{"fresh_plan": "no"}, {"max_cost_usd": 0}, {"max_cost_usd": True}, {"challenges_round1": -1}, {"qa_fix_attempts": 1.5},

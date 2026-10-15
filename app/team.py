@@ -8,8 +8,10 @@ CLAUDE.md "Agent team" in Python:
     planner     one SDK session per task (build, fix QA points, answer challenges),
                 replying in a JSON schema; the harness then runs build_pack.py
                 itself, and that build's OK: line is the version vN
-    qa-reviewer no model: run_checks.py, its Pack:, VERDICT: and #n lines as printed;
-                at most qa_fix_attempts fixes in the whole stage, then BLOCKED
+    qa-reviewer no model: run_checks.py, its Pack:, VERDICT: and #n lines as printed,
+                plus the harness's own check that no more than 3 rules share one
+                rules_not_tested reason; at most qa_fix_attempts fixes in the
+                whole stage, then BLOCKED
     challenger  one SDK session per round, replying in a JSON schema; the harness
                 checks every challenge (type, risk, citations resolve, indicator
                 language), numbers it, and writes challenges.md from the record
@@ -64,6 +66,12 @@ TEAMMATES = ["planner", "challenger", "qa-reviewer"]
 ACCUSATORY_RE = re.compile(r"\b(off[- ]contract|wrongdoing|fraudulent|corrupt\w*|misconduct|unlawful\w*|"
                            r"illegal\w*|breach(?:es|ed)?)\b", re.IGNORECASE)
 ROW_ID_RE = re.compile(r"\b(?:R|AUD)-\d+\b")
+MAX_SHARED_REASON = 3  # more rules than this with one rules_not_tested reason fails the version, like a QA point
+REASON_CHECK = "harness_not_tested_reasons"
+# Masked before reasons are compared, so a template filled in with each rule's own quoted text or a list of
+# risk IDs still counts as one reason. A single-quoted span must not start or end inside a word (council's).
+QUOTED_RE = re.compile(r"\"[^\"]*\"|“[^”]*”|‘[^’]*’|(?<!\w)'[^']*'(?!\w)")
+RISK_LIST_RE = re.compile(r"\bR-\d+(?:\s*(?:,\s*(?:and\s+|or\s+)?|and\s+|or\s+|&\s*)R-\d+)*")
 
 
 class Blocked(Exception):
@@ -162,6 +170,22 @@ def pack_parts(line):
 
 def clean_env():
     return {k: v for k, v in os.environ.items() if k not in SECRET_NAMES and not k.startswith("ANTHROPIC_")}
+
+
+def reason_template(reason):
+    """A not-tested reason with its quoted text and risk-ID lists masked and its spacing collapsed."""
+    return " ".join(RISK_LIST_RE.sub("R-…", QUOTED_RE.sub('"…"', reason)).split())
+
+
+def shared_reasons(plan):
+    """[(template, [rule_id, ...])] for each rules_not_tested reason shared by more than MAX_SHARED_REASON rules,
+    compared as reason_template, without case differences."""
+    groups = {}
+    for x in plan.get("rules_not_tested") or []:
+        if isinstance(x, dict) and isinstance(x.get("reason"), str):
+            t = reason_template(x["reason"])
+            groups.setdefault(t.casefold(), (t, []))[1].append(str(x.get("rule_id")))
+    return [g for g in groups.values() if len(g[1]) > MAX_SHARED_REASON]
 
 
 @dataclass
@@ -308,11 +332,15 @@ class Team:
 
     # ------------------------------------------------------------ planner
 
-    def planner_validator(self, challenge_ns=(), qa_ns=()):
+    def planner_validator(self, challenge_ns=(), qa_ns=(), fix_only=()):
         def validate(d, final):
             errs = []
             if d.get("status") == "blocked":
                 return [] if d.get("blocked_reason", "").strip() else ["status is blocked but blocked_reason is empty"]
+            for q in d.get("qa_responses", []):
+                if q["n"] in fix_only and q["answer"] != "fixed":
+                    errs.append(f"QA point #{q['n']} is the harness's not-tested reason check: the answer is always "
+                                "fixed, with each reason rewritten for its own rule")
             got = [r["n"] for r in d.get("responses", [])]
             if sorted(got) != sorted(challenge_ns):
                 errs.append(f"responses must answer exactly CHALLENGE {', '.join(f'#{n}' for n in challenge_ns) or 'none'}"
@@ -335,9 +363,9 @@ class Team:
             return errs
         return validate
 
-    async def planner(self, purpose, body, challenge_ns=(), qa_ns=()):
+    async def planner(self, purpose, body, challenge_ns=(), qa_ns=(), fix_only=()):
         d = await self.call("planner", purpose, self.task(purpose, body), planner_schema(),
-                            self.planner_validator(challenge_ns, qa_ns))
+                            self.planner_validator(challenge_ns, qa_ns, fix_only))
         if d["status"] == "blocked":
             self.planner_line = f"PLANNER BLOCKED v{self.version}"
             self.say("planner", "lead", "PLANNER BLOCKED", f"PLANNER BLOCKED v{self.version}\n{d['blocked_reason']}",
@@ -387,7 +415,21 @@ class Team:
         if pack is None or verdict is None:
             raise Blocked(f"run_checks.py printed no Pack: or VERDICT: line (exit {code}): {out[-500:]}")
         points = [l for l in lines if re.match(r"#\d+ \S+: ", l)]
-        return QARun(out, pack, verdict, points, verdict == "VERDICT: PASS" and code == 0)
+        passed = verdict == "VERDICT: PASS" and code == 0
+        # The harness's own check, after run_checks.py's points and numbered on from them.
+        plan = json.loads((self.root / PLAN).read_text(encoding="utf-8")) if (self.root / PLAN).is_file() else {}
+        extra = [f"#{len(points) + i} {REASON_CHECK}: {len(ids)} rules share the not-tested reason {reason!r} "
+                 f"({', '.join(ids)}), compared with quoted text and risk-ID lists masked; at most "
+                 f"{MAX_SHARED_REASON} may. Give each rule its own reason naming only the in-scope risks it could "
+                 "plausibly bear on and why it does not"
+                 for i, (reason, ids) in enumerate(shared_reasons(plan), 1)]
+        if extra:
+            points += extra
+            out += "\n\nHarness check (rules_not_tested reasons):\n" + "\n".join(extra)
+            if passed:
+                verdict = "VERDICT: FAIL"
+            passed = False
+        return QARun(out, pack, verdict, points, passed)
 
     async def qa_until_pass(self):
         while True:
@@ -409,7 +451,8 @@ class Team:
                 f"fix QA v{v['n']} (attempt {self.fix_attempts} of {self.cfg['qa_fix_attempts']})",
                 f"The qa-reviewer sent:\n\n```text\n{head}\n" + "\n".join(r.points) + f"\n{r.pack}\n```\n\n"
                 "Take each point in turn (your instructions, Fix QA points). Answer every point by its number "
-                "in qa_responses, then rebuild once for all the fixes.", qa_ns=nums)
+                "in qa_responses, then rebuild once for all the fixes.", qa_ns=nums,
+                fix_only=[n for n, p in zip(nums, r.points) if p.startswith(f"#{n} {REASON_CHECK}:")])
             fixed = False
             for q in sorted(reply["qa_responses"], key=lambda q: q["n"]):
                 point = r.points[nums.index(q["n"])]

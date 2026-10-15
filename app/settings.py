@@ -30,8 +30,8 @@ TEAM_DEFAULTS = {
     "planner_model": "claude-sonnet-5-5",
     "challenger_model": "claude-haiku-5-5",
     "max_cost_usd": 3.0,        # hard cap for the whole team stage, checked before every model call
-    "challenges_round1": 4,
-    "challenges_round2": 2,
+    "challenges_round1": 6,
+    "challenges_round2": 3,
     "qa_fix_attempts": 3,       # across the whole stage
     "fresh_plan": True,         # move the existing plan and pack to plan-backups/ first; false reuses the plan
 }
@@ -50,8 +50,8 @@ class Secrets:
         return [v for v in (self.api_key, self.access_code) if v]
 
 
-def _read_dotenv(path):
-    """The SECRET_NAMES entries of a .env file; never echoes a line."""
+def _read_dotenv(path, names=SECRET_NAMES):
+    """The names entries of a .env file; never echoes a line."""
     found = {}
     if not path.is_file():
         return found
@@ -61,7 +61,7 @@ def _read_dotenv(path):
             line = line[len("export "):]
         name, sep, value = line.partition("=")
         name = name.strip()
-        if sep and name in SECRET_NAMES:
+        if sep and name in names:
             value = value.strip().strip('"').strip("'")
             if value:
                 found[name] = value
@@ -78,10 +78,12 @@ def load_secrets(environ=None, dotenv=REPO / ".env"):
     return Secrets(api_key=pick("ANTHROPIC_API_KEY"), access_code=pick("ACCESS_CODE"))
 
 
-def work_dir(environ=None):
-    """WORK_DIR from the environment (default ./work); relative paths are taken from the repo root."""
+def work_dir(environ=None, dotenv=REPO / ".env"):
+    """WORK_DIR from the environment, or failing that the repo's .env (default ./work); relative paths
+    are taken from the repo root."""
     environ = os.environ if environ is None else environ
-    p = Path(environ.get("WORK_DIR") or "work").expanduser()
+    value = environ.get("WORK_DIR") or (_read_dotenv(Path(dotenv), ("WORK_DIR",)).get("WORK_DIR") if dotenv else None)
+    p = Path(value or "work").expanduser()
     return (p if p.is_absolute() else REPO / p).resolve()
 
 

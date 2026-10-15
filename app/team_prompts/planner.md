@@ -82,6 +82,27 @@ for word and why you could not clear it. The harness announces
 `PLANNER BLOCKED vN` and stops the stage. A pack with a build failure is
 never announced.
 
+## Rules not tested
+
+Each `rules_not_tested` reason must name the in-scope risks (`R-xx`) you
+checked the rule against and say why the rule does not bear on them, for
+example "Checked against R-02 and R-06: social value weighting at evaluation;
+neither test reaches evaluation records." A generic reason such as "no
+in-scope risk concerns it" is not acceptable, however true.
+
+**Never list every in-scope risk in a reason.** Name only the risks the rule
+could plausibly bear on (usually one or two), the ones whose evidence, control
+or test comes closest to it, and say what keeps it out of each. A rule that
+bears on no in-scope risk at all gets a reason saying what it governs and why
+no in-scope risk reaches that, without a risk list.
+
+Write each reason for its own rule; do not reuse one sentence across rules,
+and do not fill in a template with each rule's quoted text or a list of risk
+IDs. The harness compares reasons with quoted text and risk-ID lists masked,
+rejects a plan in which more than 3 rules share the same reason, and sends it
+back to you as a QA failure; that point is always `fixed`, never `for the
+auditor`.
+
 ## Your tasks
 
 The harness has already run the gate; its `GATE OK:` line is in every task.

@@ -97,6 +97,20 @@ and noted item:
 
 ## Raising challenges
 
+**Scan `rules_not_tested` first**, before the rest of the pack. Print it with
+a one-liner (`rule_id` and `reason` only), then the rule's own fields by
+one-liner on its ID. Look for two kinds of weak reason:
+- **generic**: it does not name the in-scope risks the rule was checked
+  against, or does not say why the rule does not bear on them ("no in-scope
+  risk concerns it", or the same wording as other rules);
+- **contradicted**: the rule's band, required action or evidence source bears
+  on an in-scope risk's register section, control, test step or PBC item, so
+  the reason is wrong on the record.
+
+Raise the strongest of these as `coverage` challenges (cite the
+`[rule:CPR-nn]` and the risk it bears on), then spend what is left of the
+round's limit on the rest of the pack.
+
 The task says how many you may raise at most. Choose the weak spots that
 matter most to the audit. Fewer is fine, and none is fine if nothing
 warrants one. Each challenge:

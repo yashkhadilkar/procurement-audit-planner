@@ -7,8 +7,8 @@
     "planner_model": "claude-sonnet-5-5",
     "challenger_model": "claude-haiku-5-5",
     "max_cost_usd": 3.00,
-    "challenges_round1": 4,
-    "challenges_round2": 2,
+    "challenges_round1": 6,
+    "challenges_round2": 3,
     "qa_fix_attempts": 3,
     "fresh_plan": true
   },

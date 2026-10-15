@@ -21,6 +21,7 @@ wrote.
 import argparse
 import asyncio
 import json
+import re
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -135,6 +136,40 @@ def remove_band(plan):
     plan["memo"]["limitations"] = plan["memo"]["limitations"].replace(BAND_SENTENCE, "")
 
 
+GENERIC_REASON = "No in-scope risk concerns it."
+
+
+def generic_reasons(plan):
+    """Builds (the builder takes any reason) but fails the harness's check: four rules share one reason."""
+    for x in plan["rules_not_tested"][:4]:
+        x["reason"] = GENERIC_REASON
+
+
+ALL_IN_SCOPE = "R-01, R-02, R-05, R-06, R-07, R-08, R-09 and R-10"
+
+
+def templated_reason(rule):
+    """The live run's workaround: one sentence filled in with every in-scope risk and the rule's own quoted text,
+    cut at the first figure as the live planner's were (the builder refuses a figure typed in prose)."""
+    subject = re.split(r"[£\d]", rule["condition"])[0].strip(" ,;:(") or "this subject"
+    return (f"Checked against {ALL_IN_SCOPE}: a {rule['type']} rule covering \"{subject}\"; no test step "
+            "reaches it, because none of those tests examines this subject.")
+
+
+def templated_reasons(plan):
+    """Every reason is a distinct string, so an exact comparison passes; masked, they are one reason."""
+    rules = {r["rule_id"]: r for r in json.loads((REPO / "outputs/rules.json").read_text(encoding="utf-8"))["rules"]}
+    for x in plan["rules_not_tested"]:
+        x["reason"] = templated_reason(rules[x["rule_id"]])
+
+
+def own_reasons(plan):
+    """The fix: each rule gets back its own reason (the committed plan's, which names what it was checked against)."""
+    committed = {x["rule_id"]: x["reason"] for x in json.loads(committed_plan())["rules_not_tested"]}
+    for x in plan["rules_not_tested"]:
+        x["reason"] = committed[x["rule_id"]]
+
+
 def accept_t06(plan):
     t = test_of(plan, "T-06")
     t["pbc"].append("PBC-03")
@@ -234,6 +269,26 @@ SCENARIOS = {
         planner(responses=[(1, "accepted", "T-06 adds PBC-03 and the contracts register step.")],
                 changes=[("T-06: PBC-03 added; contracts register step citing CPR-30", "CHALLENGE #1")],
                 edit=accept_t06, cost=1.20),
+    ]),
+    "dup_reasons": ("v1 gives four rules the same generic not-tested reason: the harness fails it like a QA point; "
+                    "a 'for the auditor' answer is refused, the planner rewrites the reasons, v2 passes: READY on v2",
+                    lambda: [
+        planner(changes=[("first build of the approved scope", "first build")], edit=generic_reasons, cost=0.60),
+        planner(qa=[(1, "for the auditor", "The not-tested reasons are a judgment for the auditor.")], cost=0.10),
+        planner(qa=[(1, "fixed", "Each of the four rules has its own reason naming the in-scope risks it was "
+                                 "checked against.")],
+                changes=[("rules_not_tested: own reason for each rule", "QA v1 #1")], edit=own_reasons, cost=0.20),
+        challenger([], cost=0.08),
+    ]),
+    "templated_reasons": ("v1 fills one template with each rule's quoted text and every in-scope risk, as the live "
+                          "run did: distinct strings, but one reason once masked, so the harness fails it; the "
+                          "planner writes each rule's own reason, v2 passes: READY on v2", lambda: [
+        planner(changes=[("first build of the approved scope", "first build")], edit=templated_reasons, cost=0.60),
+        # One point per rule type the template was filled in with (threshold, approval, required-action).
+        planner(qa=[(n, "fixed", "Each rule has its own reason naming only the risks it could bear on.")
+                    for n in (1, 2, 3)],
+                changes=[("rules_not_tested: own reason for each rule", "QA v1 #1-#3")], edit=own_reasons, cost=0.20),
+        challenger([], cost=0.08),
     ]),
     "qa_blocked": ("v1 fails QA and three fix attempts do not clear it: BLOCKED on v4", lambda: [
         planner(changes=[("first build of the approved scope", "first build")], edit=add_band, cost=0.40),
