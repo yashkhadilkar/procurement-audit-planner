@@ -4,7 +4,9 @@
     .venv/bin/uvicorn app.server:create_app --factory
 
 Endpoints
-    GET  /api/state                 each stage's status, last run, cost and outputs
+    GET  /                          the web UI (app/static/, plain HTML, CSS and JavaScript)
+    GET  /api/state                 each stage's status, last run, cost and outputs; total spend
+    GET  /api/access                200 if the X-Access-Code header is right (the UI's unlock check)
     POST /api/run/{stage}           start a stage (X-Access-Code); 409 while another run is active
     GET  /api/runs/{id}/events      server-sent events: the run's steps and tool calls, live
     GET  /api/files/{path}          read-only, files inside WORK_DIR/outputs only
@@ -25,6 +27,7 @@ from pathlib import Path, PurePosixPath
 
 from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from . import gates, runs
@@ -34,6 +37,7 @@ from .team import run_team
 from .team_agents import SdkTeamAgents
 from .workspace import Workspace, WorkspaceError
 
+STATIC = Path(__file__).resolve().parent / "static"
 # What each stage needs before it may start (relative to WORK_DIR) and what it produces (in outputs/).
 REGISTER_OUT = ["risk-ratings.json", "risk-register.md", "auditor-comments.md", "register-snapshots"]
 STAGE_SPEC = {
@@ -243,14 +247,22 @@ def create_app(work_root=None, secrets=None, config=None, runner=None, repo=REPO
     @app.get("/api/state")
     async def state():
         cur = app.state.current
+        costs = [s["cost_usd"] for s in app.state.summaries.values() if isinstance(s.get("cost_usd"), (int, float))]
         return {
             "work_dir": str(ws.root),
             "workspace": ws.info(),
             "running": {"id": cur.id, "stage": cur.record["stage"]} if cur else None,
+            "spend": {"total_usd": round(sum(costs), 6), "runs": len(app.state.summaries),
+                      "runs_with_cost": len(costs)},
             "stages": [stage_state(s, k) for s, k in STAGES.items()],
             "gate1": {k: v for k, v in gates.gate_status(ws.outputs / "auditor-comments.md").items()
                       if k != "decisions"},
         }
+
+    @app.get("/api/access")
+    async def access(x_access_code: str | None = Header(default=None)):
+        require_code(x_access_code)
+        return {"ok": True}
 
     @app.post("/api/run/{stage}", status_code=202)
     async def run(stage: str, x_access_code: str | None = Header(default=None)):
@@ -398,4 +410,6 @@ def create_app(work_root=None, secrets=None, config=None, runner=None, repo=REPO
     async def workspace_error(request, exc):
         return JSONResponse({"detail": str(exc)}, status_code=500)
 
+    # Last, so every /api route above takes precedence.
+    app.mount("/", StaticFiles(directory=STATIC, html=True), name="static")
     return app

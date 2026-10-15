@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Procurement audit planner</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect x=%222%22 y=%222%22 width=%2212%22 height=%2212%22 rx=%223%22 fill=%22%231f5f8f%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="app.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" defer></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-name">Procurement audit planner</span>
+    <span class="brand-sub">West Berkshire Council · internal audit</span>
+  </div>
+  <div class="topbar-right">
+    <span id="running-pill" class="pill pill-running" hidden></span>
+    <span id="spend-pill" class="pill" title="Total model spend across every run in this workspace">Spend $0.00</span>
+    <div class="access" id="access">
+      <form id="access-form" class="access-form" autocomplete="off">
+        <label for="access-code" class="sr-only">Access code</label>
+        <input id="access-code" type="password" placeholder="Access code" spellcheck="false">
+        <button type="submit" class="btn btn-small">Unlock</button>
+      </form>
+      <div id="access-on" class="access-on" hidden>
+        <span class="pill pill-ok">Editing enabled</span>
+        <button id="reset-btn" type="button" class="btn btn-small btn-ghost"
+                title="Restore outputs, scripts and agent memory to the signed-off run; run logs are kept">Reset to signed-off run</button>
+        <button id="lock-btn" type="button" class="btn btn-small btn-ghost">Lock</button>
+      </div>
+      <span id="access-msg" class="access-msg" role="status"></span>
+    </div>
+  </div>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Pipeline"></nav>
+  <main id="main" class="main" tabindex="-1"></main>
+</div>
+<div id="toast" class="toast" role="alert" hidden></div>
+</body>
+</html>
