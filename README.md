@@ -192,7 +192,7 @@ Part A only runs inside Claude Code on a laptop. Part B runs the same skills, ag
 
 **Live app:** https://procurement-audit-planner-production-c85e.up.railway.app
 
-The access code is in our Bruin Learn submission, not in this repo. Without it the site is read-only: you can open every stage and every output. With it you can run the agent team, record the gate decisions and reset the demo.
+Access code: assignment-2. Without it the site is read-only: you can open every stage and every output. With it you can run the agent team, record the gate decisions and reset the demo. The API key behind it has a spend cap.
 
 ### Trying it
 
