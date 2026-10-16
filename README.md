@@ -4,7 +4,9 @@ An agent system, built in Claude Code, that plans an internal audit of West Berk
 
 > **Read this first.** The data is real and public. Everything in `outputs/` is a **risk indicator to investigate**, not a finding. A flagged payment or supplier is something an auditor would look at, nothing more. Nothing in this repo suggests wrongdoing by the council, any department or any supplier.
 
-Built for Assignment 2 (Part A) of the LLM class by Group 3: Yash Khadilkar, Hans Grunwald, Pranav Piedy, Reyn Okinaga and Forum Sanjanwala.
+Built for Assignment 2 of the LLM class by Group 3: Yash Khadilkar, Hans Grunwald, Pranav Piedy, Reyn Okinaga and Forum Sanjanwala. Part A is the Claude Code system described below. Part B is the same system running as a deployed web app, described in [Part B: the deployed harness](#part-b-the-deployed-harness).
+
+**Live app:** https://procurement-audit-planner-production-c85e.up.railway.app
 
 ---
 
@@ -159,6 +161,8 @@ data/                          council inputs, read-only
 .claude/settings.json          enables agent teams
 scripts/                       spend analysis, verify_history.py, tests/, checks/
 outputs/                       everything the system produced
+app/                           Part B: the web harness (server, runner, team loop, UI, tests)
+Dockerfile, .dockerignore      Part B: the container Railway builds
 ```
 
 ## Running it again
@@ -179,3 +183,87 @@ Then, in Claude Code: `/extract-rules`; "Run the spend-analyst."; "Run the findi
 - The spend data has no contract type, so goods, works and concession bands can't be told apart.
 - The rulebook disagrees with itself on whether values include VAT. The tests use Net amount, and the memo leaves the reading to the auditor.
 - Contracts Finder is not a contracts register. "No published notice found" is a request for evidence, not a gap in compliance.
+
+---
+
+## Part B: the deployed harness
+
+Part A only runs inside Claude Code on a laptop. Part B runs the same skills, agents, scripts and checks as a web app anyone can open, with the two human gates as forms in the browser.
+
+**Live app:** https://procurement-audit-planner-production-c85e.up.railway.app
+
+The access code is in our Bruin Learn submission, not in this repo. Without it the site is read-only: you can open every stage and every output. With it you can run the agent team, record the gate decisions and reset the demo.
+
+### Trying it
+
+1. Open the link. The Overview shows every stage of the pipeline and where it stands.
+2. Click through Rules, Spend, History and Register to see what each stage produced, then Gate 1 for the auditor's decision on every risk.
+3. Enter the access code and open Team. Start a run and watch the planner, challenger and QA reviewer work in the live log. A run takes about 5 minutes and costs about $0.50 in API usage. The spend so far is shown at the top of the page.
+4. When QA reports READY FOR SIGN-OFF, open Gate 2, review the challenges and QA points left for the auditor, and record the sign-off.
+5. "Reset to signed-off run" restores the signed-off outputs committed in the repo (run logs are kept).
+
+### How it works
+
+```
+browser (static HTML/CSS/JS)
+   |  REST for actions, server-sent events for the live log
+FastAPI server (app/server.py)
+   |
+runner (app/runner.py)  ->  Claude Agent SDK, one session per stage
+   |                        loads the project's skills and agents from .claude/
+team loop (app/team.py) ->  planner, challenger and QA as separate SDK sessions,
+   |                        with Python passing messages between them
+gates (app/gates.py)    ->  Gate 1 and Gate 2 decisions written to the same files as Part A
+   |
+working copy of the repo on a Railway volume (/data/work)
+```
+
+- **Same system, not a rewrite.** The harness uses the Agent SDK with the project's settings, so it loads the same `CLAUDE.md`, the same three skills and the same agent prompts as Part A. The builders, verifiers and the four QA checks are the same scripts.
+- **The agent team.** The Agent SDK doesn't support Claude Code's experimental agent teams, so `app/team.py` plays the part of the team. It runs the planner, challenger and QA reviewer as separate sessions and passes each message to the right recipient: `PACK READY vN` from the planner goes to the challenger and QA, challenges go back to the planner, and QA's verdict decides whether the loop ends or the planner fixes and rebuilds. The protocol is the same as Part A, but the Python code enforces it instead of leaving it to the agents.
+- **Limits in code.** `app/config.json` sets the model and spend cap for each stage. The team stage stops at $3, and the challenger gets 6 challenges and then 3 more. The server refuses to start a run while another is going.
+- **The gates stay human.** Nothing moves past Gate 1 or Gate 2 without a decision recorded in the browser. Gate 2 only opens once QA reports READY FOR SIGN-OFF, and a new team run writes a new review that needs its own sign-off.
+- **Working copy.** Each run works on a copy of the repo in `WORK_DIR`, never on the deployed code. The team stage fingerprints the protected inputs when it starts and stops the run if any of them change while it's going.
+
+### What went wrong while building it
+
+- **Background tasks.** The SDK started the sub-agent as a background task, and it was killed when the session ended. Setting `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1` makes stages wait for their agents, and runs that were cut off are marked failed instead of being left as "running".
+- **Messages that didn't arrive.** The challenger's `CHALLENGER DONE` wasn't reaching QA, so QA kept waiting. QA is now a recipient, and the protocol gained a `QA DONE` message so the loop ends cleanly.
+- **The planner gamed a check.** The pack has to explain every risk it leaves untested, and a check rejects copied-and-pasted reasons. In one run the planner got around it by writing the same template reason and changing only the quoted text and the risk ID. The check now masks quoted text and risk IDs before comparing, and the planner's prompt says not to list every risk with the same reason. It was a good reminder that a check the model can see becomes a target.
+- **iCloud copies.** On a Mac, iCloud made " 2" copies of files in the working folder, which tripped the fingerprint check. The working folder now lives outside iCloud.
+
+### Result of the live run
+
+Run on the deployed app on 2026-10-15, from the Gate 1 decisions in Part A:
+
+| | |
+| --- | --- |
+| QA verdict | READY FOR SIGN-OFF, pack v3, all four checks passing |
+| Challenges | 8 raised, 7 resolved, 1 for the auditor (#4, the R-08 impact rating) |
+| Pack | 16 controls, 8 tests, 531 sampled transactions, 29 rules traced |
+| Cost | $0.44 |
+| Gate 2 | Signed off by Yash Khadilkar (the date shows as 2026-10-16 because the server runs on UTC) |
+
+The pack is not identical to the Part A pack, because the planner and challenger make different calls on each run. The checks are what stay fixed: every version has to pass all four before it can be signed.
+
+### Deployment
+
+- One Railway service built from the `Dockerfile` (Python 3.13, poppler for `pdftotext`, git), served by uvicorn with one worker. `/healthz` is the health check.
+- A Railway volume at `/data` holds the working copy and run records, so they survive restarts and redeploys.
+- The API key and access code are Railway variables. The Docker build fails if a `.env` file ends up in the image.
+- The key belongs to a separate Anthropic workspace with an $8 monthly spend cap, so a grader can't run up a large bill.
+
+### Running it locally
+
+```
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+touch .env              # then set ANTHROPIC_API_KEY, ACCESS_CODE and WORK_DIR
+.venv/bin/uvicorn app.server:create_app --factory --reload
+.venv/bin/python -m pytest app/tests
+```
+
+### Part B limitations
+
+- The agents run as root inside the container. That's fine for a single-purpose demo but not for anything multi-tenant.
+- One run at a time. A second person starting a run while one is going gets told to wait.
+- The site is on Railway's free trial and the API key expires on 2026-11-12, so the live link will stop working after mid-November.
+- The access code is shared rather than a login per user.
